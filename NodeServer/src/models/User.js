@@ -3,6 +3,9 @@ const Schema = mongoose.Schema;
 
 const User = new Schema({
     name: { type: String, match: /[A-Z a-z]/ },
+    email: String,
+    password: String,
+    avatarURL: { type: String, default: ''},
     posts: Object,
 });
 

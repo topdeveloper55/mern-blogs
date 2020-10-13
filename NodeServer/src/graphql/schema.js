@@ -1,18 +1,29 @@
-import { gql } from 'apollo-server-express';
+const { gql } = require('apollo-server-express');
 
 const typeDefs = gql`
-    scalar Date;
+    
+    scalar Date
 
-    type Person {
+    type User {
         name: String!
+        email: String!
+        password: String!
+        avatarURL: String
         posts: [Posts]
     }
 
     type Posts {
         title: String!
-        createdBy: Person
+        createdBy: User
         createdDate: Date
     }
-`;
 
-module.exports = typeDefs;
+    type Query {
+        users: [User] 
+    }
+
+    type Mutation {
+        addUser(name: String!, email: String!, password: String!, avatarURL: String): User
+    }
+`
+module.exports = typeDefs

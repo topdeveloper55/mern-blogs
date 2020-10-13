@@ -1,4 +1,4 @@
-const app = require('./express-config');
+const app = require('./src/express-config');
 require('dotenv').config();
 
 app.listen(`${process.env.port}`, () => {

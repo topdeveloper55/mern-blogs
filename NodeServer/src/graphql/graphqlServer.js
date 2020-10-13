@@ -1,18 +1,29 @@
 const { ApolloServer } = require('apollo-server-express');
-const mongoose = require('mongoose');
+const PostsModel = require('../models/Posts');
+const UserModel = require('../models/User');
 const typeDefs = require('./schema');
+
+async function addnewUser(parent,args){
+    const user = new UserModel({
+      name: args.name,
+      email: args.email,
+      password: args.password,
+      avatarURL: args.avatarURL,
+      posts: []
+    });
+    const res = await user.save();
+    return res; 
+}
 
 const resolvers = {
     Query: {
-        books: () => books,
-        restaurants: () => getRestaurants(),
+        users: () => null,
     },
     Mutation: {
-        addPerson: (parent, args) => addPerson(parent, args),
-        changeRestaurantData: (parent, args) =>
-            changeRestaurantData(parent, args),
+        addUser: (parent, args) => addnewUser(parent, args),
     },
 };
+
 
 const gqlServer = new ApolloServer({
     typeDefs,
