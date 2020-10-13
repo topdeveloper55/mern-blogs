@@ -3,10 +3,20 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import AppBar from './components/AppBar';
+
+const APP = () => {
+    return (
+        <>
+            <AppBar />
+            <App />
+        </>
+    );
+};
 
 ReactDOM.render(
     <React.StrictMode>
-        <App />
+        <APP />
     </React.StrictMode>,
     document.getElementById('root')
 );

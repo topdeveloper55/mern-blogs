@@ -1,29 +1,29 @@
 const { ApolloServer } = require('apollo-server-express');
-const PostsModel = require('../models/Posts');
-const UserModel = require('../models/User');
+const Posts = require('../models/Posts');
+const Users = require('../models/User');
 const typeDefs = require('./schema');
 
-async function addnewUser(parent,args){
-    const user = new UserModel({
-      name: args.name,
-      email: args.email,
-      password: args.password,
-      avatarURL: args.avatarURL,
-      posts: []
+async function addnewUser(parent, args) {
+    const user = new Users({
+        name: args.name,
+        email: args.email,
+        password: args.password,
+        avatarURL: args.avatarURL,
+        posts: [],
     });
     const res = await user.save();
-    return res; 
+    return res;
 }
 
 const resolvers = {
     Query: {
-        users: () => null,
+        users: async () => await Users.find(),
+        posts: async () => await Posts.find(),
     },
     Mutation: {
         addUser: (parent, args) => addnewUser(parent, args),
     },
 };
-
 
 const gqlServer = new ApolloServer({
     typeDefs,
