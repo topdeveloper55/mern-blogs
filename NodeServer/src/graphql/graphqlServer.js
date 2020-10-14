@@ -25,15 +25,15 @@ async function addnewUser(parent, args) {
 
 async function newPost(parent, args) {
     const sluged = slugifyText(args.title);
-    console.log('slug ', sluged);
+
     const post = new Posts({
         title: args.title,
         text: args.text,
         slug: sluged,
         author: args.author,
     });
+
     const res = await post.save();
-    console.log('res ', res);
     return res;
 }
 

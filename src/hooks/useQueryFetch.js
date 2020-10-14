@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 
-const { REACT_APP_SERVER_URL } = process.env;
-
 const useQueryFetch = (querystr) => {
-    const [respData, setRespData] = useState(null);
+    const { REACT_APP_SERVER_URL } = process.env;
+
+    const [data, setData] = useState(null);
     const [errors, setErrors] = useState(null);
 
     useEffect(() => {
@@ -17,12 +17,11 @@ const useQueryFetch = (querystr) => {
             })
             .then((res) => res.json())
             .then(({ data, errors }) =>
-                data ? setRespData(data) : setErrors(errors)
+                data ? setData(data) : setErrors(errors)
             );
     }, [querystr]);
-    /* Passing querystr in dependency variables means, that the function will re-call itself
-       when the value of the querystr changes */
-    return { respData, errors };
+
+    return { data, errors };
 };
 
-export { useQueryFetch };
+export default useQueryFetch;

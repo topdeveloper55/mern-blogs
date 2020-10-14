@@ -22,3 +22,16 @@ export const createPost = (form) => {
     }
     `;
 };
+
+export const getAllPosts = () => {
+    return `
+        query {
+            posts {
+                title
+                slug
+                text
+                createdDate
+            }
+        }
+    `;
+};
