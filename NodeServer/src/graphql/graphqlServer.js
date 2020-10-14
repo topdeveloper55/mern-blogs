@@ -25,6 +25,7 @@ async function addnewUser(parent, args) {
 
 async function newPost(parent, args) {
     const sluged = slugifyText(args.title);
+    console.log('slug ', sluged);
     const post = new Posts({
         title: args.title,
         text: args.text,
@@ -32,6 +33,7 @@ async function newPost(parent, args) {
         author: args.author,
     });
     const res = await post.save();
+    console.log('res ', res);
     return res;
 }
 

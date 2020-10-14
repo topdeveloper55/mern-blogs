@@ -2,16 +2,14 @@ import React, { useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { createPost } from '../graphql/Queries';
-import { QueryData } from '../graphql/QueryFns';
+import { QueryData } from '../graphql/QueryData';
+import AlertMsg from '../components/SuccessMsg';
 
 const CreatePost = () => {
     const [title, setTitle] = useState('');
     const [text, changeText] = useState('');
-    const [author, setAuthor] = useState({
-        name: 'nish',
-        email: 'nk@we.we',
-        password: 'nish1234',
-    });
+    const [author, setAuthor] = useState('nish');
+    const [open, setOpen] = React.useState(false);
 
     const newPost = () => {
         const form = {
@@ -20,6 +18,8 @@ const CreatePost = () => {
             author: author,
         };
         QueryData(createPost(form));
+        setOpen((state) => !state);
+        setTimeout(() => (window.location.href = '/'), 3000);
     };
 
     return (
@@ -53,6 +53,11 @@ const CreatePost = () => {
                     Post
                 </Button>
             </div>
+            <AlertMsg
+                title="New Post Shared with the World"
+                open={open}
+                severity={'success'}
+            />
         </div>
     );
 };

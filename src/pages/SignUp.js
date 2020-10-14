@@ -8,7 +8,7 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 
 import AlertMsg from '../components/SuccessMsg';
-import { QueryData } from '../graphql/QueryFns';
+import { QueryData } from '../graphql/QueryData';
 import { addUser } from '../graphql/Queries';
 
 const SignUp = () => {
@@ -35,7 +35,7 @@ const SignUp = () => {
         };
         QueryData(addUser(form));
         setOpen((state) => !state);
-        setTimeout(() => (window.location.href = '/'), 4000);
+        setTimeout(() => (window.location.href = '/'), 3000);
     };
 
     return (

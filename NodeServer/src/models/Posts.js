@@ -10,6 +10,6 @@ const Post = new Schema({
 });
 
 /* Saved in a collection named people  */
-const Posts = mongoose.model('Post', Post);
+const Posts = mongoose.model('post', Post);
 
 module.exports = Posts;

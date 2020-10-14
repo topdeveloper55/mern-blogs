@@ -17,7 +17,6 @@ export const createPost = (form) => {
             title
             slug
             text
-            author
             createdDate
         }
     }
