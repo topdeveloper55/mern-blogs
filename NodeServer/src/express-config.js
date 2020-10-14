@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const cors = require('cors');
 const app = express();
 const gqlServer = require('./graphql/graphqlServer');
 require('dotenv').config();
@@ -14,7 +15,7 @@ mongoose
 app.use(bodyParser.json());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
+app.use(cors());
 gqlServer.applyMiddleware({ app });
 
 module.exports = app;
