@@ -11,6 +11,7 @@
     "concurrently": "^5.3.0",
     "husky": "^4.3.0",
     "lint-staged": "^10.4.0",
+    "material-ui-password-field": "^2.1.2",
     "prettier": "^2.1.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",

@@ -1,6 +1,8 @@
 import React from 'react';
 import { Route, Switch, BrowserRouter } from 'react-router-dom';
+
 import HomeScreen from './pages/HomeScreen';
+import SignUp from './pages/SignUp';
 
 function App() {
     return (
@@ -8,6 +10,7 @@ function App() {
             <BrowserRouter>
                 <Switch>
                     <Route exact path="/" component={HomeScreen} />
+                    <Route path="/signup" component={SignUp} />
                     {/* <Route path="/ui" component={UIComponents} />
                     <Route path="/dashboard" component={Dashboard} />
                     <Route path="/form" component={FormPage} />
