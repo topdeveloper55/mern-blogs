@@ -5,7 +5,7 @@ const Post = new Schema({
     title: String,
     text: String,
     slug: String,
-    createdBy: { type: String, match: /[A-Z a-z]/ },
+    author: Object,
     createdDate: { type: Date, default: Date.now },
 });
 

@@ -2,6 +2,7 @@ const { gql } = require('apollo-server-express');
 
 const typeDefs = gql`
     scalar Date
+    scalar Object
 
     type User {
         name: String!
@@ -13,8 +14,9 @@ const typeDefs = gql`
 
     type Posts {
         title: String!
+        slug: String!
         text: String
-        createdBy: User
+        author: User
         createdDate: Date
     }
 
@@ -30,6 +32,7 @@ const typeDefs = gql`
             password: String!
             avatarURL: String
         ): User
+        createPost(title: String!, text: String!, author: Object): Posts
     }
 `;
 module.exports = typeDefs;

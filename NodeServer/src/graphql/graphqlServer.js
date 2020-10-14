@@ -2,6 +2,14 @@ const { ApolloServer } = require('apollo-server-express');
 const Posts = require('../models/Posts');
 const Users = require('../models/User');
 const typeDefs = require('./schema');
+const slugify = require('slugify');
+
+function slugifyText(str) {
+    return slugify(str, {
+        replacement: '-',
+        lower: true,
+    });
+}
 
 async function addnewUser(parent, args) {
     const user = new Users({
@@ -15,6 +23,18 @@ async function addnewUser(parent, args) {
     return res;
 }
 
+async function newPost(parent, args) {
+    const sluged = slugifyText(args.title);
+    const post = new Posts({
+        title: args.title,
+        text: args.text,
+        slug: sluged,
+        author: args.author,
+    });
+    const res = await post.save();
+    return res;
+}
+
 const resolvers = {
     Query: {
         users: async () => await Users.find(),
@@ -22,6 +42,7 @@ const resolvers = {
     },
     Mutation: {
         addUser: (parent, args) => addnewUser(parent, args),
+        createPost: (parent, args) => newPost(parent, args),
     },
 };
 

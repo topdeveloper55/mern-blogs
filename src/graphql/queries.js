@@ -9,3 +9,17 @@ export const addUser = (form) => {
     }
     `;
 };
+
+export const createPost = (form) => {
+    return `
+        mutation {
+        createPost(title:"${form.title}",text:"${form.text}",author:"${form.author}"){
+            title
+            slug
+            text
+            author
+            createdDate
+        }
+    }
+    `;
+};

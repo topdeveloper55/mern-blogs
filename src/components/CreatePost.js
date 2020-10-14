@@ -1,8 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import { createPost } from '../graphql/Queries';
+import { QueryData } from '../graphql/QueryFns';
 
 const CreatePost = () => {
+    const [title, setTitle] = useState('');
+    const [text, changeText] = useState('');
+    const [author, setAuthor] = useState({
+        name: 'nish',
+        email: 'nk@we.we',
+        password: 'nish1234',
+    });
+
+    const newPost = () => {
+        const form = {
+            title: title,
+            text: text,
+            author: author,
+        };
+        QueryData(createPost(form));
+    };
+
     return (
         <div style={styles.container}>
             <div style={styles.textDiv}>
@@ -10,6 +29,8 @@ const CreatePost = () => {
                     style={styles.textField}
                     placeholder="Title of your Post"
                     variant="outlined"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
                 />
             </div>
             <div style={styles.textDiv}>
@@ -19,11 +40,13 @@ const CreatePost = () => {
                     variant="outlined"
                     multiline
                     rows={6}
+                    value={text}
+                    onChange={(e) => changeText(e.target.value)}
                 />
             </div>
             <div>
                 <Button
-                    onClick={() => (window.location.href = '/login')}
+                    onClick={() => newPost()}
                     style={styles.btn}
                     size="large"
                 >
