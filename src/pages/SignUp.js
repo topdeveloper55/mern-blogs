@@ -6,13 +6,17 @@ import * as Bcrypt from 'bcryptjs';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
+import { useHistory } from 'react-router-dom';
 
+import AppBar from '../components/AppBar';
 import AlertMsg from '../components/SuccessMsg';
 import { QueryData } from '../graphql/QueryData';
 import { addUser } from '../graphql/Queries';
 
 const SignUp = () => {
     const classes = useStyles();
+    const history = useHistory();
+
     const [avatarURL, setAvatar] = useState('');
     const [userName, setUserName] = useState('');
     const [email, setEmail] = useState('');
@@ -35,74 +39,79 @@ const SignUp = () => {
         };
         QueryData(addUser(form));
         setOpen((state) => !state);
-        setTimeout(() => (window.location.href = '/'), 3000);
+        setTimeout(() => history.push('/login'), 3000);
     };
 
     return (
-        <div style={styles.container}>
-            <div style={styles.profile}>
-                <div style={styles.leftDiv}>
-                    <IconButton>
-                        <Avatar
-                            alt="Person Image"
-                            src={avatarURL}
-                            className={classes.large}
-                        />
-                    </IconButton>
-                </div>
-                <div style={styles.rightDiv}>
-                    <div style={styles.formField}>
-                        <TextField
-                            id="outlined-multiline-flexible"
-                            label="Name"
-                            value={userName}
-                            onChange={(event) =>
-                                setUserName(event.target.value)
-                            }
-                            className={classes.textField}
-                        />
+        <React.Fragment>
+            <AppBar />
+            <div style={styles.container}>
+                <div style={styles.profile}>
+                    <div style={styles.leftDiv}>
+                        <IconButton>
+                            <Avatar
+                                alt="Person Image"
+                                src={avatarURL}
+                                className={classes.large}
+                            />
+                        </IconButton>
                     </div>
+                    <div style={styles.rightDiv}>
+                        <div style={styles.formField}>
+                            <TextField
+                                id="outlined-multiline-flexible"
+                                label="Name"
+                                value={userName}
+                                onChange={(event) =>
+                                    setUserName(event.target.value)
+                                }
+                                className={classes.textField}
+                            />
+                        </div>
 
-                    <div style={styles.formField}>
-                        <TextField
-                            id="standard-multiline-flexible"
-                            label="Email"
-                            multiline
-                            value={email}
-                            className={classes.textField}
-                            onChange={(event) => setEmail(event.target.value)}
-                        />
-                    </div>
+                        <div style={styles.formField}>
+                            <TextField
+                                id="standard-multiline-flexible"
+                                label="Email"
+                                multiline
+                                value={email}
+                                className={classes.textField}
+                                onChange={(event) =>
+                                    setEmail(event.target.value)
+                                }
+                            />
+                        </div>
 
-                    <div style={styles.formField}>
-                        <PasswordField
-                            hintText="At least 8 characters"
-                            floatingLabelText="Enter your password"
-                            errorText="Your password is too short"
-                            className={classes.textField}
-                            value={password}
-                            onChange={(event) =>
-                                setPassword(event.target.value)
-                            }
-                        />
+                        <div style={styles.formField}>
+                            <PasswordField
+                                hintText="At least 8 characters"
+                                floatingLabelText="Enter your password"
+                                errorText="Your password is too short"
+                                className={classes.textField}
+                                value={password}
+                                onChange={(event) =>
+                                    setPassword(event.target.value)
+                                }
+                            />
+                        </div>
                     </div>
                 </div>
+                <div style={styles.submitDiv}>
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={() => createAccount()}
+                    >
+                        Create Account
+                    </Button>
+                </div>
+                <AlertMsg
+                    title="Account Created"
+                    open={open}
+                    severity={'success'}
+                />
             </div>
-            <div style={styles.submitDiv}>
-                <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={() => createAccount()}
-                >
-                    Create Account
-                </Button>
-            </div>
-            <AlertMsg
-                title="Account Created"
-                open={open}
-                severity={'success'}
-            />
-        </div>
+        </React.Fragment>
     );
 };
 

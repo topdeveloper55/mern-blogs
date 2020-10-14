@@ -1,16 +1,19 @@
 import React from 'react';
 import { Route, Switch, BrowserRouter } from 'react-router-dom';
-
+import CoverScreen from './pages/CoverScreen';
 import HomeScreen from './pages/HomeScreen';
 import SignUp from './pages/SignUp';
+import Login from './pages/Login';
 
 function App() {
     return (
         <div className="App">
             <BrowserRouter>
                 <Switch>
-                    <Route exact path="/" component={HomeScreen} />
+                    <Route exact path="/" component={CoverScreen} />
                     <Route path="/signup" component={SignUp} />
+                    <Route path="/login" component={Login} />
+                    <Route path="/posts" component={HomeScreen} />
                     {/* <Route path="/ui" component={UIComponents} />
                     <Route path="/dashboard" component={Dashboard} />
                     <Route path="/form" component={FormPage} />
