@@ -4,6 +4,9 @@ import TextField from '@material-ui/core/TextField';
 import PasswordField from 'material-ui-password-field';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import { Mutation } from '../hooks/QueryFetch';
+import { addUser } from '../graphql/queries';
 
 const SignUp = () => {
     const classes = useStyles();
@@ -12,19 +15,32 @@ const SignUp = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const createAccount = () => {
+    const createAccount = async() => {
         console.log('create account');
+        const form = {
+            name: userName,
+            email,
+            password,
+            avatarURL
+        }
+        const { respData, errors } = await Mutation(addUser(form));
+        console.log('data ',respData);
+        console.log('error ',errors);
+        return { respData, errors }
     };
+    
 
     return (
         <div style={styles.container}>
             <div style={styles.profile}>
                 <div style={styles.leftDiv}>
-                    <Avatar
-                        alt="Person Image"
-                        src={avatarURL}
-                        className={classes.large}
-                    />
+                    <IconButton>
+                        <Avatar
+                            alt="Person Image"
+                            src={avatarURL}
+                            className={classes.large}
+                        />
+                    </IconButton>
                 </div>
                 <div style={styles.rightDiv}>
                     <div style={styles.formField}>
