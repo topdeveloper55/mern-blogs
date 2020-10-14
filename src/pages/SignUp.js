@@ -2,33 +2,36 @@ import React, { useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import TextField from '@material-ui/core/TextField';
 import PasswordField from 'material-ui-password-field';
+import * as Bcrypt from 'bcryptjs';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
-import { Mutation } from '../hooks/QueryFetch';
-import { addUser } from '../graphql/queries';
+import { QueryData } from '../graphql/QueryFns';
+import { addUser } from '../graphql/Queries';
 
 const SignUp = () => {
     const classes = useStyles();
-    const [avatarURL, setAvatar] = useState('');
+    const [avatarURL, setAvatar] = useState('blabla');
     const [userName, setUserName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const createAccount = async() => {
-        console.log('create account');
+    const hashPswd = (pswd) => {
+        const salt = Bcrypt.genSaltSync(10);
+        const hash = Bcrypt.hashSync(pswd, salt);
+        return hash;
+    };
+
+    const createAccount = async () => {
+        const hashedPswd = hashPswd(password);
         const form = {
             name: userName,
-            email,
-            password,
-            avatarURL
-        }
-        const { respData, errors } = await Mutation(addUser(form));
-        console.log('data ',respData);
-        console.log('error ',errors);
-        return { respData, errors }
+            emailid: email,
+            pswd: hashedPswd,
+            avatar: avatarURL,
+        };
+        QueryData(addUser(form));
     };
-    
 
     return (
         <div style={styles.container}>
