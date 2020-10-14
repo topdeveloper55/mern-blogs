@@ -6,15 +6,27 @@ import * as Bcrypt from 'bcryptjs';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
+
 import { QueryData } from '../graphql/QueryFns';
 import { addUser } from '../graphql/Queries';
 
 const SignUp = () => {
     const classes = useStyles();
-    const [avatarURL, setAvatar] = useState('blabla');
+    const [avatarURL, setAvatar] = useState('');
     const [userName, setUserName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [open, setOpen] = React.useState(false);
+
+    function Alert(props) {
+        return <MuiAlert elevation={6} variant="filled" {...props} />;
+    }
+
+    const handleClose = (event, reason) => {
+        setOpen(false);
+    };
 
     const hashPswd = (pswd) => {
         const salt = Bcrypt.genSaltSync(10);
@@ -31,6 +43,8 @@ const SignUp = () => {
             avatar: avatarURL,
         };
         QueryData(addUser(form));
+        setOpen((state) => !state);
+        setTimeout(() => (window.location.href = '/'), 4000);
     };
 
     return (
@@ -92,6 +106,11 @@ const SignUp = () => {
                     Create Account
                 </Button>
             </div>
+            <Snackbar open={open} autoHideDuration={4000} onClose={handleClose}>
+                <Alert onClose={handleClose} severity="success">
+                    Account Created Successfully
+                </Alert>
+            </Snackbar>
         </div>
     );
 };

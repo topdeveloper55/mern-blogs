@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 const Post = new Schema({
     title: String,
     text: String,
+    slug: String,
     createdBy: { type: String, match: /[A-Z a-z]/ },
     createdDate: { type: Date, default: Date.now },
 });
