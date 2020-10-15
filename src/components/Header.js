@@ -96,9 +96,9 @@ const Header = () => {
                     open={Boolean(anchorEl)}
                     onClose={handleClose}
                 >
-                    <MenuItem onClick={() => history.push('')}>
+                    {/* <MenuItem onClick={() => history.push('')}>
                         Profile
-                    </MenuItem>
+                    </MenuItem> */}
                     <MenuItem onClick={() => logOut()}>Logout</MenuItem>
                 </StyledMenu>
             </div>

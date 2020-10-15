@@ -51,8 +51,7 @@ const Login = () => {
             </div>
             <div style={styles.rightDiv}>
                 <p style={styles.loginText}>
-                    {' '}
-                    Log in to see the latest updates...{' '}
+                    Log in to see the latest updates...
                 </p>
                 <div style={styles.formField}>
                     <TextField
@@ -62,6 +61,7 @@ const Login = () => {
                         value={email}
                         className={classes.textField}
                         onChange={(event) => setEmail(event.target.value)}
+                        required
                     />
                 </div>
 
@@ -72,6 +72,7 @@ const Login = () => {
                         className={classes.textField}
                         value={password}
                         onChange={(event) => setPassword(event.target.value)}
+                        required
                     />
                 </div>
                 <div style={styles.btnDiv}>

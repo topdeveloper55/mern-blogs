@@ -82,6 +82,7 @@ const SignUp = () => {
                                     setName(event.target.value)
                                 }
                                 className={classes.textField}
+                                required
                             />
                         </div>
 
@@ -93,6 +94,7 @@ const SignUp = () => {
                                     setUserName(event.target.value)
                                 }
                                 className={classes.textField}
+                                required
                             />
                         </div>
 
@@ -105,6 +107,7 @@ const SignUp = () => {
                                 onChange={(event) =>
                                     setEmail(event.target.value)
                                 }
+                                required
                             />
                         </div>
 
@@ -118,6 +121,7 @@ const SignUp = () => {
                                 onChange={(event) =>
                                     setPassword(event.target.value)
                                 }
+                                required
                             />
                         </div>
                     </div>
