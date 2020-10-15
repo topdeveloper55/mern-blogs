@@ -8,6 +8,9 @@ import Avatar from '@material-ui/core/Avatar';
 import { withStyles } from '@material-ui/core/styles';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
+import { Z_FIXED } from 'zlib';
 
 const HomeScreen = () => {
     const { data, errors } = useQueryFetch(getAllPosts());
@@ -95,6 +98,11 @@ const HomeScreen = () => {
                     </div>
                 ))}
             </div>
+            <div style={styles.fab}>
+                <Fab color="primary" aria-label="add">
+                    <AddIcon />
+                </Fab>
+            </div>
         </div>
     );
 };
@@ -119,7 +127,7 @@ const styles = {
         padding: 20,
     },
     headerText: {
-        color: '#2b77ba',
+        color: '#3f51b5',
         fontSize: 25,
         fontWeight: 'bolder',
     },
@@ -136,6 +144,11 @@ const styles = {
     Avatar: {
         width: 30,
         height: 30,
+    },
+    fab: {
+        position: 'absolute',
+        bottom: 40,
+        right: 40,
     },
 };
 export default HomeScreen;
