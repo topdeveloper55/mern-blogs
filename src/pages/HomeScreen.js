@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import CreatePost from '../components/CreatePost';
 import useQueryFetch from '../hooks/useQueryFetch';
 import { getAllPosts } from '../graphql/Queries';
 import Posts from '../components/Posts';
@@ -10,7 +9,6 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
-import { Z_FIXED } from 'zlib';
 
 const HomeScreen = () => {
     const { data, errors } = useQueryFetch(getAllPosts());
@@ -99,7 +97,11 @@ const HomeScreen = () => {
                 ))}
             </div>
             <div style={styles.fab}>
-                <Fab color="primary" aria-label="add">
+                <Fab
+                    color="primary"
+                    aria-label="add"
+                    onClick={() => history.push('/newpost')}
+                >
                     <AddIcon />
                 </Fab>
             </div>
@@ -137,6 +139,7 @@ const styles = {
         paddingTop: 10,
         paddingBottom: 10,
         overflow: 'auto',
+        width: '80vw',
     },
     cardDiv: {
         flex: 0.33,
@@ -146,7 +149,7 @@ const styles = {
         height: 30,
     },
     fab: {
-        position: 'absolute',
+        position: 'fixed',
         bottom: 40,
         right: 40,
     },

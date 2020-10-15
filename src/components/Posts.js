@@ -51,7 +51,7 @@ const styles = {
 
 const useStyles = makeStyles({
     root: {
-        minWidth: 375,
+        width: 500,
         marginBottom: 20,
         marginLeft: 20,
     },
