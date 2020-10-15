@@ -37,6 +37,26 @@ const Header = ({ bgColor, textColor }) => {
         />
     ));
 
+    const styles = {
+        headerDiv: {
+            display: 'flex',
+            flexDirection: 'row',
+            width: '100vw',
+            backgroundColor: bgColor,
+        },
+        subHeader: {
+            display: 'flex',
+            justifyContent: 'flex-start',
+            flex: 0.5,
+            padding: 20,
+        },
+        headerText: {
+            color: textColor,
+            fontSize: 25,
+            fontWeight: 'bolder',
+        },
+    };
+
     return (
         <div style={styles.headerDiv}>
             <div style={styles.subHeader}>
@@ -60,30 +80,16 @@ const Header = ({ bgColor, textColor }) => {
                     open={Boolean(anchorEl)}
                     onClose={handleClose}
                 >
-                    <MenuItem onClick={handleClose}>Profile</MenuItem>
-                    <MenuItem onClick={handleClose}>Logout</MenuItem>
+                    <MenuItem onClick={() => history.push('')}>
+                        Profile
+                    </MenuItem>
+                    <MenuItem onClick={() => history.push('/')}>
+                        Logout
+                    </MenuItem>
                 </StyledMenu>
             </div>
         </div>
     );
 };
 
-const styles = {
-    headerDiv: {
-        display: 'flex',
-        flexDirection: 'row',
-        width: '100vw',
-    },
-    subHeader: {
-        display: 'flex',
-        justifyContent: 'flex-start',
-        flex: 0.5,
-        padding: 20,
-    },
-    headerText: {
-        color: '#3f51b5',
-        fontSize: 25,
-        fontWeight: 'bolder',
-    },
-};
 export default Header;

@@ -19,7 +19,7 @@ const HomeScreen = () => {
     }
     return (
         <div style={styles.container}>
-            <Header />
+            <Header bgColor="transparent" textColor="#3f51b5" />
             <div style={styles.postsDiv}>
                 {data.posts.map((record) => (
                     <div

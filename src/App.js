@@ -5,8 +5,7 @@ import HomeScreen from './pages/HomeScreen';
 import SignUp from './pages/SignUp';
 import Login from './pages/Login';
 import FullPost from './pages/FullPost';
-import CreatePost from './components/CreatePost';
-import { withStyles } from '@material-ui/core/styles';
+import CreatePost from './pages/CreatePost';
 
 function App() {
     return (
@@ -19,14 +18,6 @@ function App() {
                     <Route path="/home" component={HomeScreen} />
                     <Route path="/posts/:slug" component={FullPost} />
                     <Route path="/newpost" component={CreatePost} />
-                    {/* <Route path="/ui" component={UIComponents} />
-                    <Route path="/dashboard" component={Dashboard} />
-                    <Route path="/form" component={FormPage} />
-                    <Route path="/rhform" component={ReactHookForm} />
-                    <Route path="/styled" component={StyledCompsPage} />
-                    <Route path="/theme" component={ThemeCompsPage} />
-                    <Route path="/redux" component={ReduxCounter} />
-                    <Route path="/people" component={PeopleProfile} /> */}
                     {/* <Route path="/404" component={PageNotFound} />
                     <Redirect to="/404" /> */}
                 </Switch>
