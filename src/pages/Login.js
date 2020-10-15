@@ -16,7 +16,7 @@ const Login = () => {
             <div>
                 <img
                     src={require('../assets/images/blog2.jpg')}
-                    alt="cover Image"
+                    alt="cover"
                     style={styles.image}
                 />
             </div>

@@ -15,9 +15,15 @@ const HomeScreen = () => {
     }
     return (
         <div style={styles.container}>
-            {data.posts.map((record) => (
-                <Posts key={record.slug} postobj={record} />
-            ))}
+            <h3> Great Posts from Great Authors</h3>
+
+            <div style={styles.postsDiv}>
+                {data.posts.map((record) => (
+                    <div style={styles.cardDiv}>
+                        <Posts key={record.slug} postobj={record} />
+                    </div>
+                ))}
+            </div>
         </div>
     );
 };
@@ -27,9 +33,16 @@ const styles = {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
+    },
+    postsDiv: {
+        display: 'flex',
+        flexWrap: 'wrap',
         paddingTop: 10,
         paddingBottom: 10,
         overflow: 'auto',
+    },
+    cardDiv: {
+        flex: 0.33,
     },
 };
 export default HomeScreen;
