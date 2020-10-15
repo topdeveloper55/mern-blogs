@@ -63,10 +63,11 @@ const styles = {
     postsDiv: {
         display: 'flex',
         flexWrap: 'wrap',
+        justifyContent: 'space-around',
         paddingTop: 10,
         paddingBottom: 10,
         overflowY: 'auto',
-        width: '80vw',
+        width: '100vw',
         // height: '80vh',
     },
     cardDiv: {

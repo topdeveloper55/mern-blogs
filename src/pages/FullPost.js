@@ -24,9 +24,7 @@ const FullPost = (Props) => {
                                     src={avatarURL}
                                     className={classes.large}
                                 />
-                                <div style={styles.authorName}>
-                                    Person Name{' '}
-                                </div>
+                                <div style={styles.authorName}>Person Name</div>
                             </div>
                             <div
                                 style={{
@@ -34,7 +32,7 @@ const FullPost = (Props) => {
                                     justifyContent: 'flex-end',
                                 }}
                             >
-                                Date
+                                {postObj.createdDate}
                             </div>
                         </div>
                         <div style={styles.postText}>{postObj.text}</div>
@@ -89,6 +87,7 @@ const styles = {
     authorRow: {
         display: 'flex',
         flex: 1,
+        marginTop: 20,
     },
     authorSubRow: {
         display: 'flex',

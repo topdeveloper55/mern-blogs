@@ -6,7 +6,7 @@ const Post = new Schema({
     text: String,
     slug: String,
     author: Object,
-    createdDate: Date,
+    createdDate: String,
 });
 
 /* Saved in a collection named people  */

@@ -22,7 +22,7 @@ const Posts = ({ postobj }) => {
             <CardActions>
                 <div style={styles.cardFooter}>
                     <div style={styles.leftFooter}>hi</div>
-                    <div style={styles.rightFooter}>By</div>
+                    <div style={styles.rightFooter}>{postobj.createdDate}</div>
                 </div>
             </CardActions>
         </Card>
@@ -54,6 +54,7 @@ const useStyles = makeStyles({
         width: 500,
         marginBottom: 20,
         marginLeft: 20,
+        marginRight: 20,
     },
     bullet: {
         display: 'inline-block',

@@ -59,7 +59,7 @@ const CreatePost = () => {
                     </Button>
                 </div>
                 <AlertMsg
-                    title="New Post Shared with the World"
+                    title="Your Post has been Shared."
                     open={open}
                     severity={'success'}
                 />
@@ -74,6 +74,7 @@ const styles = {
         flexDirection: 'column',
         paddingTop: 50,
         alignItems: 'center',
+        marginTop: '10vh',
     },
     textDiv: {
         marginBottom: 20,

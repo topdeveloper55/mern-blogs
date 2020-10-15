@@ -27,13 +27,14 @@ async function addnewUser(parent, args) {
 
 async function newPost(parent, args) {
     const sluged = slugifyText(args.title);
+    const date = moment(new Date()).format('ll');
 
     const post = new Posts({
         title: args.title,
         text: args.text,
         slug: sluged,
         author: args.author,
-        createdDate: moment(new Date()).format('ll'),
+        createdDate: date,
     });
     console.log(post);
     const res = await post.save();
