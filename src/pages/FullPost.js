@@ -5,6 +5,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Avatar from '@material-ui/core/Avatar';
+import Header from '../components/Header';
 
 const FullPost = (Props) => {
     const classes = useStyles();
@@ -12,37 +13,42 @@ const FullPost = (Props) => {
     const [avatarURL, setAvatar] = useState('');
 
     return (
-        <div style={styles.container}>
-            <Card className={classes.root}>
-                <CardContent>
-                    <div style={styles.titleDiv}>
-                        <div style={styles.titleText}>{postObj.title}</div>
-                        <div style={styles.authorRow}>
-                            <div style={styles.authorSubRow}>
-                                <Avatar
-                                    alt="Author Image"
-                                    src={avatarURL}
-                                    className={classes.large}
-                                />
-                                <div style={styles.authorName}>Person Name</div>
+        <React.Fragment>
+            <Header />
+            <div style={styles.container}>
+                <Card className={classes.root}>
+                    <CardContent>
+                        <div style={styles.titleDiv}>
+                            <div style={styles.titleText}>{postObj.title}</div>
+                            <div style={styles.authorRow}>
+                                <div style={styles.authorSubRow}>
+                                    <Avatar
+                                        alt="Author Image"
+                                        src={avatarURL}
+                                        className={classes.large}
+                                    />
+                                    <div style={styles.authorName}>
+                                        Person Name
+                                    </div>
+                                </div>
+                                <div
+                                    style={{
+                                        ...styles.authorSubRow,
+                                        justifyContent: 'flex-end',
+                                    }}
+                                >
+                                    {postObj.createdDate}
+                                </div>
                             </div>
-                            <div
-                                style={{
-                                    ...styles.authorSubRow,
-                                    justifyContent: 'flex-end',
-                                }}
-                            >
-                                {postObj.createdDate}
-                            </div>
+                            <div style={styles.postText}>{postObj.text}</div>
                         </div>
-                        <div style={styles.postText}>{postObj.text}</div>
-                    </div>
-                </CardContent>
-                <CardActions>
-                    <Button size="small">Learn More</Button>
-                </CardActions>
-            </Card>
-        </div>
+                    </CardContent>
+                    <CardActions>
+                        <Button size="small">Learn More</Button>
+                    </CardActions>
+                </Card>
+            </div>
+        </React.Fragment>
     );
 };
 
@@ -72,6 +78,7 @@ const styles = {
     container: {
         display: 'flex',
         justifyContent: 'center',
+        marginTop: '10vh',
     },
     titleDiv: {
         display: 'flex',
