@@ -6,6 +6,7 @@ import SignUp from './pages/SignUp';
 import Login from './pages/Login';
 import FullPost from './pages/FullPost';
 import CreatePost from './components/CreatePost';
+import { withStyles } from '@material-ui/core/styles';
 
 function App() {
     return (

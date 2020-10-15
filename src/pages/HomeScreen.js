@@ -3,45 +3,13 @@ import useQueryFetch from '../hooks/useQueryFetch';
 import { getAllPosts } from '../graphql/Queries';
 import Posts from '../components/Posts';
 import { useHistory } from 'react-router-dom';
-import Avatar from '@material-ui/core/Avatar';
-import { withStyles } from '@material-ui/core/styles';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
+import Header from '../components/Header';
 
 const HomeScreen = () => {
     const { data, errors } = useQueryFetch(getAllPosts());
     const history = useHistory();
-    const [avatarURL, setAvatar] = useState('');
-
-    const [anchorEl, setAnchorEl] = React.useState(null);
-    const handleClick = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
-
-    const StyledMenu = withStyles({
-        paper: {
-            border: '1px solid #d3d4d5',
-        },
-    })((props) => (
-        <Menu
-            elevation={0}
-            getContentAnchorEl={null}
-            anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'center',
-            }}
-            transformOrigin={{
-                vertical: 'top',
-                horizontal: 'center',
-            }}
-            {...props}
-        />
-    ));
 
     if (!data) {
         return <div> Data Loading...</div>;
@@ -51,36 +19,7 @@ const HomeScreen = () => {
     }
     return (
         <div style={styles.container}>
-            <div style={styles.headerDiv}>
-                <div style={styles.subHeader}>
-                    <div style={styles.headerText}>
-                        Great Posts from Great Authors
-                    </div>
-                </div>
-                <div
-                    style={{ ...styles.subHeader, justifyContent: 'flex-end' }}
-                >
-                    <div style={{ ...styles.headerText, marginRight: 30 }}>
-                        Hi Nishant
-                    </div>
-                    <Avatar
-                        alt="User Image"
-                        src={avatarURL}
-                        className={styles.Avatar}
-                        onClick={handleClick}
-                    />
-                    <StyledMenu
-                        anchorEl={anchorEl}
-                        keepMounted
-                        open={Boolean(anchorEl)}
-                        onClose={handleClose}
-                    >
-                        <MenuItem onClick={handleClose}>Profile</MenuItem>
-                        <MenuItem onClick={handleClose}>Logout</MenuItem>
-                    </StyledMenu>
-                </div>
-            </div>
-
+            <Header />
             <div style={styles.postsDiv}>
                 {data.posts.map((record) => (
                     <div
@@ -117,29 +56,14 @@ const styles = {
         backgroundImage: `url(${require('../assets/images/pageCover.jpg')})`,
         height: '100vh',
     },
-    headerDiv: {
-        display: 'flex',
-        flexDirection: 'row',
-        width: '100vw',
-    },
-    subHeader: {
-        display: 'flex',
-        justifyContent: 'flex-start',
-        flex: 0.5,
-        padding: 20,
-    },
-    headerText: {
-        color: '#3f51b5',
-        fontSize: 25,
-        fontWeight: 'bolder',
-    },
     postsDiv: {
         display: 'flex',
         flexWrap: 'wrap',
         paddingTop: 10,
         paddingBottom: 10,
-        overflow: 'auto',
+        overflowY: 'auto',
         width: '80vw',
+        // height: '80vh',
     },
     cardDiv: {
         flex: 0.33,
