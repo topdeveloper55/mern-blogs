@@ -19,7 +19,7 @@ const FullPost = (Props) => {
     const classes = useStyles();
     const history = useHistory();
     const postObj = Props.history.location.state.record;
-    const [avatarURL, setAvatar] = useState('');
+    const [avatarURL, setAvatar] = useState(postObj.author.avatarURL);
     const [open, setOpen] = React.useState(false);
     const [alertOpen, setAlertOpen] = React.useState(false);
 
@@ -54,7 +54,7 @@ const FullPost = (Props) => {
                                         className={classes.large}
                                     />
                                     <div style={styles.authorName}>
-                                        Person Name
+                                        {postObj.author.name}
                                     </div>
                                 </div>
                                 <div

@@ -28,12 +28,13 @@ async function addnewUser(parent, args) {
 async function newPost(parent, args) {
     const sluged = slugifyText(args.title);
     const date = moment(new Date()).format('ll');
+    const Author = await Users.findOne({ email: args.authorEmail });
 
     const post = new Posts({
         title: args.title,
         text: args.text,
         slug: sluged,
-        author: args.author,
+        author: Author,
         createdDate: date,
     });
     const res = await post.save();

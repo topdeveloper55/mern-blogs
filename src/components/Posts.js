@@ -7,7 +7,7 @@ import CardActions from '@material-ui/core/CardActions';
 
 const Posts = ({ postobj }) => {
     const classes = useStyles();
-
+    console.log(postobj);
     return (
         <Card className={classes.root}>
             <CardContent>
@@ -21,7 +21,7 @@ const Posts = ({ postobj }) => {
             </CardContent>
             <CardActions>
                 <div style={styles.cardFooter}>
-                    <div style={styles.leftFooter}>hi</div>
+                    <div style={styles.leftFooter}>{postobj.author.name}</div>
                     <div style={styles.rightFooter}>{postobj.createdDate}</div>
                 </div>
             </CardActions>

@@ -13,7 +13,7 @@ export const addUser = (form) => {
 export const createPost = (form) => {
     return `
         mutation {
-        createPost(title:"${form.title}",text:"${form.text}",author:"${form.author}"){
+        createPost(title:"${form.title}",text:"${form.text}",authorEmail:"${form.author.email}"){
             title
             slug
             text
@@ -41,6 +41,11 @@ export const getAllPosts = () => {
                 text
                 createdDate
                 _id
+                author{
+                    name
+                    userName
+                    avatarURL
+                }
             }
         }
     `;

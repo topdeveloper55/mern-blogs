@@ -34,7 +34,7 @@ const typeDefs = gql`
             avatarURL: String
         ): User
 
-        createPost(title: String!, text: String!, author: String): Posts
+        createPost(title: String!, text: String!, authorEmail: String): Posts
         deletePost(id: String!): String
     }
 `;

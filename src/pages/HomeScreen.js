@@ -72,6 +72,7 @@ const styles = {
     },
     cardDiv: {
         flex: 0.33,
+        cursor: 'pointer',
     },
     Avatar: {
         width: 30,
