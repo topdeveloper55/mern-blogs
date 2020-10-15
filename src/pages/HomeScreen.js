@@ -5,6 +5,7 @@ import { getAllPosts } from '../graphql/Queries';
 import Posts from '../components/Posts';
 import { useHistory } from 'react-router-dom';
 import Avatar from '@material-ui/core/Avatar';
+import { withStyles } from '@material-ui/core/styles';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 
@@ -20,6 +21,26 @@ const HomeScreen = () => {
     const handleClose = () => {
         setAnchorEl(null);
     };
+
+    const StyledMenu = withStyles({
+        paper: {
+            border: '1px solid #d3d4d5',
+        },
+    })((props) => (
+        <Menu
+            elevation={0}
+            getContentAnchorEl={null}
+            anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'center',
+            }}
+            transformOrigin={{
+                vertical: 'top',
+                horizontal: 'center',
+            }}
+            {...props}
+        />
+    ));
 
     if (!data) {
         return <div> Data Loading...</div>;
@@ -47,24 +68,15 @@ const HomeScreen = () => {
                         className={styles.Avatar}
                         onClick={handleClick}
                     />
-                    <Menu
+                    <StyledMenu
                         anchorEl={anchorEl}
                         keepMounted
                         open={Boolean(anchorEl)}
                         onClose={handleClose}
-                        anchorOrigin={{
-                            vertical: 'bottom',
-                            horizontal: 'center',
-                        }}
-                        transformOrigin={{
-                            vertical: 'top',
-                            horizontal: 'center',
-                        }}
                     >
                         <MenuItem onClick={handleClose}>Profile</MenuItem>
-                        <MenuItem onClick={handleClose}>My account</MenuItem>
                         <MenuItem onClick={handleClose}>Logout</MenuItem>
-                    </Menu>
+                    </StyledMenu>
                 </div>
             </div>
 
