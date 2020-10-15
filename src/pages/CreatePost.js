@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { useHistory } from 'react-router-dom';
@@ -6,10 +6,12 @@ import { createPost } from '../graphql/Queries';
 import { QueryData } from '../graphql/QueryData';
 import AlertMsg from '../components/AlertMsg';
 import Header from '../components/Header';
+import { LoginContext } from '../context/LoginInfo';
 
 const CreatePost = () => {
     const [title, setTitle] = useState('');
     const [text, changeText] = useState('');
+    const { user } = useContext(LoginContext);
     const [author, setAuthor] = useState('nish');
     const [open, setOpen] = React.useState(false);
     const history = useHistory();
