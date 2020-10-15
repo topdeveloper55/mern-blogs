@@ -5,6 +5,7 @@ const typeDefs = gql`
 
     type User {
         name: String!
+        userName: String!
         email: String!
         password: String!
         avatarURL: String
@@ -27,10 +28,12 @@ const typeDefs = gql`
     type Mutation {
         addUser(
             name: String!
+            userName: String!
             email: String!
             password: String!
             avatarURL: String
         ): User
+
         createPost(title: String!, text: String!, author: String): Posts
     }
 `;

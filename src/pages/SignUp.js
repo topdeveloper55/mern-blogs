@@ -18,6 +18,7 @@ const SignUp = () => {
     const history = useHistory();
 
     const [avatarURL, setAvatar] = useState('');
+    const [name, setName] = useState('');
     const [userName, setUserName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -32,7 +33,8 @@ const SignUp = () => {
     const createAccount = async () => {
         const hashedPswd = hashPswd(password);
         const form = {
-            name: userName,
+            name: name,
+            userName: userName,
             emailid: email,
             pswd: hashedPswd,
             avatar: avatarURL,
@@ -59,8 +61,18 @@ const SignUp = () => {
                     <div style={styles.rightDiv}>
                         <div style={styles.formField}>
                             <TextField
-                                id="outlined-multiline-flexible"
                                 label="Name"
+                                value={name}
+                                onChange={(event) =>
+                                    setName(event.target.value)
+                                }
+                                className={classes.textField}
+                            />
+                        </div>
+
+                        <div style={styles.formField}>
+                            <TextField
+                                label="UserName"
                                 value={userName}
                                 onChange={(event) =>
                                     setUserName(event.target.value)
@@ -71,7 +83,6 @@ const SignUp = () => {
 
                         <div style={styles.formField}>
                             <TextField
-                                id="standard-multiline-flexible"
                                 label="Email"
                                 multiline
                                 value={email}

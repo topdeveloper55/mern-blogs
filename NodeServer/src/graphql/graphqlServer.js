@@ -3,6 +3,7 @@ const Posts = require('../models/Posts');
 const Users = require('../models/User');
 const typeDefs = require('./schema');
 const slugify = require('slugify');
+const moment = require('moment');
 
 function slugifyText(str) {
     return slugify(str, {
@@ -14,6 +15,7 @@ function slugifyText(str) {
 async function addnewUser(parent, args) {
     const user = new Users({
         name: args.name,
+        userName: args.userName,
         email: args.email,
         password: args.password,
         avatarURL: args.avatarURL,
@@ -31,6 +33,7 @@ async function newPost(parent, args) {
         text: args.text,
         slug: sluged,
         author: args.author,
+        createdDate: moment(new Date()).format('ll'),
     });
 
     const res = await post.save();

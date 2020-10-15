@@ -4,6 +4,7 @@ import TextField from '@material-ui/core/TextField';
 import PasswordField from 'material-ui-password-field';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
+import { Link } from 'react-router-dom';
 
 const Login = () => {
     const history = useHistory();
@@ -21,6 +22,10 @@ const Login = () => {
                 />
             </div>
             <div style={styles.rightDiv}>
+                <p style={styles.loginText}>
+                    {' '}
+                    Log in to see the latest updates...{' '}
+                </p>
                 <div style={styles.formField}>
                     <TextField
                         id="standard-multiline-flexible"
@@ -49,6 +54,9 @@ const Login = () => {
                     >
                         SIGN IN
                     </Button>
+                </div>
+                <div>
+                    New User ? <Link to="/signup"> SignUp</Link>
                 </div>
             </div>
         </div>
@@ -84,6 +92,11 @@ const styles = {
     },
     formField: {
         marginBottom: '40px',
+    },
+    loginText: {
+        fontSize: 25,
+        fontWeight: '400',
+        color: '#3f51b5',
     },
 };
 

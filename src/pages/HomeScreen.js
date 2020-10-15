@@ -1,13 +1,25 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import CreatePost from '../components/CreatePost';
 import useQueryFetch from '../hooks/useQueryFetch';
 import { getAllPosts } from '../graphql/Queries';
 import Posts from '../components/Posts';
 import { useHistory } from 'react-router-dom';
+import Avatar from '@material-ui/core/Avatar';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 
 const HomeScreen = () => {
     const { data, errors } = useQueryFetch(getAllPosts());
     const history = useHistory();
+    const [avatarURL, setAvatar] = useState('');
+
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
 
     if (!data) {
         return <div> Data Loading...</div>;
@@ -17,7 +29,44 @@ const HomeScreen = () => {
     }
     return (
         <div style={styles.container}>
-            <h2 style={styles.headerText}> Great Posts from Great Authors</h2>
+            <div style={styles.headerDiv}>
+                <div style={styles.subHeader}>
+                    <div style={styles.headerText}>
+                        Great Posts from Great Authors
+                    </div>
+                </div>
+                <div
+                    style={{ ...styles.subHeader, justifyContent: 'flex-end' }}
+                >
+                    <div style={{ ...styles.headerText, marginRight: 30 }}>
+                        Hi Nishant
+                    </div>
+                    <Avatar
+                        alt="User Image"
+                        src={avatarURL}
+                        className={styles.Avatar}
+                        onClick={handleClick}
+                    />
+                    <Menu
+                        anchorEl={anchorEl}
+                        keepMounted
+                        open={Boolean(anchorEl)}
+                        onClose={handleClose}
+                        anchorOrigin={{
+                            vertical: 'bottom',
+                            horizontal: 'center',
+                        }}
+                        transformOrigin={{
+                            vertical: 'top',
+                            horizontal: 'center',
+                        }}
+                    >
+                        <MenuItem onClick={handleClose}>Profile</MenuItem>
+                        <MenuItem onClick={handleClose}>My account</MenuItem>
+                        <MenuItem onClick={handleClose}>Logout</MenuItem>
+                    </Menu>
+                </div>
+            </div>
 
             <div style={styles.postsDiv}>
                 {data.posts.map((record) => (
@@ -46,8 +95,21 @@ const styles = {
         backgroundImage: `url(${require('../assets/images/pageCover.jpg')})`,
         height: '100vh',
     },
+    headerDiv: {
+        display: 'flex',
+        flexDirection: 'row',
+        width: '100vw',
+    },
+    subHeader: {
+        display: 'flex',
+        justifyContent: 'flex-start',
+        flex: 0.5,
+        padding: 20,
+    },
     headerText: {
-        color: '#006699',
+        color: '#2b77ba',
+        fontSize: 25,
+        fontWeight: 'bolder',
     },
     postsDiv: {
         display: 'flex',
@@ -58,6 +120,10 @@ const styles = {
     },
     cardDiv: {
         flex: 0.33,
+    },
+    Avatar: {
+        width: 30,
+        height: 30,
     },
 };
 export default HomeScreen;
