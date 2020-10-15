@@ -17,7 +17,7 @@ const HomeScreen = () => {
     }
     return (
         <div style={styles.container}>
-            <h3> Great Posts from Great Authors</h3>
+            <h2 style={styles.headerText}> Great Posts from Great Authors</h2>
 
             <div style={styles.postsDiv}>
                 {data.posts.map((record) => (
@@ -43,6 +43,11 @@ const styles = {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
+        backgroundImage: `url(${require('../assets/images/pageCover.jpg')})`,
+        height: '100vh',
+    },
+    headerText: {
+        color: '#006699',
     },
     postsDiv: {
         display: 'flex',
