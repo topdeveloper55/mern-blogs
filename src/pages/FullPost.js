@@ -13,7 +13,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { deletePost } from '../graphql/Queries';
 import { QueryData } from '../graphql/QueryData';
-import AlertMsg from '../components/SuccessMsg';
+import AlertMsg from '../components/AlertMsg';
 
 const FullPost = (Props) => {
     const classes = useStyles();
@@ -21,6 +21,7 @@ const FullPost = (Props) => {
     const postObj = Props.history.location.state.record;
     const [avatarURL, setAvatar] = useState('');
     const [open, setOpen] = React.useState(false);
+    const [alertOpen, setAlertOpen] = React.useState(false);
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -33,6 +34,7 @@ const FullPost = (Props) => {
     const deleteQuery = () => {
         QueryData(deletePost(postObj._id));
         setOpen(false);
+        setAlertOpen(true);
         setTimeout(() => history.push('/home'), 3000);
     };
 
@@ -100,6 +102,11 @@ const FullPost = (Props) => {
                     </DialogActions>
                 </Dialog>
             </div>
+            <AlertMsg
+                title="Your Post has been Deleted."
+                open={alertOpen}
+                severity={'success'}
+            />
         </React.Fragment>
     );
 };

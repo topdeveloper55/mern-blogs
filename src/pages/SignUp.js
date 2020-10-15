@@ -9,7 +9,7 @@ import IconButton from '@material-ui/core/IconButton';
 import { useHistory } from 'react-router-dom';
 
 import AppBar from '../components/AppBar';
-import AlertMsg from '../components/SuccessMsg';
+import AlertMsg from '../components/AlertMsg';
 import { QueryData } from '../graphql/QueryData';
 import { addUser } from '../graphql/Queries';
 
@@ -23,6 +23,7 @@ const SignUp = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [open, setOpen] = React.useState(false);
+    const [openErr, setErrOpen] = React.useState(false);
     const [errorText, setErrorText] = useState('');
 
     const hashPswd = (pswd) => {
@@ -54,6 +55,7 @@ const SignUp = () => {
                     setOpen((state) => !state);
                     setTimeout(() => history.push('/login'), 3000);
                 } else {
+                    setErrOpen(true);
                     setErrorText(res.message);
                 }
             });
@@ -135,13 +137,13 @@ const SignUp = () => {
                         Create Account
                     </Button>
                 </div>
-                <div style={styles.errorText}>{errorText}</div>
             </div>
             <AlertMsg
                 title="Account Created"
                 open={open}
                 severity={'success'}
             />
+            <AlertMsg title={errorText} open={openErr} severity={'error'} />
         </React.Fragment>
     );
 };
@@ -179,14 +181,6 @@ const styles = {
         paddingTop: 30,
         display: 'flex',
         justifyContent: 'center',
-    },
-    errorText: {
-        display: 'flex',
-        justifyContent: 'center',
-        marginTop: 15,
-        fontSize: 20,
-        color: 'red',
-        marginBottom: 30,
     },
 };
 

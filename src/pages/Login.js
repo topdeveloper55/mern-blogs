@@ -6,6 +6,7 @@ import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import { LoginContext } from '../context/LoginInfo';
+import AlertMsg from '../components/AlertMsg';
 
 const Login = () => {
     const history = useHistory();
@@ -13,6 +14,7 @@ const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errorText, setErrorText] = useState('');
+    const [openErr, setErrOpen] = React.useState(false);
     const { REACT_APP_LOGIN_URL } = process.env;
     const { changeUser } = useContext(LoginContext);
 
@@ -36,6 +38,7 @@ const Login = () => {
                     history.push('/home');
                 } else {
                     setErrorText(res.message);
+                    setErrOpen(true);
                 }
             });
     };
@@ -80,11 +83,11 @@ const Login = () => {
                         SIGN IN
                     </Button>
                 </div>
-                <div style={styles.errorText}>{errorText}</div>
                 <div>
                     New User ? <Link to="/signup"> SignUp</Link>
                 </div>
             </div>
+            <AlertMsg title={errorText} open={openErr} severity={'error'} />
         </div>
     );
 };
@@ -123,11 +126,6 @@ const styles = {
         fontSize: 25,
         fontWeight: '400',
         color: '#3f51b5',
-    },
-    errorText: {
-        fontSize: 20,
-        color: 'red',
-        marginBottom: 30,
     },
 };
 

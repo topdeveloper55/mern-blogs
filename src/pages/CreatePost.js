@@ -4,7 +4,7 @@ import Button from '@material-ui/core/Button';
 import { useHistory } from 'react-router-dom';
 import { createPost } from '../graphql/Queries';
 import { QueryData } from '../graphql/QueryData';
-import AlertMsg from '../components/SuccessMsg';
+import AlertMsg from '../components/AlertMsg';
 import Header from '../components/Header';
 
 const CreatePost = () => {
