@@ -3,13 +3,18 @@ const bcryptjs = require('bcryptjs');
 const express = require('express');
 const router = express.Router();
 
-async function checkUserExists(form) {
-    const userExists = await Users.findOne({ email: form.email });
+async function checkUserExists(uemail) {
+    const userExists = await Users.findOne({ email: uemail });
+    return userExists;
+}
+
+async function checkUNameExists(uName) {
+    const userExists = await Users.findOne({ userName: uName });
     return userExists;
 }
 
 router.post('/login', async function (req, res) {
-    const result = await checkUserExists(req.body);
+    const result = await checkUserExists(req.body.email);
     if (!result) {
         return res.status(400).send({
             status: 400,
@@ -34,6 +39,32 @@ router.post('/login', async function (req, res) {
             data: {},
         });
     }
+});
+
+router.post('/signup', async function (req, res) {
+    const result = await checkUserExists(req.body.emailid);
+
+    if (result) {
+        return res.status(401).send({
+            status: 401,
+            message: 'This email Id is already registered!',
+            data: {},
+        });
+    }
+    const result2 = await checkUNameExists(req.body.userName);
+
+    if (result2) {
+        return res.status(401).send({
+            status: 401,
+            message: 'This username is already taken',
+            data: {},
+        });
+    }
+    return res.status(200).send({
+        status: 200,
+        message: 'User registered!',
+        data: {},
+    });
 });
 
 module.exports = router;

@@ -36,7 +36,6 @@ async function newPost(parent, args) {
         author: args.author,
         createdDate: date,
     });
-    console.log(post);
     const res = await post.save();
     return res;
 }

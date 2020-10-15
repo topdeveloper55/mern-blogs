@@ -16,13 +16,14 @@ import { addUser } from '../graphql/Queries';
 const SignUp = () => {
     const classes = useStyles();
     const history = useHistory();
-
+    const { REACT_APP_SIGNUP_URL } = process.env;
     const [avatarURL, setAvatar] = useState('');
     const [name, setName] = useState('');
     const [userName, setUserName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [open, setOpen] = React.useState(false);
+    const [errorText, setErrorText] = useState('');
 
     const hashPswd = (pswd) => {
         const salt = Bcrypt.genSaltSync(10);
@@ -39,9 +40,23 @@ const SignUp = () => {
             pswd: hashedPswd,
             avatar: avatarURL,
         };
-        QueryData(addUser(form));
-        setOpen((state) => !state);
-        setTimeout(() => history.push('/login'), 3000);
+        fetch(REACT_APP_SIGNUP_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(form),
+        })
+            .then((res) => res.json())
+            .then((res) => {
+                if (res.status === 200) {
+                    QueryData(addUser(form));
+                    setOpen((state) => !state);
+                    setTimeout(() => history.push('/login'), 3000);
+                } else {
+                    setErrorText(res.message);
+                }
+            });
     };
 
     return (
@@ -116,12 +131,13 @@ const SignUp = () => {
                         Create Account
                     </Button>
                 </div>
-                <AlertMsg
-                    title="Account Created"
-                    open={open}
-                    severity={'success'}
-                />
+                <div style={styles.errorText}>{errorText}</div>
             </div>
+            <AlertMsg
+                title="Account Created"
+                open={open}
+                severity={'success'}
+            />
         </React.Fragment>
     );
 };
@@ -156,9 +172,17 @@ const styles = {
         marginBottom: '40px',
     },
     submitDiv: {
-        paddingTop: '50px',
+        paddingTop: 30,
         display: 'flex',
         justifyContent: 'center',
+    },
+    errorText: {
+        display: 'flex',
+        justifyContent: 'center',
+        marginTop: 15,
+        fontSize: 20,
+        color: 'red',
+        marginBottom: 30,
     },
 };
 
