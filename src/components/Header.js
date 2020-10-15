@@ -45,6 +45,8 @@ const Header = () => {
             height: '10vh',
             backgroundColor: '#3f51b5',
             alignItems: 'center',
+            position: 'fixed',
+            top: 0,
         },
         subHeader: {
             display: 'flex',

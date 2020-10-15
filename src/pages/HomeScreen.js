@@ -24,6 +24,7 @@ const HomeScreen = () => {
                 <div style={styles.postsDiv}>
                     {data.posts.map((record) => (
                         <div
+                            key={record.slug}
                             style={styles.cardDiv}
                             onClick={() =>
                                 history.push({
@@ -32,7 +33,7 @@ const HomeScreen = () => {
                                 })
                             }
                         >
-                            <Posts key={record.slug} postobj={record} />
+                            <Posts postobj={record} />
                         </div>
                     ))}
                 </div>
@@ -52,6 +53,7 @@ const HomeScreen = () => {
 
 const styles = {
     container: {
+        marginTop: '10vh',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
