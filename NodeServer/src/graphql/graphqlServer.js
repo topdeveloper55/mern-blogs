@@ -42,7 +42,7 @@ async function newPost(parent, args) {
 
 async function deletePost(parent, args) {
     const res = await Posts.deleteById(args._id);
-    return res;
+    return res.deletedCount;
 }
 
 const resolvers = {

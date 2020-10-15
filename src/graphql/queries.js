@@ -23,6 +23,16 @@ export const createPost = (form) => {
     `;
 };
 
+export const deletePost = (id) => {
+    return `
+        mutation {
+            deletePost(_id:"${id}"){
+            title
+        }
+    }
+    `;
+};
+
 export const getAllPosts = () => {
     return `
         query {

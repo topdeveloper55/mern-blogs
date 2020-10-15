@@ -1,8 +1,6 @@
 const { gql } = require('apollo-server-express');
 
 const typeDefs = gql`
-    scalar Date
-
     type User {
         name: String!
         userName: String!
@@ -10,6 +8,7 @@ const typeDefs = gql`
         password: String!
         avatarURL: String
         posts: [Posts]
+        _id: ID
     }
 
     type Posts {
@@ -17,7 +16,8 @@ const typeDefs = gql`
         slug: String!
         text: String
         author: User
-        createdDate: Date
+        createdDate: String
+        _id: ID
     }
 
     type Query {
