@@ -53,8 +53,8 @@ const useStyles = makeStyles({
     root: {
         width: 500,
         marginBottom: 20,
-        marginLeft: 20,
-        marginRight: 20,
+        marginLeft: 40,
+        marginRight: 130,
     },
     bullet: {
         display: 'inline-block',
@@ -63,7 +63,7 @@ const useStyles = makeStyles({
     },
     title: {
         fontSize: 18,
-        fontWeight: 400,
+        fontWeight: 600,
         color: '#28302a',
     },
     pos: {

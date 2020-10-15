@@ -20,7 +20,7 @@ const Login = () => {
 
     const SignIn = () => {
         const reqBody = {
-            email: email,
+            email: email.toLowerCase(),
             password: password,
         };
 

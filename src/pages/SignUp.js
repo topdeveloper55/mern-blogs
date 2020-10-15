@@ -36,8 +36,8 @@ const SignUp = () => {
         const hashedPswd = hashPswd(password);
         const form = {
             name: name,
-            userName: userName,
-            emailid: email,
+            userName: userName.toLowerCase(),
+            emailid: email.toLowerCase(),
             pswd: hashedPswd,
             avatar: avatarURL,
         };

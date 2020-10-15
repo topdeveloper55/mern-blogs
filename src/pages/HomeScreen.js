@@ -64,11 +64,10 @@ const styles = {
         display: 'flex',
         flexWrap: 'wrap',
         justifyContent: 'space-around',
-        paddingTop: 10,
-        paddingBottom: 10,
+        paddingTop: 40,
+        paddingBottom: 40,
         overflowY: 'auto',
         width: '100vw',
-        // height: '80vh',
     },
     cardDiv: {
         flex: 0.33,
