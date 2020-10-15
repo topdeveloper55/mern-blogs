@@ -5,7 +5,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import { withStyles } from '@material-ui/core/styles';
 
-const Header = ({ bgColor, textColor }) => {
+const Header = () => {
     const history = useHistory();
     const [avatarURL, setAvatar] = useState('');
 
@@ -42,16 +42,19 @@ const Header = ({ bgColor, textColor }) => {
             display: 'flex',
             flexDirection: 'row',
             width: '100vw',
-            backgroundColor: bgColor,
+            height: '10vh',
+            backgroundColor: '#3f51b5',
+            alignItems: 'center',
         },
         subHeader: {
             display: 'flex',
             justifyContent: 'flex-start',
             flex: 0.5,
-            padding: 20,
+            paddingLeft: 20,
+            paddingRight: 20,
         },
         headerText: {
-            color: textColor,
+            color: '#ffffff',
             fontSize: 25,
             fontWeight: 'bolder',
         },
@@ -60,7 +63,10 @@ const Header = ({ bgColor, textColor }) => {
     return (
         <div style={styles.headerDiv}>
             <div style={styles.subHeader}>
-                <div style={styles.headerText}>
+                <div
+                    style={{ ...styles.headerText, cursor: 'pointer' }}
+                    onClick={() => history.push('/home')}
+                >
                     Great Posts from Great Authors
                 </div>
             </div>

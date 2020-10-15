@@ -18,33 +18,35 @@ const HomeScreen = () => {
         return <div> Error in Fetching Data </div>;
     }
     return (
-        <div style={styles.container}>
-            <Header bgColor="transparent" textColor="#3f51b5" />
-            <div style={styles.postsDiv}>
-                {data.posts.map((record) => (
-                    <div
-                        style={styles.cardDiv}
-                        onClick={() =>
-                            history.push({
-                                pathname: `/posts/${record.slug}`,
-                                state: { record },
-                            })
-                        }
+        <React.Fragment>
+            <Header />
+            <div style={styles.container}>
+                <div style={styles.postsDiv}>
+                    {data.posts.map((record) => (
+                        <div
+                            style={styles.cardDiv}
+                            onClick={() =>
+                                history.push({
+                                    pathname: `/posts/${record.slug}`,
+                                    state: { record },
+                                })
+                            }
+                        >
+                            <Posts key={record.slug} postobj={record} />
+                        </div>
+                    ))}
+                </div>
+                <div style={styles.fab}>
+                    <Fab
+                        color="primary"
+                        aria-label="add"
+                        onClick={() => history.push('/newpost')}
                     >
-                        <Posts key={record.slug} postobj={record} />
-                    </div>
-                ))}
+                        <AddIcon />
+                    </Fab>
+                </div>
             </div>
-            <div style={styles.fab}>
-                <Fab
-                    color="primary"
-                    aria-label="add"
-                    onClick={() => history.push('/newpost')}
-                >
-                    <AddIcon />
-                </Fab>
-            </div>
-        </div>
+        </React.Fragment>
     );
 };
 
@@ -54,7 +56,7 @@ const styles = {
         flexDirection: 'column',
         alignItems: 'center',
         backgroundImage: `url(${require('../assets/images/pageCover.jpg')})`,
-        height: '100vh',
+        height: '90vh',
     },
     postsDiv: {
         display: 'flex',

@@ -27,7 +27,7 @@ const CreatePost = () => {
 
     return (
         <React.Fragment>
-            <Header bgColor="#3f51b5" textColor="#ffffff" />
+            <Header />
             <div style={styles.container}>
                 <div style={styles.textDiv}>
                     <TextField
