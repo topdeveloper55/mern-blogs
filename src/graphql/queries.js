@@ -24,10 +24,10 @@ export const createPost = (form) => {
 };
 
 export const deletePost = (id) => {
+    console.log(id);
     return `
         mutation {
-            deletePost(_id:"${id}"){
-            title
+            deletePost(id:"${id}")
         }
     }
     `;
@@ -41,6 +41,7 @@ export const getAllPosts = () => {
                 slug
                 text
                 createdDate
+                _id
             }
         }
     `;

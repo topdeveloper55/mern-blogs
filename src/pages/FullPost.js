@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -12,9 +13,11 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { deletePost } from '../graphql/Queries';
 import { QueryData } from '../graphql/QueryData';
+import AlertMsg from '../components/SuccessMsg';
 
 const FullPost = (Props) => {
     const classes = useStyles();
+    const history = useHistory();
     const postObj = Props.history.location.state.record;
     const [avatarURL, setAvatar] = useState('');
     const [open, setOpen] = React.useState(false);
@@ -25,6 +28,12 @@ const FullPost = (Props) => {
 
     const handleClose = () => {
         setOpen(false);
+    };
+
+    const deleteQuery = () => {
+        QueryData(deletePost(postObj._id));
+        setOpen(false);
+        setTimeout(() => history.push('/home'), 3000);
     };
 
     return (
@@ -82,7 +91,7 @@ const FullPost = (Props) => {
                         </DialogContentText>
                     </DialogContent>
                     <DialogActions>
-                        <Button onClick={handleClose} color="primary">
+                        <Button onClick={() => deleteQuery()} color="primary">
                             Yes
                         </Button>
                         <Button onClick={handleClose} color="primary" autoFocus>

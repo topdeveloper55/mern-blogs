@@ -35,7 +35,7 @@ const typeDefs = gql`
         ): User
 
         createPost(title: String!, text: String!, author: String): Posts
-        deletePost(id: String!): Int
+        deletePost(id: String!): String
     }
 `;
 module.exports = typeDefs;
