@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import PasswordField from 'material-ui-password-field';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
+import { LoginContext } from '../context/LoginInfo';
 
 const Login = () => {
     const history = useHistory();
@@ -13,6 +14,7 @@ const Login = () => {
     const [password, setPassword] = useState('');
     const [errorText, setErrorText] = useState('');
     const { REACT_APP_LOGIN_URL } = process.env;
+    const { changeUser } = useContext(LoginContext);
 
     const SignIn = () => {
         const reqBody = {
@@ -30,6 +32,7 @@ const Login = () => {
             .then((res) => res.json())
             .then((res) => {
                 if (res.status === 200) {
+                    changeUser(res.data);
                     history.push('/home');
                 } else {
                     setErrorText(res.message);
