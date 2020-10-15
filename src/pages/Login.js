@@ -11,6 +11,7 @@ const Login = () => {
     const classes = useStyles();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [errorText, setErrorText] = useState('');
     const { REACT_APP_LOGIN_URL } = process.env;
 
     const SignIn = () => {
@@ -27,7 +28,13 @@ const Login = () => {
             body: JSON.stringify(reqBody),
         })
             .then((res) => res.json())
-            .then((res) => console.log(res));
+            .then((res) => {
+                if (res.status === 200) {
+                    history.push('/home');
+                } else {
+                    setErrorText(res.message);
+                }
+            });
     };
 
     return (
@@ -64,12 +71,12 @@ const Login = () => {
                         onChange={(event) => setPassword(event.target.value)}
                     />
                 </div>
-
                 <div style={styles.btnDiv}>
                     <Button style={styles.btn} onClick={() => SignIn()}>
                         SIGN IN
                     </Button>
                 </div>
+                <div style={styles.errorText}>{errorText}</div>
                 <div>
                     New User ? <Link to="/signup"> SignUp</Link>
                 </div>
@@ -96,7 +103,7 @@ const styles = {
         marginLeft: '8%',
     },
     btnDiv: {
-        marginBottom: 50,
+        marginBottom: 40,
     },
     btn: {
         width: 200,
@@ -106,12 +113,17 @@ const styles = {
         color: '#ffffff',
     },
     formField: {
-        marginBottom: '40px',
+        marginBottom: 40,
     },
     loginText: {
         fontSize: 25,
         fontWeight: '400',
         color: '#3f51b5',
+    },
+    errorText: {
+        fontSize: 20,
+        color: 'red',
+        marginBottom: 30,
     },
 };
 

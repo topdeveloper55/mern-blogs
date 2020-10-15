@@ -12,6 +12,7 @@ router.post('/login', async function (req, res) {
     const result = await checkUserExists(req.body);
     if (!result) {
         return res.status(400).send({
+            status: 400,
             message: 'User Not Found!',
             data: {},
         });
@@ -22,11 +23,13 @@ router.post('/login', async function (req, res) {
     );
     if (pswdMatch) {
         return res.status(200).send({
+            status: 200,
             message: 'User Found!',
             data: result,
         });
     } else {
         return res.status(401).send({
+            status: 401,
             message: 'Wrong Password!',
             data: {},
         });
