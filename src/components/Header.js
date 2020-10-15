@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import Avatar from '@material-ui/core/Avatar';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import { withStyles } from '@material-ui/core/styles';
+import { LoginContext } from '../context/LoginInfo';
 
 const Header = () => {
     const history = useHistory();
-    const [avatarURL, setAvatar] = useState('');
+    const { user, changeUser } = useContext(LoginContext);
+    const [avatarURL, setAvatar] = useState(user.avatarURL);
 
     const [anchorEl, setAnchorEl] = React.useState(null);
     const handleClick = (event) => {
@@ -15,6 +17,12 @@ const Header = () => {
     };
     const handleClose = () => {
         setAnchorEl(null);
+    };
+    const fName = user.name.split(' ')[0];
+
+    const logOut = () => {
+        changeUser(null);
+        history.push('/');
     };
 
     const StyledMenu = withStyles({
@@ -74,7 +82,7 @@ const Header = () => {
             </div>
             <div style={{ ...styles.subHeader, justifyContent: 'flex-end' }}>
                 <div style={{ ...styles.headerText, marginRight: 30 }}>
-                    Hi Nishant
+                    Hi {fName}
                 </div>
                 <Avatar
                     alt="User Image"
@@ -91,9 +99,7 @@ const Header = () => {
                     <MenuItem onClick={() => history.push('')}>
                         Profile
                     </MenuItem>
-                    <MenuItem onClick={() => history.push('/')}>
-                        Logout
-                    </MenuItem>
+                    <MenuItem onClick={() => logOut()}>Logout</MenuItem>
                 </StyledMenu>
             </div>
         </div>
