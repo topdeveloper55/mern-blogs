@@ -11,9 +11,23 @@ const Login = () => {
     const classes = useStyles();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const { REACT_APP_LOGIN_URL } = process.env;
 
     const SignIn = () => {
-        console.log(' in sifn');
+        const reqBody = {
+            email: email,
+            password: password,
+        };
+
+        fetch(REACT_APP_LOGIN_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(reqBody),
+        })
+            .then((res) => res.json())
+            .then((res) => console.log(res));
     };
 
     return (
