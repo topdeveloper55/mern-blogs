@@ -35,6 +35,7 @@ const typeDefs = gql`
         ): User
 
         createPost(title: String!, text: String!, author: String): Posts
+        deletePost(id: String!): Int
     }
 `;
 module.exports = typeDefs;

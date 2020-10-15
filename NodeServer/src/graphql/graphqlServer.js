@@ -40,6 +40,11 @@ async function newPost(parent, args) {
     return res;
 }
 
+async function deletePost(parent, args) {
+    const res = await Posts.deleteById(args._id);
+    return res;
+}
+
 const resolvers = {
     Query: {
         users: async () => await Users.find(),
@@ -48,6 +53,7 @@ const resolvers = {
     Mutation: {
         addUser: (parent, args) => addnewUser(parent, args),
         createPost: (parent, args) => newPost(parent, args),
+        deletePost: (parent, args) => deletePost(parent, args),
     },
 };
 
