@@ -12,6 +12,10 @@ const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
+    const SignIn = () => {
+        console.log(' in sifn');
+    };
+
     return (
         <div style={styles.container}>
             <div>
@@ -48,10 +52,7 @@ const Login = () => {
                 </div>
 
                 <div style={styles.btnDiv}>
-                    <Button
-                        style={styles.btn}
-                        onClick={() => history.push('/home')}
-                    >
+                    <Button style={styles.btn} onClick={() => SignIn()}>
                         SIGN IN
                     </Button>
                 </div>
