@@ -7,7 +7,7 @@ import CardActions from '@material-ui/core/CardActions';
 
 const Posts = ({ postobj }) => {
     const classes = useStyles();
-    console.log(postobj);
+
     return (
         <Card className={classes.root}>
             <CardContent>

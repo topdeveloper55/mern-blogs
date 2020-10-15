@@ -24,7 +24,6 @@ export const createPost = (form) => {
 };
 
 export const deletePost = (id) => {
-    console.log(id);
     return `
         mutation {
             deletePost(id:"${id}")
@@ -45,6 +44,7 @@ export const getAllPosts = () => {
                     name
                     userName
                     avatarURL
+                    email
                 }
             }
         }

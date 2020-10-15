@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -14,14 +14,17 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import { deletePost } from '../graphql/Queries';
 import { QueryData } from '../graphql/QueryData';
 import AlertMsg from '../components/AlertMsg';
+import { LoginContext } from '../context/LoginInfo';
 
 const FullPost = (Props) => {
     const classes = useStyles();
     const history = useHistory();
+    const { user } = useContext(LoginContext);
     const postObj = Props.history.location.state.record;
     const [avatarURL, setAvatar] = useState(postObj.author.avatarURL);
     const [open, setOpen] = React.useState(false);
     const [alertOpen, setAlertOpen] = React.useState(false);
+    const isViewerAuthor = user.email === postObj.author.email;
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -29,6 +32,16 @@ const FullPost = (Props) => {
 
     const handleClose = () => {
         setOpen(false);
+    };
+
+    const DeleteBtnOption = () => {
+        return (
+            <div style={styles.deletePost}>
+                <Button className={classes.delBtn} onClick={handleClickOpen}>
+                    Delete Post
+                </Button>
+            </div>
+        );
     };
 
     const deleteQuery = () => {
@@ -69,14 +82,7 @@ const FullPost = (Props) => {
                             <div style={styles.postText}>{postObj.text}</div>
                         </div>
                     </CardContent>
-                    <div style={styles.deletePost}>
-                        <Button
-                            className={classes.delBtn}
-                            onClick={handleClickOpen}
-                        >
-                            Delete Post
-                        </Button>
-                    </div>
+                    {isViewerAuthor ? <DeleteBtnOption /> : <></>}
                 </Card>
                 <Dialog
                     open={open}
