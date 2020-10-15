@@ -4,6 +4,7 @@ import CoverScreen from './pages/CoverScreen';
 import HomeScreen from './pages/HomeScreen';
 import SignUp from './pages/SignUp';
 import Login from './pages/Login';
+import FullPost from './pages/FullPost';
 
 function App() {
     return (
@@ -13,7 +14,8 @@ function App() {
                     <Route exact path="/" component={CoverScreen} />
                     <Route path="/signup" component={SignUp} />
                     <Route path="/login" component={Login} />
-                    <Route path="/posts" component={HomeScreen} />
+                    <Route path="/home" component={HomeScreen} />
+                    <Route path="/posts/:slug" component={FullPost} />
                     {/* <Route path="/ui" component={UIComponents} />
                     <Route path="/dashboard" component={Dashboard} />
                     <Route path="/form" component={FormPage} />

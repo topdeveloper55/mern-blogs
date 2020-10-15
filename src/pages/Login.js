@@ -45,7 +45,7 @@ const Login = () => {
                 <div style={styles.btnDiv}>
                     <Button
                         style={styles.btn}
-                        onClick={() => history.push('/posts')}
+                        onClick={() => history.push('/home')}
                     >
                         SIGN IN
                     </Button>

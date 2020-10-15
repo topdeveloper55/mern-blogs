@@ -3,10 +3,12 @@ import CreatePost from '../components/CreatePost';
 import useQueryFetch from '../hooks/useQueryFetch';
 import { getAllPosts } from '../graphql/Queries';
 import Posts from '../components/Posts';
+import { useHistory } from 'react-router-dom';
 
 const HomeScreen = () => {
     const { data, errors } = useQueryFetch(getAllPosts());
-    console.log(data);
+    const history = useHistory();
+
     if (!data) {
         return <div> Data Loading...</div>;
     }
@@ -19,7 +21,15 @@ const HomeScreen = () => {
 
             <div style={styles.postsDiv}>
                 {data.posts.map((record) => (
-                    <div style={styles.cardDiv}>
+                    <div
+                        style={styles.cardDiv}
+                        onClick={() =>
+                            history.push({
+                                pathname: `/posts/${record.slug}`,
+                                state: { record },
+                            })
+                        }
+                    >
                         <Posts key={record.slug} postobj={record} />
                     </div>
                 ))}
