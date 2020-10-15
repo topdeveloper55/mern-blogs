@@ -29,7 +29,6 @@ export const deletePost = (id) => {
         mutation {
             deletePost(id:"${id}")
         }
-    }
     `;
 };
 
