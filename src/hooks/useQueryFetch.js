@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
 
-const useQueryFetch = (querystr) => {
-    const { REACT_APP_SERVER_URL } = process.env;
+const { REACT_APP_SERVER_URL } = process.env;
 
+const useQueryFetch = (querystr) => {
     const [data, setData] = useState(null);
     const [errors, setErrors] = useState(null);
+    console.log(querystr);
 
     useEffect(() => {
         window

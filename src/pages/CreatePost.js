@@ -12,7 +12,7 @@ const CreatePost = () => {
     const [title, setTitle] = useState('');
     const [text, changeText] = useState('');
     const { user } = useContext(LoginContext);
-    const [author, setAuthor] = useState(user);
+    const [author] = useState(user);
     const [open, setOpen] = React.useState(false);
     const history = useHistory();
 

@@ -21,7 +21,7 @@ const FullPost = (Props) => {
     const history = useHistory();
     const { user } = useContext(LoginContext);
     const postObj = Props.history.location.state.record;
-    const [avatarURL, setAvatar] = useState(postObj.author.avatarURL);
+    const [avatarURL] = useState(postObj.author.avatarURL);
     const [open, setOpen] = React.useState(false);
     const [alertOpen, setAlertOpen] = React.useState(false);
     const isViewerAuthor = user.email === postObj.author.email;

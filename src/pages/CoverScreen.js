@@ -9,7 +9,7 @@ const CoverScreen = () => {
         <div style={styles.container}>
             <img
                 src={require('../assets/images/blog_cover.png')}
-                alt="cover Image"
+                alt="cover"
                 style={styles.image}
             />
 

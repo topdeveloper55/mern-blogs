@@ -9,7 +9,7 @@ import { LoginContext } from '../context/LoginInfo';
 const Header = () => {
     const history = useHistory();
     const { user, changeUser } = useContext(LoginContext);
-    const [avatarURL, setAvatar] = useState(user.avatarURL);
+    const [avatarURL] = useState(user.avatarURL);
 
     const [anchorEl, setAnchorEl] = React.useState(null);
     const handleClick = (event) => {
@@ -85,7 +85,7 @@ const Header = () => {
                     Hi {fName}
                 </div>
                 <Avatar
-                    alt="User Image"
+                    alt="User DP"
                     src={avatarURL}
                     className={styles.Avatar}
                     onClick={handleClick}

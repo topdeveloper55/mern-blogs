@@ -17,7 +17,7 @@ const SignUp = () => {
     const classes = useStyles();
     const history = useHistory();
     const { REACT_APP_SIGNUP_URL } = process.env;
-    const [avatarURL, setAvatar] = useState('');
+    const [avatarURL] = useState('');
     const [name, setName] = useState('');
     const [userName, setUserName] = useState('');
     const [email, setEmail] = useState('');

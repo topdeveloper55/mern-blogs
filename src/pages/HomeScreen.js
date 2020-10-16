@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import useQueryFetch from '../hooks/useQueryFetch';
 import { getAllPosts } from '../graphql/Queries';
 import Posts from '../components/Posts';
