@@ -9,21 +9,33 @@ import Header from '../components/Header';
 import { LoginContext } from '../context/LoginInfo';
 
 const CreatePost = () => {
-    const [title, setTitle] = useState('');
-    const [text, changeText] = useState('');
     const { user } = useContext(LoginContext);
     const [author] = useState(user);
+    const [title, setTitle] = useState(null);
+    const [text, changeText] = useState(null);
+    const [alertmsg, setAlertMsg] = useState(null);
+    const [status, setStatus] = useState(null);
     const [open, setOpen] = React.useState(false);
     const history = useHistory();
 
     const newPost = () => {
+        if (title === null || text === null) {
+            setAlertMsg('Please fill all fields');
+            setStatus('error');
+            setOpen(true);
+            return;
+        }
+
         const form = {
             title: title,
             text: text,
             author: author,
         };
+
         QueryData(createPost(form));
-        setOpen((state) => !state);
+        setAlertMsg('Your Post has been Shared');
+        setStatus('success');
+        setOpen(true);
         setTimeout(() => history.push('/home'), 3000);
     };
 
@@ -60,11 +72,7 @@ const CreatePost = () => {
                         Post
                     </Button>
                 </div>
-                <AlertMsg
-                    title="Your Post has been Shared."
-                    open={open}
-                    severity={'success'}
-                />
+                <AlertMsg title={alertmsg} open={open} severity={status} />
             </div>
         </React.Fragment>
     );

@@ -43,37 +43,37 @@ const SignUp = () => {
             setSeverity('error');
             setOpen(true);
             return;
-        } else {
-            const hashedPswd = hashPswd(password);
-            const form = {
-                name: name,
-                userName: userName.toLowerCase(),
-                emailid: email.toLowerCase(),
-                pswd: hashedPswd,
-                avatar: avatarURL,
-            };
-            fetch(REACT_APP_SIGNUP_URL, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(form),
-            })
-                .then((res) => res.json())
-                .then((res) => {
-                    if (res.status === 200) {
-                        QueryData(addUser(form));
-                        setAlertMsg('Account Created');
-                        setSeverity('success');
-                        setOpen(true);
-                        setTimeout(() => history.push('/login'), 3000);
-                    } else {
-                        setAlertMsg(res.message);
-                        setSeverity('error');
-                        setOpen(true);
-                    }
-                });
         }
+
+        const hashedPswd = hashPswd(password);
+        const form = {
+            name: name,
+            userName: userName.toLowerCase(),
+            emailid: email.toLowerCase(),
+            pswd: hashedPswd,
+            avatar: avatarURL,
+        };
+        fetch(REACT_APP_SIGNUP_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(form),
+        })
+            .then((res) => res.json())
+            .then((res) => {
+                if (res.status === 200) {
+                    QueryData(addUser(form));
+                    setAlertMsg('Account Created');
+                    setSeverity('success');
+                    setOpen(true);
+                    setTimeout(() => history.push('/login'), 3000);
+                } else {
+                    setAlertMsg(res.message);
+                    setSeverity('error');
+                    setOpen(true);
+                }
+            });
     };
 
     return (

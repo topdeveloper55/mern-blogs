@@ -11,14 +11,20 @@ import AlertMsg from '../components/AlertMsg';
 const Login = () => {
     const history = useHistory();
     const classes = useStyles();
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [errorText, setErrorText] = useState('');
+    const [email, setEmail] = useState(null);
+    const [password, setPassword] = useState(null);
+    const [errorText, setErrorText] = useState(null);
     const [openErr, setErrOpen] = React.useState(false);
     const { REACT_APP_LOGIN_URL } = process.env;
     const { changeUser } = useContext(LoginContext);
 
     const SignIn = () => {
+        if (email === null || password === null) {
+            setErrorText('Please fill all fields');
+            setErrOpen(true);
+            return;
+        }
+
         const reqBody = {
             email: email.toLowerCase(),
             password: password,
