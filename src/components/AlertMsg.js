@@ -5,11 +5,13 @@ import MuiAlert from '@material-ui/lab/Alert';
 const AlertMsg = ({ title, open, severity }) => {
     const [dialogOpen, setOpen] = useState(open);
     const [msg, setMsg] = useState(title);
+    const [status, setStatus] = useState(severity);
 
     useEffect(() => {
         setMsg(title);
         setOpen(open);
-    }, [title, open]);
+        setStatus(severity);
+    }, [title, open, severity]);
 
     function Alert(props) {
         return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -25,7 +27,7 @@ const AlertMsg = ({ title, open, severity }) => {
             autoHideDuration={3000}
             onClose={handleClose}
         >
-            <Alert onClose={() => handleClose()} severity={severity}>
+            <Alert onClose={() => handleClose()} severity={status}>
                 {msg}
             </Alert>
         </Snackbar>

@@ -17,14 +17,14 @@ const SignUp = () => {
     const classes = useStyles();
     const history = useHistory();
     const { REACT_APP_SIGNUP_URL } = process.env;
-    const [avatarURL] = useState('');
-    const [name, setName] = useState('');
-    const [userName, setUserName] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [avatarURL] = useState(null);
+    const [name, setName] = useState(null);
+    const [userName, setUserName] = useState(null);
+    const [email, setEmail] = useState(null);
+    const [password, setPassword] = useState(null);
+    const [severity, setSeverity] = React.useState(null);
+    const [alertMsg, setAlertMsg] = useState(null);
     const [open, setOpen] = React.useState(false);
-    const [openErr, setErrOpen] = React.useState(false);
-    const [errorText, setErrorText] = useState('');
 
     const hashPswd = (pswd) => {
         const salt = Bcrypt.genSaltSync(10);
@@ -33,32 +33,47 @@ const SignUp = () => {
     };
 
     const createAccount = async () => {
-        const hashedPswd = hashPswd(password);
-        const form = {
-            name: name,
-            userName: userName.toLowerCase(),
-            emailid: email.toLowerCase(),
-            pswd: hashedPswd,
-            avatar: avatarURL,
-        };
-        fetch(REACT_APP_SIGNUP_URL, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(form),
-        })
-            .then((res) => res.json())
-            .then((res) => {
-                if (res.status === 200) {
-                    QueryData(addUser(form));
-                    setOpen((state) => !state);
-                    setTimeout(() => history.push('/login'), 3000);
-                } else {
-                    setErrOpen(true);
-                    setErrorText(res.message);
-                }
-            });
+        if (
+            name === null ||
+            userName === null ||
+            email === null ||
+            password === null
+        ) {
+            setAlertMsg('Please fill all the fields');
+            setSeverity('error');
+            setOpen(true);
+            return;
+        } else {
+            const hashedPswd = hashPswd(password);
+            const form = {
+                name: name,
+                userName: userName.toLowerCase(),
+                emailid: email.toLowerCase(),
+                pswd: hashedPswd,
+                avatar: avatarURL,
+            };
+            fetch(REACT_APP_SIGNUP_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(form),
+            })
+                .then((res) => res.json())
+                .then((res) => {
+                    if (res.status === 200) {
+                        QueryData(addUser(form));
+                        setAlertMsg('Account Created');
+                        setSeverity('success');
+                        setOpen(true);
+                        setTimeout(() => history.push('/login'), 3000);
+                    } else {
+                        setAlertMsg(res.message);
+                        setSeverity('error');
+                        setOpen(true);
+                    }
+                });
+        }
     };
 
     return (
@@ -138,12 +153,7 @@ const SignUp = () => {
                     </Button>
                 </div>
             </div>
-            <AlertMsg
-                title="Account Created"
-                open={open}
-                severity={'success'}
-            />
-            <AlertMsg title={errorText} open={openErr} severity={'error'} />
+            <AlertMsg title={alertMsg} open={open} severity={severity} />
         </React.Fragment>
     );
 };
