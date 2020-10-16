@@ -34,8 +34,6 @@ const Login = () => {
             .then((res) => res.json())
             .then((res) => {
                 if (res.status === 200) {
-                    console.log(res);
-                    debugger;
                     changeUser(res.data.result);
                     history.push('/home');
                 } else {
