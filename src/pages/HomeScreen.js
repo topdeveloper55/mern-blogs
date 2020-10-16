@@ -28,7 +28,7 @@ const HomeScreen = () => {
                             style={styles.cardDiv}
                             onClick={() =>
                                 history.push({
-                                    pathname: `/posts/${record.slug}`,
+                                    pathname: `/@${record.author.userName}/${record.slug}`,
                                     state: { record },
                                 })
                             }

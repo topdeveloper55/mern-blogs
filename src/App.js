@@ -16,7 +16,7 @@ function App() {
                     <Route path="/signup" component={SignUp} />
                     <Route path="/login" component={Login} />
                     <Route path="/home" component={HomeScreen} />
-                    <Route path="/posts/:slug" component={FullPost} />
+                    <Route path="/:userName/:slug" component={FullPost} />
                     <Route path="/newpost" component={CreatePost} />
                     {/* <Route path="/404" component={PageNotFound} />
                     <Redirect to="/404" /> */}
