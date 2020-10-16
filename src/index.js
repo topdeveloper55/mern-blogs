@@ -7,11 +7,9 @@ import { LoginInfo } from './context/LoginInfo';
 
 const NewApp = () => {
     return (
-        // <React.StrictMode>
         <LoginInfo>
             <App />
         </LoginInfo>
-        // </React.StrictMode>,
     );
 };
 ReactDOM.render(<NewApp />, document.getElementById('root'));

@@ -2,6 +2,8 @@ const Users = require('./models/User');
 const bcryptjs = require('bcryptjs');
 const express = require('express');
 const router = express.Router();
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
 async function checkUserExists(uemail) {
     const userExists = await Users.findOne({ email: uemail });
@@ -14,23 +16,24 @@ async function checkUNameExists(uName) {
 }
 
 router.post('/login', async function (req, res) {
-    const result = await checkUserExists(req.body.email);
-    if (!result) {
+    const user = await checkUserExists(req.body.email);
+    if (!user) {
         return res.status(400).send({
             status: 400,
             message: 'User Not Found!',
             data: {},
         });
     }
-    const pswdMatch = await bcryptjs.compare(
-        req.body.password,
-        result.password
-    );
+    const pswdMatch = await bcryptjs.compare(req.body.password, user.password);
     if (pswdMatch) {
+        const token = await jwt.sign(
+            { exp: Math.floor(Date.now() / 1000) + 60 * 60, data: user },
+            process.env.JWT_SECRET
+        );
         return res.status(200).send({
             status: 200,
             message: 'User Found!',
-            data: result,
+            data: { result: user, accessToken: token },
         });
     } else {
         return res.status(401).send({
