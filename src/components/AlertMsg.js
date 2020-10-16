@@ -11,7 +11,7 @@ const AlertMsg = ({ title, open, severity }) => {
         return <MuiAlert elevation={6} variant="filled" {...props} />;
     }
 
-    const handleClose = (event, reason) => {
+    const handleClose = () => {
         setOpen(false);
     };
 
@@ -21,7 +21,7 @@ const AlertMsg = ({ title, open, severity }) => {
             autoHideDuration={3000}
             onClose={handleClose}
         >
-            <Alert onClose={handleClose} severity={severity}>
+            <Alert onClose={() => handleClose()} severity={severity}>
                 {title}
             </Alert>
         </Snackbar>

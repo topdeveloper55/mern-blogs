@@ -7,17 +7,14 @@ import { LoginInfo } from './context/LoginInfo';
 
 const NewApp = () => {
     return (
+        // <React.StrictMode>
         <LoginInfo>
             <App />
         </LoginInfo>
+        // </React.StrictMode>,
     );
 };
-ReactDOM.render(
-    <React.StrictMode>
-        <NewApp />
-    </React.StrictMode>,
-    document.getElementById('root')
-);
+ReactDOM.render(<NewApp />, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
