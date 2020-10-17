@@ -7,6 +7,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import { LoginContext } from '../context/LoginInfo';
 import AlertMsg from '../components/AlertMsg';
+import { QueryData } from '../graphql/QueryData';
+import { userLogin } from '../graphql/queries';
 
 const Login = () => {
     const history = useHistory();
@@ -15,10 +17,9 @@ const Login = () => {
     const [password, setPassword] = useState(null);
     const [errorText, setErrorText] = useState(null);
     const [openErr, setErrOpen] = React.useState(false);
-    const { REACT_APP_LOGIN_URL } = process.env;
     const { changeUser } = useContext(LoginContext);
 
-    const SignIn = () => {
+    const SignIn = async () => {
         if (email === null || password === null) {
             setErrorText('Please fill all fields');
             setErrOpen(true);
@@ -30,23 +31,15 @@ const Login = () => {
             password: password,
         };
 
-        fetch(REACT_APP_LOGIN_URL, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(reqBody),
-        })
-            .then((res) => res.json())
-            .then((res) => {
-                if (res.status === 200) {
-                    changeUser(res.data.result);
-                    history.push('/home');
-                } else {
-                    setErrorText(res.message);
-                    setErrOpen(true);
-                }
-            });
+        const res = await QueryData(userLogin(reqBody));
+
+        if (res.userLogin.status === 200) {
+            changeUser(res.data.result);
+            history.push('/home');
+        } else {
+            setErrorText(res.userLogin.message);
+            setErrOpen(true);
+        }
     };
 
     return (
