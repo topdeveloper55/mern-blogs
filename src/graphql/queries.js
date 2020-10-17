@@ -1,6 +1,6 @@
 export const beforeSignup = (form) => {
     return `
-        mutation{
+        query{
             checkExisting(userName:"${form.userName}",email:"${form.emailid}")
         }
     `;
@@ -15,6 +15,14 @@ export const addUser = (form) => {
             email
         }
     }
+    `;
+};
+
+export const userLogin = (form) => {
+    return `
+        query{
+            userLogin(email:"${form.email}",password:"${form.password}")
+        }
     `;
 };
 

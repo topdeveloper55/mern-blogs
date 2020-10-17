@@ -25,6 +25,8 @@ const typeDefs = gql`
     type Query {
         users: [User]
         posts: [Posts]
+        checkExisting(userName: String!, email: String!): Object
+        userLogin(email: String!, password: String!): Object
     }
 
     type Mutation {
@@ -36,7 +38,6 @@ const typeDefs = gql`
             avatarURL: String
         ): User
 
-        checkExisting(userName: String!, email: String!): Object
         createPost(title: String!, text: String!, authorEmail: String): Posts
         deletePost(id: String!): String
     }

@@ -4,6 +4,8 @@ const Users = require('../models/User');
 const typeDefs = require('./schema');
 const slugify = require('slugify');
 const moment = require('moment');
+const bcryptjs = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 function slugifyText(str) {
     return slugify(str, {
@@ -12,8 +14,18 @@ function slugifyText(str) {
     });
 }
 
+async function checkUserExists(uemail) {
+    const userExists = await Users.findOne({ email: uemail });
+    return userExists;
+}
+
+async function checkUNameExists(uName) {
+    const userExists = await Users.findOne({ userName: uName });
+    return userExists;
+}
+
 async function checkExisting(parent, args) {
-    const emailExists = await Users.findOne({ email: args.email });
+    const emailExists = await checkUserExists(args.email);
 
     if (emailExists) {
         return {
@@ -23,7 +35,7 @@ async function checkExisting(parent, args) {
         };
     }
 
-    const unameExists = await Users.findOne({ userName: args.userName });
+    const unameExists = await checkUNameExists(args.userName);
     if (unameExists) {
         return {
             status: 400,
@@ -45,6 +57,37 @@ async function addnewUser(parent, args) {
     });
     const res = await user.save();
     return res;
+}
+
+async function userLogin(parent, args) {
+    const user = await checkUserExists(args.email);
+
+    if (!user) {
+        return {
+            status: 404,
+            message: 'User Not Found!',
+            data: {},
+        };
+    }
+
+    const pswdMatch = await bcryptjs.compare(args.password, user.password);
+    if (pswdMatch) {
+        const token = await jwt.sign(
+            { exp: Math.floor(Date.now() / 1000) + 60 * 60, data: user },
+            process.env.JWT_SECRET
+        );
+        return {
+            status: 200,
+            message: 'User Found!',
+            data: { result: user, accessToken: token },
+        };
+    } else {
+        return {
+            status: 401,
+            message: 'Wrong Password!',
+            data: {},
+        };
+    }
 }
 
 async function newPost(parent, args) {
@@ -72,9 +115,10 @@ const resolvers = {
     Query: {
         users: async () => await Users.find(),
         posts: async () => await Posts.find(),
+        checkExisting: (parent, args) => checkExisting(parent, args),
+        userLogin: (parent, args) => userLogin(parent, args),
     },
     Mutation: {
-        checkExisting: (parent, args) => checkExisting(parent, args),
         addUser: (parent, args) => addnewUser(parent, args),
         createPost: (parent, args) => newPost(parent, args),
         deletePost: (parent, args) => deletePost(parent, args),
