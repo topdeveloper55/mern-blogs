@@ -34,7 +34,7 @@ const Login = () => {
         const res = await QueryData(userLogin(reqBody));
 
         if (res.userLogin.status === 200) {
-            changeUser(res.data.result);
+            changeUser(res.userLogin.data.result);
             history.push('/home');
         } else {
             setErrorText(res.userLogin.message);
