@@ -1,6 +1,6 @@
 import React from 'react';
 import useQueryFetch from '../hooks/useQueryFetch';
-import { getAllPosts } from '../graphql/Queries';
+import { getAllPosts } from '../graphql/queries';
 import Posts from '../components/Posts';
 import { useHistory } from 'react-router-dom';
 import Fab from '@material-ui/core/Fab';
@@ -11,9 +11,6 @@ const HomeScreen = () => {
     const { data, errors } = useQueryFetch(getAllPosts());
     const history = useHistory();
 
-    if (!data) {
-        return <div> Data Loading...</div>;
-    }
     if (errors) {
         return <div> Error in Fetching Data </div>;
     }
@@ -22,20 +19,24 @@ const HomeScreen = () => {
             <Header />
             <div style={styles.container}>
                 <div style={styles.postsDiv}>
-                    {data.posts.map((record) => (
-                        <div
-                            key={record.slug}
-                            style={styles.cardDiv}
-                            onClick={() =>
-                                history.push({
-                                    pathname: `/@${record.author.userName}/${record.slug}`,
-                                    state: { record },
-                                })
-                            }
-                        >
-                            <Posts postobj={record} />
-                        </div>
-                    ))}
+                    {data ? (
+                        data.posts.map((record) => (
+                            <div
+                                key={record.slug}
+                                style={styles.cardDiv}
+                                onClick={() =>
+                                    history.push({
+                                        pathname: `/@${record.author.userName}/${record.slug}`,
+                                        state: { record },
+                                    })
+                                }
+                            >
+                                <Posts postobj={record} />
+                            </div>
+                        ))
+                    ) : (
+                        <div> Data Loading or server down...</div>
+                    )}
                 </div>
                 <div style={styles.fab}>
                     <Fab

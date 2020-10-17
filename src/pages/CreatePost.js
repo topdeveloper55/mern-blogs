@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { useHistory } from 'react-router-dom';
-import { createPost } from '../graphql/Queries';
+import { createPost } from '../graphql/queries';
 import { QueryData } from '../graphql/QueryData';
 import AlertMsg from '../components/AlertMsg';
 import Header from '../components/Header';

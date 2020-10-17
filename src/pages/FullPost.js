@@ -11,7 +11,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import { deletePost } from '../graphql/Queries';
+import { deletePost } from '../graphql/queries';
 import { QueryData } from '../graphql/QueryData';
 import AlertMsg from '../components/AlertMsg';
 import { LoginContext } from '../context/LoginInfo';

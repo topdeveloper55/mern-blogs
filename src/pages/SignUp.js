@@ -11,7 +11,7 @@ import { useHistory } from 'react-router-dom';
 import AppBar from '../components/AppBar';
 import AlertMsg from '../components/AlertMsg';
 import { QueryData } from '../graphql/QueryData';
-import { addUser } from '../graphql/Queries';
+import { addUser } from '../graphql/queries';
 
 const SignUp = () => {
     const classes = useStyles();
