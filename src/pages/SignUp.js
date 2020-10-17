@@ -16,7 +16,7 @@ import { addUser } from '../graphql/queries';
 const SignUp = () => {
     const classes = useStyles();
     const history = useHistory();
-    const { REACT_APP_SIGNUP_URL } = process.env;
+    const { REACT_APP_SERVER_URL } = process.env;
     const [avatarURL] = useState(null);
     const [name, setName] = useState(null);
     const [userName, setUserName] = useState(null);
@@ -53,7 +53,8 @@ const SignUp = () => {
             pswd: hashedPswd,
             avatar: avatarURL,
         };
-        fetch(REACT_APP_SIGNUP_URL, {
+
+        fetch(REACT_APP_SERVER_URL, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -62,17 +63,18 @@ const SignUp = () => {
         })
             .then((res) => res.json())
             .then((res) => {
-                if (res.status === 200) {
-                    QueryData(addUser(form));
-                    setAlertMsg('Account Created');
-                    setSeverity('success');
-                    setOpen(true);
-                    setTimeout(() => history.push('/login'), 3000);
-                } else {
-                    setAlertMsg(res.message);
-                    setSeverity('error');
-                    setOpen(true);
-                }
+                // if (res.status === 200) {
+                //     QueryData(addUser(form));
+                //     setAlertMsg('Account Created');
+                //     setSeverity('success');
+                //     setOpen(true);
+                //     setTimeout(() => history.push('/login'), 3000);
+                // } else {
+                //     setAlertMsg(res.message);
+                //     setSeverity('error');
+                //     setOpen(true);
+                // }
+                console.log('query result ', res);
             });
     };
 

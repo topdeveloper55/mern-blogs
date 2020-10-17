@@ -23,6 +23,7 @@ const typeDefs = gql`
     type Query {
         users: [User]
         posts: [Posts]
+        checkExisting: Boolean
     }
 
     type Mutation {

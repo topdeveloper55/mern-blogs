@@ -12,6 +12,18 @@ function slugifyText(str) {
     });
 }
 
+async function checkExisting(parent, args) {
+    const emailExists = await Users.findOne({ email: args.email });
+    if (emailExists) {
+        return true;
+    }
+    const unameExists = await Users.findOne({ userName: args.userName });
+    if (unameExists) {
+        return true;
+    }
+    return false;
+}
+
 async function addnewUser(parent, args) {
     const user = new Users({
         name: args.name,
@@ -50,6 +62,8 @@ const resolvers = {
     Query: {
         users: async () => await Users.find(),
         posts: async () => await Posts.find(),
+        checkExisting: async (parent, args) =>
+            await checkExisting(parent, args),
     },
     Mutation: {
         addUser: (parent, args) => addnewUser(parent, args),

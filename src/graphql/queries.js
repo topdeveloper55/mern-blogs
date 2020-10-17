@@ -1,3 +1,11 @@
+export const beforeSignup = (form) => {
+    return `
+        query{
+            checkExisting(userName:"${form.userName}",email:"${form.email}")
+        }
+    `;
+};
+
 export const addUser = (form) => {
     return `
         mutation {
