@@ -11,12 +11,11 @@ import { useHistory } from 'react-router-dom';
 import AppBar from '../components/AppBar';
 import AlertMsg from '../components/AlertMsg';
 import { QueryData } from '../graphql/QueryData';
-import { addUser } from '../graphql/queries';
+import { addUser, beforeSignup } from '../graphql/queries';
 
 const SignUp = () => {
     const classes = useStyles();
     const history = useHistory();
-    const { REACT_APP_SERVER_URL } = process.env;
     const [avatarURL] = useState(null);
     const [name, setName] = useState(null);
     const [userName, setUserName] = useState(null);
@@ -54,28 +53,20 @@ const SignUp = () => {
             avatar: avatarURL,
         };
 
-        fetch(REACT_APP_SERVER_URL, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(form),
-        })
-            .then((res) => res.json())
-            .then((res) => {
-                // if (res.status === 200) {
-                //     QueryData(addUser(form));
-                //     setAlertMsg('Account Created');
-                //     setSeverity('success');
-                //     setOpen(true);
-                //     setTimeout(() => history.push('/login'), 3000);
-                // } else {
-                //     setAlertMsg(res.message);
-                //     setSeverity('error');
-                //     setOpen(true);
-                // }
-                console.log('query result ', res);
-            });
+        /* Check if email and userName are already taken. */
+        const res = await QueryData(beforeSignup(form));
+
+        if (res.checkExisting.status === 200) {
+            QueryData(addUser(form));
+            setAlertMsg('Account Created');
+            setSeverity('success');
+            setOpen(true);
+            setTimeout(() => history.push('/login'), 3000);
+        } else {
+            setAlertMsg(res.checkExisting.message);
+            setSeverity('error');
+            setOpen(true);
+        }
     };
 
     return (

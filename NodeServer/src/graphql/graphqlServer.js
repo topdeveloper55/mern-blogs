@@ -14,14 +14,24 @@ function slugifyText(str) {
 
 async function checkExisting(parent, args) {
     const emailExists = await Users.findOne({ email: args.email });
+
     if (emailExists) {
-        return true;
+        return {
+            status: 400,
+            message: 'This email Id is already registered!',
+            data: {},
+        };
     }
+
     const unameExists = await Users.findOne({ userName: args.userName });
     if (unameExists) {
-        return true;
+        return {
+            status: 400,
+            message: 'This username is already taken',
+            data: {},
+        };
     }
-    return false;
+    return { status: 200, message: 'User can be registered!', data: {} };
 }
 
 async function addnewUser(parent, args) {
@@ -62,10 +72,9 @@ const resolvers = {
     Query: {
         users: async () => await Users.find(),
         posts: async () => await Posts.find(),
-        checkExisting: async (parent, args) =>
-            await checkExisting(parent, args),
     },
     Mutation: {
+        checkExisting: (parent, args) => checkExisting(parent, args),
         addUser: (parent, args) => addnewUser(parent, args),
         createPost: (parent, args) => newPost(parent, args),
         deletePost: (parent, args) => deletePost(parent, args),

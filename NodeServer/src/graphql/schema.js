@@ -1,6 +1,8 @@
 const { gql } = require('apollo-server-express');
 
 const typeDefs = gql`
+    scalar Object
+
     type User {
         name: String!
         userName: String!
@@ -23,7 +25,6 @@ const typeDefs = gql`
     type Query {
         users: [User]
         posts: [Posts]
-        checkExisting: Boolean
     }
 
     type Mutation {
@@ -35,6 +36,7 @@ const typeDefs = gql`
             avatarURL: String
         ): User
 
+        checkExisting(userName: String!, email: String!): Object
         createPost(title: String!, text: String!, authorEmail: String): Posts
         deletePost(id: String!): String
     }

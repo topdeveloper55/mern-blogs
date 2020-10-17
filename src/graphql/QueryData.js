@@ -1,17 +1,21 @@
+const { REACT_APP_SERVER_URL } = process.env;
+
 const QueryData = (querystr) => {
-    const REACT_APP_SERVER_URL = `http://localhost:4000/graphql`;
-    window
-        .fetch(REACT_APP_SERVER_URL, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ query: querystr }),
-        })
-        .then((res) => res.json())
-        .then(({ data, errors }) => {
-            return { data, errors };
-        });
+    return new Promise((resolve, reject) => {
+        window
+            .fetch(REACT_APP_SERVER_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ query: querystr }),
+            })
+            .then((res) => res.json())
+            .then(({ data, errors }) => {
+                resolve(data);
+                reject(errors);
+            });
+    });
 };
 
 export { QueryData };
