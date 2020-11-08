@@ -6,6 +6,7 @@ const slugify = require('slugify');
 const moment = require('moment');
 const bcryptjs = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
 function slugifyText(str) {
     return slugify(str, {

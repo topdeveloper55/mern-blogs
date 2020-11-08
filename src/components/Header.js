@@ -1,14 +1,16 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Avatar from '@material-ui/core/Avatar';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import { withStyles } from '@material-ui/core/styles';
-import { LoginContext } from '../context/LoginInfo';
+import { observer } from 'mobx-react';
 
-const Header = () => {
+import rootStore from '../store';
+
+const Header = observer(() => {
     const history = useHistory();
-    const { user, changeUser } = useContext(LoginContext);
+    const user = rootStore.userStore.user;
     const [avatarURL] = useState(user.avatarURL);
 
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -21,7 +23,7 @@ const Header = () => {
     const fName = user.name.split(' ')[0];
 
     const logOut = () => {
-        changeUser(null);
+        rootStore.userStore.user(null);
         history.push('/');
     };
 
@@ -44,31 +46,6 @@ const Header = () => {
             {...props}
         />
     ));
-
-    const styles = {
-        headerDiv: {
-            display: 'flex',
-            flexDirection: 'row',
-            width: '100vw',
-            height: '10vh',
-            backgroundColor: '#3f51b5',
-            alignItems: 'center',
-            position: 'fixed',
-            top: 0,
-        },
-        subHeader: {
-            display: 'flex',
-            justifyContent: 'flex-start',
-            flex: 0.5,
-            paddingLeft: 20,
-            paddingRight: 20,
-        },
-        headerText: {
-            color: '#ffffff',
-            fontSize: 25,
-            fontWeight: 'bolder',
-        },
-    };
 
     return (
         <div style={styles.headerDiv}>
@@ -104,6 +81,31 @@ const Header = () => {
             </div>
         </div>
     );
+});
+
+const styles = {
+    headerDiv: {
+        display: 'flex',
+        flexDirection: 'row',
+        width: '100vw',
+        height: '10vh',
+        backgroundColor: '#3f51b5',
+        alignItems: 'center',
+        position: 'fixed',
+        top: 0,
+    },
+    subHeader: {
+        display: 'flex',
+        justifyContent: 'flex-start',
+        flex: 0.5,
+        paddingLeft: 20,
+        paddingRight: 20,
+    },
+    headerText: {
+        color: '#ffffff',
+        fontSize: 25,
+        fontWeight: 'bolder',
+    },
 };
 
 export default Header;

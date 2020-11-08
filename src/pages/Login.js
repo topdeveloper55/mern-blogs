@@ -1,23 +1,24 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import PasswordField from 'material-ui-password-field';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
-import { LoginContext } from '../context/LoginInfo';
+import { observer } from 'mobx-react';
+
+import rootStore from '../store';
 import AlertMsg from '../components/AlertMsg';
 import { QueryData } from '../graphql/QueryData';
 import { userLogin } from '../graphql/queries';
 
-const Login = () => {
+const Login = observer(() => {
     const history = useHistory();
     const classes = useStyles();
     const [email, setEmail] = useState(null);
     const [password, setPassword] = useState(null);
     const [errorText, setErrorText] = useState(null);
     const [openErr, setErrOpen] = React.useState(false);
-    const { changeUser } = useContext(LoginContext);
 
     const SignIn = async () => {
         if (email === null || password === null) {
@@ -34,7 +35,7 @@ const Login = () => {
         const res = await QueryData(userLogin(reqBody));
 
         if (res.userLogin.status === 200) {
-            changeUser(res.userLogin.data.result);
+            rootStore.userStore.setUser(res.userLogin.data.result);
             history.push('/home');
         } else {
             setErrorText(res.userLogin.message);
@@ -89,7 +90,7 @@ const Login = () => {
             <AlertMsg title={errorText} open={openErr} severity={'error'} />
         </div>
     );
-};
+});
 
 const styles = {
     container: {

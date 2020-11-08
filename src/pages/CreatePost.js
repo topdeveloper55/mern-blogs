@@ -1,15 +1,17 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { useHistory } from 'react-router-dom';
+import { observer } from 'mobx-react';
+
 import { createPost } from '../graphql/queries';
 import { QueryData } from '../graphql/QueryData';
 import AlertMsg from '../components/AlertMsg';
 import Header from '../components/Header';
-import { LoginContext } from '../context/LoginInfo';
+import rootStore from '../store';
 
-const CreatePost = () => {
-    const { user } = useContext(LoginContext);
+const CreatePost = observer(() => {
+    const user = rootStore.userStore.user;
     const [author] = useState(user);
     const [title, setTitle] = useState(null);
     const [text, changeText] = useState(null);
@@ -76,7 +78,7 @@ const CreatePost = () => {
             </div>
         </React.Fragment>
     );
-};
+});
 
 const styles = {
     container: {

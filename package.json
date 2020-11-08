@@ -15,6 +15,8 @@
     "husky": "^4.3.0",
     "lint-staged": "^10.4.0",
     "material-ui-password-field": "^2.1.2",
+    "mobx": "^6.0.3",
+    "mobx-react": "^7.0.4",
     "prettier": "^2.1.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
