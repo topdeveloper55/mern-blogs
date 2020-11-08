@@ -3,25 +3,25 @@ import { useState, useEffect } from 'react';
 const { REACT_APP_SERVER_URL } = process.env;
 
 const useQueryFetch = (querystr) => {
-    const [data, setData] = useState(null);
-    const [errors, setErrors] = useState(null);
+	const [data, setData] = useState(null);
+	const [errors, setErrors] = useState(null);
 
-    useEffect(() => {
-        window
-            .fetch(REACT_APP_SERVER_URL, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ query: querystr }),
-            })
-            .then((res) => res.json())
-            .then(({ data, errors }) =>
-                data ? setData(data) : setErrors(errors)
-            );
-    }, [querystr]);
+	useEffect(() => {
+		window
+			.fetch(REACT_APP_SERVER_URL, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({ query: querystr }),
+			})
+			.then((res) => res.json())
+			.then(({ data, errors }) =>
+				data ? setData(data) : setErrors(errors)
+			);
+	}, [querystr]);
 
-    return { data, errors };
+	return { data, errors };
 };
 
 export default useQueryFetch;

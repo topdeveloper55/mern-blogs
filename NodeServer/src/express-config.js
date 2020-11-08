@@ -9,8 +9,8 @@ require('dotenv').config();
 const url = `mongodb+srv://${process.env.CLUSTER_UNAME}:${process.env.CLUSTER_PSWD}@${process.env.CLUSTER_URL}/${process.env.DB_NAME}?retryWrites=true&w=majority`;
 
 mongoose
-    .connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(() => console.log('Connected to MongoDB Cloud...'));
+	.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
+	.then(() => console.log('Connected to MongoDB Cloud...'));
 
 app.use(bodyParser.json());
 app.use(express.json());
