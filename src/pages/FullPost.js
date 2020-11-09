@@ -18,7 +18,7 @@ import { QueryData } from '../graphql/QueryData';
 import AlertMsg from '../components/AlertMsg';
 import Header from '../components/Header';
 
-const FullPost = observer((Props) => {
+const FullPost = (Props) => {
 	const classes = useStyles();
 	const history = useHistory();
 	const user = rootStore.userStore.user;
@@ -117,7 +117,7 @@ const FullPost = observer((Props) => {
 			/>
 		</React.Fragment>
 	);
-});
+};
 
 const useStyles = makeStyles({
 	root: {
@@ -195,4 +195,4 @@ const styles = {
 		color: '#eb6734',
 	},
 };
-export default FullPost;
+export default observer(FullPost);

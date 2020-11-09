@@ -8,7 +8,7 @@ import { observer } from 'mobx-react';
 
 import rootStore from '../store';
 
-const Header = observer(() => {
+const Header = () => {
 	const history = useHistory();
 	const user = rootStore.userStore.user;
 	const [avatarURL] = useState(user.avatarURL);
@@ -23,8 +23,8 @@ const Header = observer(() => {
 	const fName = user.name.split(' ')[0];
 
 	const logOut = () => {
-		rootStore.userStore.user(null);
-		history.push('/');
+		rootStore.userStore.setUser(null);
+		history.replace('/');
 	};
 
 	const StyledMenu = withStyles({
@@ -52,7 +52,7 @@ const Header = observer(() => {
 			<div style={styles.subHeader}>
 				<div
 					style={{ ...styles.headerText, cursor: 'pointer' }}
-					onClick={() => history.push('/home')}
+					onClick={() => history.replace('/home')}
 				>
 					Great Posts from Great Authors
 				</div>
@@ -81,7 +81,7 @@ const Header = observer(() => {
 			</div>
 		</div>
 	);
-});
+};
 
 const styles = {
 	headerDiv: {
@@ -108,4 +108,4 @@ const styles = {
 	},
 };
 
-export default Header;
+export default observer(Header);

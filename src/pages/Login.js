@@ -11,7 +11,7 @@ import AlertMsg from '../components/AlertMsg';
 import { QueryData } from '../graphql/QueryData';
 import { userLogin } from '../graphql/queries';
 
-const Login = observer(() => {
+const Login = () => {
 	const history = useHistory();
 	const classes = useStyles();
 	const [email, setEmail] = useState(null);
@@ -89,7 +89,7 @@ const Login = observer(() => {
 			<AlertMsg title={errorText} open={openErr} severity={'error'} />
 		</div>
 	);
-});
+};
 
 const styles = {
 	container: {
@@ -135,4 +135,4 @@ const useStyles = makeStyles(() => ({
 	},
 }));
 
-export default Login;
+export default observer(Login);

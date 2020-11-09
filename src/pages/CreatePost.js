@@ -10,7 +10,7 @@ import AlertMsg from '../components/AlertMsg';
 import Header from '../components/Header';
 import rootStore from '../store';
 
-const CreatePost = observer(() => {
+const CreatePost = () => {
 	const user = rootStore.userStore.user;
 	const [author] = useState(user);
 	const [title, setTitle] = useState(null);
@@ -78,7 +78,7 @@ const CreatePost = observer(() => {
 			</div>
 		</React.Fragment>
 	);
-});
+};
 
 const styles = {
 	container: {
@@ -100,4 +100,4 @@ const styles = {
 	},
 };
 
-export default CreatePost;
+export default observer(CreatePost);
