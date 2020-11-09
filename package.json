@@ -13,6 +13,7 @@
     "concurrently": "^5.3.0",
     "gh-pages": "^3.1.0",
     "husky": "^4.3.0",
+    "jsonwebtoken": "^8.5.1",
     "lint-staged": "^10.4.0",
     "material-ui-password-field": "^2.1.2",
     "mobx": "^6.0.3",
@@ -56,6 +57,7 @@
   },
   "lint-staged": {
     "*.{js, jsx, ts, tsx, md, html}": [
+      "eslint --fix",
       "prettier --write"
     ]
   },

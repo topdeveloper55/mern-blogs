@@ -22,7 +22,8 @@ const FullPost = (Props) => {
 	const classes = useStyles();
 	const history = useHistory();
 	const user = rootStore.userStore.user;
-	const postObj = Props.history.location.state.record;
+	const postObj = Props.location.state.record;
+	
 	const [avatarURL] = useState(postObj.author.avatarURL);
 	const [open, setOpen] = React.useState(false);
 	const [alertOpen, setAlertOpen] = React.useState(false);
@@ -97,7 +98,7 @@ const FullPost = (Props) => {
 					</DialogTitle>
 					<DialogContent>
 						<DialogContentText id="alert-dialog-description">
-							It can't be undone
+							It can&apos;t be undone
 						</DialogContentText>
 					</DialogContent>
 					<DialogActions>

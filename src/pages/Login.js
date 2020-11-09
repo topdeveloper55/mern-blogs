@@ -32,8 +32,9 @@ const Login = () => {
 		};
 
 		const res = await QueryData(userLogin(reqBody));
-
+		console.log('resu ',res)
 		if (res.userLogin.status === 200) {
+			sessionStorage.setItem('accessToken',res.userLogin.data.accessToken);
 			rootStore.userStore.setUser(res.userLogin.data.result);
 			history.push('/home');
 		} else {

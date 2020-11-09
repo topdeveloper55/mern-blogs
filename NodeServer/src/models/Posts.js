@@ -13,3 +13,16 @@ const Post = new Schema({
 const Posts = mongoose.model('post', Post);
 
 module.exports = Posts;
+
+/*	You can use nanoid to generate unique IDs for posts or even objext keys for react, 
+	instead of using ObjectId.
+	https://www.npmjs.com/package/nanoid
+	
+	For mongoose - 
+		const mySchema = new Schema({
+  			_id: {
+    			type: String,
+    			default: () => nanoid()
+  			}
+		})
+*/ 

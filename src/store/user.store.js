@@ -1,10 +1,17 @@
 import { makeAutoObservable } from 'mobx';
+import * as JWT from 'jsonwebtoken';
 
 class UserStore {
 	user = null;
 
 	constructor() {
 		makeAutoObservable(this);
+		const token = sessionStorage.getItem('accessToken');
+		
+		if(token){
+			const decoded = JWT.verify(token, process.env.REACT_APP_JWT_SECRET);
+			this.setUser(decoded.data);
+		}
 	}
 
 	setUser(user) {
