@@ -7,8 +7,8 @@ class UserStore {
 	constructor() {
 		makeAutoObservable(this);
 		const token = sessionStorage.getItem('accessToken');
-		
-		if(token){
+
+		if (token) {
 			const decoded = JWT.verify(token, process.env.REACT_APP_JWT_SECRET);
 			this.setUser(decoded.data);
 		}

@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import Avatar from '@material-ui/core/Avatar';
-import TextField from '@material-ui/core/TextField';
-import PasswordField from 'material-ui-password-field';
 import * as Bcrypt from 'bcryptjs';
+import Avatar from '@material-ui/core/Avatar';
+import { IconButton, InputAdornment, TextField } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
+import VisibilityIcon from '@material-ui/icons/Visibility';
+import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import { useHistory } from 'react-router-dom';
 
 import AppBar from '../components/AppBar';
@@ -25,10 +25,20 @@ const SignUp = () => {
 	const [alertMsg, setAlertMsg] = useState(null);
 	const [open, setOpen] = React.useState(false);
 
+	const [showPassword, setShowPassword] = useState(false);
+	const handleClickShowPassword = () => setShowPassword(!showPassword);
+	const handleMouseDownPassword = () => setShowPassword(!showPassword);
+
 	const hashPswd = (pswd) => {
 		const salt = Bcrypt.genSaltSync(10);
 		const hash = Bcrypt.hashSync(pswd, salt);
 		return hash;
+	};
+
+	const onKeyDown = (event) => {
+		if (event.keyCode === 13) {
+			createAccount();
+		}
 	};
 
 	const createAccount = async () => {
@@ -87,6 +97,7 @@ const SignUp = () => {
 						<div style={styles.formField}>
 							<TextField
 								label="Name"
+								autoFocus='true'
 								value={name}
 								onChange={(event) =>
 									setName(event.target.value)
@@ -122,16 +133,37 @@ const SignUp = () => {
 						</div>
 
 						<div style={styles.formField}>
-							<PasswordField
-								hintText="At least 8 characters"
-								floatingLabelText="Enter your password"
-								errorText="Your password is too short"
+							<TextField
+								label="Enter Password"
 								className={classes.textField}
+								type={showPassword ? 'text' : 'password'}
 								value={password}
 								onChange={(event) =>
 									setPassword(event.target.value)
 								}
+								onKeyDown={(event) => onKeyDown(event)}
 								required
+								InputProps={{
+									endAdornment: (
+										<InputAdornment position="end">
+											<IconButton
+												aria-label="toggle password visibility"
+												onClick={
+													handleClickShowPassword
+												}
+												onMouseDown={
+													handleMouseDownPassword
+												}
+											>
+												{showPassword ? (
+													<VisibilityIcon />
+												) : (
+													<VisibilityOffIcon />
+												)}
+											</IconButton>
+										</InputAdornment>
+									),
+								}}
 							/>
 						</div>
 					</div>

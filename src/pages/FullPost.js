@@ -23,7 +23,7 @@ const FullPost = (Props) => {
 	const history = useHistory();
 	const user = rootStore.userStore.user;
 	const postObj = Props.location.state.record;
-	
+
 	const [avatarURL] = useState(postObj.author.avatarURL);
 	const [open, setOpen] = React.useState(false);
 	const [alertOpen, setAlertOpen] = React.useState(false);
