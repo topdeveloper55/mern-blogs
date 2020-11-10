@@ -33,9 +33,7 @@ const SignUp = () => {
 	const [open, setOpen] = React.useState(false);
 
 	const { register, handleSubmit, errors } = useForm();
-    const onSubmit = (data) => { 
-		createAccount(data);
-	}
+	const onSubmit = (data) => createAccount(data);
 
 	const [showPassword, setShowPassword] = useState(false);
 	const handleClickShowPassword = () => setShowPassword(!showPassword);
@@ -49,7 +47,7 @@ const SignUp = () => {
 
 	const onKeyDown = (event) => {
 		if (event.keyCode === 13) {
-			handleSubmit(onSubmit)
+			handleSubmit(onSubmit);
 		}
 	};
 
@@ -83,176 +81,191 @@ const SignUp = () => {
 		<React.Fragment>
 			<AppBar />
 			<div style={styles.container}>
-			<form onSubmit={handleSubmit(onSubmit)}>
-				<div style={styles.profile}>
-					<div style={styles.leftDiv}>
-						<div style={styles.inputDiv}>
-							<IconButton>
-								<Avatar
-									alt="Person Image"
-									src={avatarURL}
-									className={classes.large}
-								/>
-							</IconButton>
-						</div>
-						<div style={{ ...styles.inputDiv, marginTop: '30px' }}>
-							<div style={styles.fileIconDiv}>
-								<label htmlFor="upload-photo">
-									<AttachFileIcon
-										style={{ fontSize: 40, color: 'grey' }}
+				<form onSubmit={handleSubmit(onSubmit)}>
+					<div style={styles.profile}>
+						<div style={styles.leftDiv}>
+							<div style={styles.inputDiv}>
+								<IconButton>
+									<Avatar
+										alt="Person Image"
+										src={avatarURL}
+										className={classes.large}
 									/>
-								</label>
-								<input
-									className="inputfile"
-									type="file"
-									name="photo"
-									id="upload-photo"
-								/>
+								</IconButton>
 							</div>
 							<div
-								style={styles.fileIconDiv}
-								onClick={() => console.log('Google Drive')}
-							>
-								<GoogleDriveIcon
-									style={{ fontSize: 40 }}
-									viewBox="0 0 48 48"
-								/>
-							</div>
-							<div
-								style={styles.fileIconDiv}
-								onClick={() => console.log('Dropbox')}
-							>
-								<DropBoxIcon
-									style={{ fontSize: 40 }}
-									viewBox="0 0 48 48"
-								/>
-							</div>
-						</div>
-					</div>
-
-					<div style={styles.rightDiv}>
-						<div style={styles.formField}>
-							<TextField
-								label="Name"
-								autoFocus={true}
-								autoComplete="name"
-								name="personName"
-								inputRef={register({
-									required: {
-										value: true,
-										message: 'Please fill this field',
-									},
-									pattern: {
-										value: /^[a-zA-Z]{1}[a-zA-Z ,.'-]+$/i,
-										message: 'Please enter a valid name'
-									}
-								})}
-								error={errors?.personName ? true : false}
-                        		helperText={errors?.personName?.message}
-								className={classes.textField}
-							/>
-						</div>
-
-						<div style={styles.formField}>
-							<TextField
-								label="UserName"
-								autoComplete="username"
-								name="userName"
-								inputRef={register({
-									required: {
-										value: true,
-										message: 'Please fill this field',
-									},
-									pattern: {
-										value: /^[a-zA-Z0-9]+$/i,
-										message: 'Only alphabets & numbers allowed'
-									},
-									minLength: {
-										value: 3,
-										message: 'Minimum 3 chars reqd'
-									}
-								})}
-								error={errors?.userName ? true : false}
-                        		helperText={errors?.userName?.message}
-								className={classes.textField}
-							/>
-						</div>
-
-						<div style={styles.formField}>
-							<TextField
-								label="Email"
-								autoComplete="email"
-								name="email"
-								inputRef={register({
-									required: {
-										value: true,
-										message: 'Please fill this field',
-									},
-									pattern: {
-										value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-										message: 'Please enter a valid email'
-									}
-								})}
-								error={errors?.email ? true : false}
-                        		helperText={errors?.email?.message}
-								className={classes.textField}
-							/>
-						</div>
-
-						<div style={styles.formField}>
-							<TextField
-								label="Enter Password"
-								className={classes.textField}
-								type={showPassword ? 'text' : 'password'}
-								name="password"
-								inputRef={register({
-									required: {
-										value: true,
-										message: 'Please fill this field',
-									},
-									pattern: {
-										value: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/i,
-										message: 'Min 8 Chars, with 1 uppercase, lowercase, num and spl char'
-									}
-								})}
-								error={errors?.password ? true : false}
-                        		helperText={errors?.password?.message}
-								onKeyDown={(event) => onKeyDown(event)}
-								InputProps={{
-									endAdornment: (
-										<InputAdornment position="end">
-											<IconButton
-												aria-label="toggle password visibility"
-												onClick={
-													handleClickShowPassword
-												}
-												onMouseDown={
-													handleMouseDownPassword
-												}
-											>
-												{showPassword ? (
-													<VisibilityIcon />
-												) : (
-													<VisibilityOffIcon />
-												)}
-											</IconButton>
-										</InputAdornment>
-									),
+								style={{
+									...styles.inputDiv,
+									marginTop: '30px',
 								}}
-							/>
+							>
+								<div style={styles.fileIconDiv}>
+									<label htmlFor="upload-photo">
+										<AttachFileIcon
+											style={{
+												fontSize: 40,
+												color: 'grey',
+											}}
+										/>
+									</label>
+									<input
+										className="inputfile"
+										type="file"
+										name="photo"
+										id="upload-photo"
+									/>
+								</div>
+								<div
+									style={styles.fileIconDiv}
+									onClick={() => console.log('Google Drive')}
+								>
+									<GoogleDriveIcon
+										style={{ fontSize: 40 }}
+										viewBox="0 0 48 48"
+									/>
+								</div>
+								<div
+									style={styles.fileIconDiv}
+									onClick={() => console.log('Dropbox')}
+								>
+									<DropBoxIcon
+										style={{ fontSize: 40 }}
+										viewBox="0 0 48 48"
+									/>
+								</div>
+							</div>
+						</div>
+
+						<div style={styles.rightDiv}>
+							<div style={styles.formField}>
+								<TextField
+									label="Name"
+									autoFocus={true}
+									autoComplete="name"
+									name="personName"
+									inputRef={register({
+										required: {
+											value: true,
+											message: 'Please fill this field',
+										},
+										pattern: {
+											value: /^[a-zA-Z]{1}[a-zA-Z ,.'-]+$/i,
+											message:
+												'Please enter a valid name',
+										},
+									})}
+									error={errors?.personName ? true : false}
+									helperText={errors?.personName?.message}
+									onKeyDown={(event) => onKeyDown(event)}
+									className={classes.textField}
+								/>
+							</div>
+
+							<div style={styles.formField}>
+								<TextField
+									label="UserName"
+									autoComplete="username"
+									name="userName"
+									inputRef={register({
+										required: {
+											value: true,
+											message: 'Please fill this field',
+										},
+										pattern: {
+											value: /^[a-zA-Z0-9]+$/i,
+											message:
+												'Only alphabets & numbers allowed',
+										},
+										minLength: {
+											value: 3,
+											message: 'Minimum 3 chars reqd',
+										},
+									})}
+									error={errors?.userName ? true : false}
+									helperText={errors?.userName?.message}
+									onKeyDown={(event) => onKeyDown(event)}
+									className={classes.textField}
+								/>
+							</div>
+
+							<div style={styles.formField}>
+								<TextField
+									label="Email"
+									autoComplete="email"
+									name="email"
+									inputRef={register({
+										required: {
+											value: true,
+											message: 'Please fill this field',
+										},
+										pattern: {
+											value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+											message:
+												'Please enter a valid email',
+										},
+									})}
+									error={errors?.email ? true : false}
+									helperText={errors?.email?.message}
+									onKeyDown={(event) => onKeyDown(event)}
+									className={classes.textField}
+								/>
+							</div>
+
+							<div style={styles.formField}>
+								<TextField
+									label="Enter Password"
+									className={classes.textField}
+									type={showPassword ? 'text' : 'password'}
+									name="password"
+									inputRef={register({
+										required: {
+											value: true,
+											message: 'Please fill this field',
+										},
+										pattern: {
+											value: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/i,
+											message:
+												'Min 8 Chars, with 1 uppercase, lowercase, num and spl char',
+										},
+									})}
+									error={errors?.password ? true : false}
+									helperText={errors?.password?.message}
+									onKeyDown={(event) => onKeyDown(event)}
+									InputProps={{
+										endAdornment: (
+											<InputAdornment position="end">
+												<IconButton
+													aria-label="toggle password visibility"
+													onClick={
+														handleClickShowPassword
+													}
+													onMouseDown={
+														handleMouseDownPassword
+													}
+												>
+													{showPassword ? (
+														<VisibilityIcon />
+													) : (
+														<VisibilityOffIcon />
+													)}
+												</IconButton>
+											</InputAdornment>
+										),
+									}}
+								/>
+							</div>
 						</div>
 					</div>
-				</div>
-				<div style={styles.submitDiv}>
-					<Button
-						variant="contained"
-						color="primary"
-						type="submit"
-					>
-						Create Account
-					</Button>
-				</div>
-				</form> 
+					<div style={styles.submitDiv}>
+						<Button
+							variant="contained"
+							color="primary"
+							type="submit"
+						>
+							Create Account
+						</Button>
+					</div>
+				</form>
 			</div>
 			<AlertMsg title={alertMsg} open={open} severity={severity} />
 		</React.Fragment>
