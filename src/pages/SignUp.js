@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
 import * as Bcrypt from 'bcryptjs';
 import Avatar from '@material-ui/core/Avatar';
 import { IconButton, InputAdornment, TextField } from '@material-ui/core';
@@ -6,7 +8,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
-import { useHistory } from 'react-router-dom';
 import AttachFileIcon from '@material-ui/icons/AttachFile';
 
 import AppBar from '../components/AppBar';
@@ -26,13 +27,14 @@ const SignUp = () => {
 	const classes = useStyles();
 	const history = useHistory();
 	const [avatarURL] = useState('');
-	const [name, setName] = useState('');
-	const [userName, setUserName] = useState('');
-	const [email, setEmail] = useState('');
+
 	const [password, setPassword] = useState('');
 	const [severity, setSeverity] = React.useState('');
 	const [alertMsg, setAlertMsg] = useState('');
 	const [open, setOpen] = React.useState(false);
+
+	const { register, handleSubmit, errors } = useForm(); // can import watch
+    const onSubmit = (data) => console.log(data);
 
 	const [showPassword, setShowPassword] = useState(false);
 	const handleClickShowPassword = () => setShowPassword(!showPassword);
@@ -46,47 +48,42 @@ const SignUp = () => {
 
 	const onKeyDown = (event) => {
 		if (event.keyCode === 13) {
-			createAccount();
+			// createAccount();
 		}
 	};
 
-	const createAccount = async () => {
-		if (name === '' || userName === '' || email === '' || password === '') {
-			setAlertMsg('Please fill all the fields');
-			setSeverity('error');
-			setOpen(true);
-			return;
-		}
+	// const createAccount = async () => {
 
-		const hashedPswd = hashPswd(password);
-		const form = {
-			name: name,
-			userName: userName.toLowerCase(),
-			emailid: email.toLowerCase(),
-			pswd: hashedPswd,
-			avatar: avatarURL,
-		};
+	// 	const hashedPswd = hashPswd(password);
+	// 	const form = {
+	// 		name: name,
+	// 		userName: userName.toLowerCase(),
+	// 		emailid: email.toLowerCase(),
+	// 		pswd: hashedPswd,
+	// 		avatar: avatarURL,
+	// 	};
 
-		/* Check if email and userName are already taken. */
-		const res = await QueryData(beforeSignup(form));
+	// 	/* Check if email and userName are already taken. */
+	// 	const res = await QueryData(beforeSignup(form));
 
-		if (res.checkExisting.status === 200) {
-			QueryData(addUser(form));
-			setAlertMsg('Account Created');
-			setSeverity('success');
-			setOpen(true);
-			setTimeout(() => history.push('/login'), 3000);
-		} else {
-			setAlertMsg(res.checkExisting.message);
-			setSeverity('error');
-			setOpen(true);
-		}
-	};
+	// 	if (res.checkExisting.status === 200) {
+	// 		QueryData(addUser(form));
+	// 		setAlertMsg('Account Created');
+	// 		setSeverity('success');
+	// 		setOpen(true);
+	// 		setTimeout(() => history.push('/login'), 3000);
+	// 	} else {
+	// 		setAlertMsg(res.checkExisting.message);
+	// 		setSeverity('error');
+	// 		setOpen(true);
+	// 	}
+	// };
 
 	return (
 		<React.Fragment>
 			<AppBar />
 			<div style={styles.container}>
+			<form onSubmit={handleSubmit(onSubmit)}>
 				<div style={styles.profile}>
 					<div style={styles.leftDiv}>
 						<div style={styles.inputDiv}>
@@ -139,12 +136,20 @@ const SignUp = () => {
 								label="Name"
 								autoFocus={true}
 								autoComplete="name"
-								value={name}
-								onChange={(event) =>
-									setName(event.target.value)
-								}
+								name="personName"
+								inputRef={register({
+									required: {
+										value: true,
+										message: 'Please fill this field',
+									},
+									pattern: {
+										value: /^[a-zA-Z]{1}[a-zA-Z ,.'-]+$/i,
+										message: 'Please enter a valid name'
+									}
+								})}
+								error={errors?.personName ? true : false}
+                        		helperText={errors?.personName?.message}
 								className={classes.textField}
-								required
 							/>
 						</div>
 
@@ -152,26 +157,41 @@ const SignUp = () => {
 							<TextField
 								label="UserName"
 								autoComplete="username"
-								value={userName}
-								onChange={(event) =>
-									setUserName(event.target.value)
-								}
+								name="userName"
+								inputRef={register({
+									required: {
+										value: true,
+										message: 'Please fill this field',
+									},
+									pattern: {
+										value: /^[a-zA-Z0-9]+$/i,
+										message: 'Only alphabets & numbers allowed'
+									}
+								})}
+								error={errors?.userName ? true : false}
+                        		helperText={errors?.userName?.message}
 								className={classes.textField}
-								required
 							/>
 						</div>
 
 						<div style={styles.formField}>
 							<TextField
 								label="Email"
-								multiline
-								value={email}
 								autoComplete="email"
+								name="email"
+								inputRef={register({
+									required: {
+										value: true,
+										message: 'Please fill this field',
+									},
+									pattern: {
+										value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9_]+\\.[a-zA-Z]{2,4}$/i,
+										message: 'Please enter a valid email'
+									}
+								})}
+								error={errors?.email ? true : false}
+                        		helperText={errors?.email?.message}
 								className={classes.textField}
-								onChange={(event) =>
-									setEmail(event.target.value)
-								}
-								required
 							/>
 						</div>
 
@@ -180,12 +200,20 @@ const SignUp = () => {
 								label="Enter Password"
 								className={classes.textField}
 								type={showPassword ? 'text' : 'password'}
-								value={password}
-								onChange={(event) =>
-									setPassword(event.target.value)
-								}
+								name="password"
+								inputRef={register({
+									required: {
+										value: true,
+										message: 'Please fill this field',
+									},
+									pattern: {
+										value: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/i,
+										message: 'Min 8 Chars, with 1 uppercase, lowercase, num and spl char'
+									}
+								})}
+								error={errors?.password ? true : false}
+                        		helperText={errors?.password?.message}
 								onKeyDown={(event) => onKeyDown(event)}
-								required
 								InputProps={{
 									endAdornment: (
 										<InputAdornment position="end">
@@ -215,11 +243,12 @@ const SignUp = () => {
 					<Button
 						variant="contained"
 						color="primary"
-						onClick={() => createAccount()}
+						type="submit"
 					>
 						Create Account
 					</Button>
 				</div>
+				</form> 
 			</div>
 			<AlertMsg title={alertMsg} open={open} severity={severity} />
 		</React.Fragment>
