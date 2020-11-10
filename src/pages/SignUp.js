@@ -7,22 +7,31 @@ import Button from '@material-ui/core/Button';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import { useHistory } from 'react-router-dom';
+import AttachFileIcon from '@material-ui/icons/AttachFile';
 
 import AppBar from '../components/AppBar';
 import AlertMsg from '../components/AlertMsg';
 import { QueryData } from '../graphql/QueryData';
 import { addUser, beforeSignup } from '../graphql/queries';
+import { DropBoxIcon, GoogleDriveIcon } from '../assets/icons/Icons';
+import '../index.css';
+
+/*  Check this link to customize input tag 
+	https://tympanus.net/codrops/2015/09/15/styling-customizing-file-inputs-smart-way/ 
+	
+	Make sure viewBox of svg icons in <SvgIcon/> matches the viewBox in .svg file 
+*/
 
 const SignUp = () => {
 	const classes = useStyles();
 	const history = useHistory();
-	const [avatarURL] = useState(null);
-	const [name, setName] = useState(null);
-	const [userName, setUserName] = useState(null);
-	const [email, setEmail] = useState(null);
-	const [password, setPassword] = useState(null);
-	const [severity, setSeverity] = React.useState(null);
-	const [alertMsg, setAlertMsg] = useState(null);
+	const [avatarURL] = useState('');
+	const [name, setName] = useState('');
+	const [userName, setUserName] = useState('');
+	const [email, setEmail] = useState('');
+	const [password, setPassword] = useState('');
+	const [severity, setSeverity] = React.useState('');
+	const [alertMsg, setAlertMsg] = useState('');
 	const [open, setOpen] = React.useState(false);
 
 	const [showPassword, setShowPassword] = useState(false);
@@ -42,12 +51,7 @@ const SignUp = () => {
 	};
 
 	const createAccount = async () => {
-		if (
-			name === null ||
-			userName === null ||
-			email === null ||
-			password === null
-		) {
+		if (name === '' || userName === '' || email === '' || password === '') {
 			setAlertMsg('Please fill all the fields');
 			setSeverity('error');
 			setOpen(true);
@@ -85,19 +89,56 @@ const SignUp = () => {
 			<div style={styles.container}>
 				<div style={styles.profile}>
 					<div style={styles.leftDiv}>
-						<IconButton>
-							<Avatar
-								alt="Person Image"
-								src={avatarURL}
-								className={classes.large}
-							/>
-						</IconButton>
+						<div style={styles.inputDiv}>
+							<IconButton>
+								<Avatar
+									alt="Person Image"
+									src={avatarURL}
+									className={classes.large}
+								/>
+							</IconButton>
+						</div>
+						<div style={{ ...styles.inputDiv, marginTop: '30px' }}>
+							<div style={styles.fileIconDiv}>
+								<label htmlFor="upload-photo">
+									<AttachFileIcon
+										style={{ fontSize: 40, color: 'grey' }}
+									/>
+								</label>
+								<input
+									className="inputfile"
+									type="file"
+									name="photo"
+									id="upload-photo"
+								/>
+							</div>
+							<div
+								style={styles.fileIconDiv}
+								onClick={() => console.log('Google Drive')}
+							>
+								<GoogleDriveIcon
+									style={{ fontSize: 40 }}
+									viewBox="0 0 48 48"
+								/>
+							</div>
+							<div
+								style={styles.fileIconDiv}
+								onClick={() => console.log('Dropbox')}
+							>
+								<DropBoxIcon
+									style={{ fontSize: 40 }}
+									viewBox="0 0 48 48"
+								/>
+							</div>
+						</div>
 					</div>
+
 					<div style={styles.rightDiv}>
 						<div style={styles.formField}>
 							<TextField
 								label="Name"
-								autoFocus='true'
+								autoFocus={true}
+								autoComplete="name"
 								value={name}
 								onChange={(event) =>
 									setName(event.target.value)
@@ -110,6 +151,7 @@ const SignUp = () => {
 						<div style={styles.formField}>
 							<TextField
 								label="UserName"
+								autoComplete="username"
 								value={userName}
 								onChange={(event) =>
 									setUserName(event.target.value)
@@ -124,6 +166,7 @@ const SignUp = () => {
 								label="Email"
 								multiline
 								value={email}
+								autoComplete="email"
 								className={classes.textField}
 								onChange={(event) =>
 									setEmail(event.target.value)
@@ -197,7 +240,17 @@ const styles = {
 	leftDiv: {
 		flex: 0.4,
 		display: 'flex',
+		flexDirection: 'column',
 		justifyContent: 'center',
+	},
+	inputDiv: {
+		display: 'flex',
+		justifyContent: 'center',
+	},
+	fileIconDiv: {
+		marginRight: '20px',
+		padding: '5px',
+		cursor: 'pointer',
 	},
 	rightDiv: {
 		flex: 0.6,

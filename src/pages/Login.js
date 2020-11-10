@@ -15,9 +15,9 @@ import { userLogin } from '../graphql/queries';
 const Login = () => {
 	const history = useHistory();
 	const classes = useStyles();
-	const [email, setEmail] = useState(null);
-	const [password, setPassword] = useState(null);
-	const [errorText, setErrorText] = useState(null);
+	const [email, setEmail] = useState('');
+	const [password, setPassword] = useState('');
+	const [errorText, setErrorText] = useState('');
 	const [openErr, setErrOpen] = React.useState(false);
 
 	const [showPassword, setShowPassword] = useState(false);
@@ -31,7 +31,7 @@ const Login = () => {
 	};
 
 	const SignIn = async () => {
-		if (email === null || password === null) {
+		if (email === '' || password === '') {
 			setErrorText('Please fill all fields');
 			setErrOpen(true);
 			return;
@@ -73,7 +73,7 @@ const Login = () => {
 				<div style={styles.formField}>
 					<TextField
 						label="Email"
-						autoFocus='true'
+						autoFocus={true}
 						value={email}
 						className={classes.textField}
 						onChange={(event) => setEmail(event.target.value)}
