@@ -28,13 +28,14 @@ const SignUp = () => {
 	const history = useHistory();
 	const [avatarURL] = useState('');
 
-	const [password, setPassword] = useState('');
 	const [severity, setSeverity] = React.useState('');
 	const [alertMsg, setAlertMsg] = useState('');
 	const [open, setOpen] = React.useState(false);
 
-	const { register, handleSubmit, errors } = useForm(); // can import watch
-    const onSubmit = (data) => console.log(data);
+	const { register, handleSubmit, errors } = useForm();
+    const onSubmit = (data) => { 
+		createAccount(data);
+	}
 
 	const [showPassword, setShowPassword] = useState(false);
 	const handleClickShowPassword = () => setShowPassword(!showPassword);
@@ -48,36 +49,35 @@ const SignUp = () => {
 
 	const onKeyDown = (event) => {
 		if (event.keyCode === 13) {
-			// createAccount();
+			handleSubmit(onSubmit)
 		}
 	};
 
-	// const createAccount = async () => {
+	const createAccount = async (data) => {
+		const hashedPswd = hashPswd(data.password);
+		const form = {
+			name: data.personName,
+			userName: data.userName.toLowerCase(),
+			emailid: data.email.toLowerCase(),
+			pswd: hashedPswd,
+			avatar: avatarURL,
+		};
 
-	// 	const hashedPswd = hashPswd(password);
-	// 	const form = {
-	// 		name: name,
-	// 		userName: userName.toLowerCase(),
-	// 		emailid: email.toLowerCase(),
-	// 		pswd: hashedPswd,
-	// 		avatar: avatarURL,
-	// 	};
+		/* Check if email and userName are already taken. */
+		const res = await QueryData(beforeSignup(form));
 
-	// 	/* Check if email and userName are already taken. */
-	// 	const res = await QueryData(beforeSignup(form));
-
-	// 	if (res.checkExisting.status === 200) {
-	// 		QueryData(addUser(form));
-	// 		setAlertMsg('Account Created');
-	// 		setSeverity('success');
-	// 		setOpen(true);
-	// 		setTimeout(() => history.push('/login'), 3000);
-	// 	} else {
-	// 		setAlertMsg(res.checkExisting.message);
-	// 		setSeverity('error');
-	// 		setOpen(true);
-	// 	}
-	// };
+		if (res.checkExisting.status === 200) {
+			QueryData(addUser(form));
+			setAlertMsg('Account Created');
+			setSeverity('success');
+			setOpen(true);
+			setTimeout(() => history.push('/login'), 3000);
+		} else {
+			setAlertMsg(res.checkExisting.message);
+			setSeverity('error');
+			setOpen(true);
+		}
+	};
 
 	return (
 		<React.Fragment>
@@ -166,6 +166,10 @@ const SignUp = () => {
 									pattern: {
 										value: /^[a-zA-Z0-9]+$/i,
 										message: 'Only alphabets & numbers allowed'
+									},
+									minLength: {
+										value: 3,
+										message: 'Minimum 3 chars reqd'
 									}
 								})}
 								error={errors?.userName ? true : false}
@@ -185,7 +189,7 @@ const SignUp = () => {
 										message: 'Please fill this field',
 									},
 									pattern: {
-										value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9_]+\\.[a-zA-Z]{2,4}$/i,
+										value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
 										message: 'Please enter a valid email'
 									}
 								})}
