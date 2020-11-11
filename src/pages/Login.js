@@ -2,9 +2,12 @@ import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { observer } from 'mobx-react';
+import { makeStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import { IconButton, InputAdornment, TextField } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 
@@ -55,20 +58,27 @@ const Login = () => {
 	};
 
 	return (
-		<div style={styles.container}>
-			<div>
-				<img
-					src={require('../assets/images/blog2.jpg')}
-					alt="cover"
-					style={styles.image}
-				/>
-			</div>
-			<div style={styles.rightDiv}>
-				<p style={styles.loginText}>
+		<div className={classes.root}>
+			<form onSubmit={handleSubmit(onSubmit)}>
+			<Grid container>
+				<Grid item sm={7}>
+					<Box display={{ xs: 'none', sm: 'block' }}>
+						<Paper className={classes.leftColumn}>
+							<img
+								src={require('../assets/images/blog2.jpg')}
+								alt="cover"
+								style={styles.image}
+							/>
+						</Paper>
+					</Box>
+				</Grid>
+				<Grid item xs={12} sm={5}>
+					<Paper>
+						<div style={styles.rightColumn}>
+						<p style={styles.loginText}>
 					Log in to see the latest updates...
 				</p>
-				<form onSubmit={handleSubmit(onSubmit)}>
-					<div style={styles.formField}>
+						<div style={styles.formField}>
 						<TextField
 							label="Email"
 							autoFocus={true}
@@ -127,44 +137,44 @@ const Login = () => {
 							}}
 						/>
 					</div>
+					
 					<div style={styles.btnDiv}>
 						<Button style={styles.btn} type="submit">
 							SIGN IN
 						</Button>
 					</div>
-					<div>
+					<div >
 						New User ? <Link to="/signup"> SignUp</Link>
 					</div>
-				</form>
-				<AlertMsg title={errorText} open={openErr} severity={'error'} />
-			</div>
+					<AlertMsg title={errorText} open={openErr} severity={'error'} />
+					
+						</div>
+					</Paper>
+				</Grid>
+			</Grid>
+			</form>
 		</div>
 	);
 };
 
 const styles = {
-	container: {
-		display: 'flex',
-		width: '100vw',
-		height: '100vh',
-		backgroundColor: '#ffffff',
-	},
 	image: {
 		width: '60vw',
 		height: '100vh',
 	},
-	rightDiv: {
+	rightColumn: {
 		display: 'flex',
 		flexDirection: 'column',
-		alignSelf: 'center',
-		marginLeft: '8%',
+		justifyContent: 'center',
+		height: '100vh',
+		alignItems: 'center',
 	},
 	btnDiv: {
-		marginBottom: 40,
+		marginBottom: 20,
 	},
 	btn: {
 		width: 200,
-		height: 50,
+		height: 40,
 		borderRadius: 5,
 		backgroundColor: '#3f51b5',
 		color: '#ffffff',
@@ -173,15 +183,26 @@ const styles = {
 		marginBottom: 40,
 	},
 	loginText: {
+		display: 'flex',
+		justifyContent: 'center',
+		paddingLeft: 35,
 		fontSize: 25,
 		fontWeight: '400',
 		color: '#3f51b5',
+		marginBottom: 40
 	},
 };
 
 const useStyles = makeStyles(() => ({
+	// root: {
+	// 	flexGrow: 1,
+	// },
+	leftColumn: {
+		width: '100%',
+		height: '100vh',
+	},
 	textField: {
-		width: 300,
+		width: 250,
 		height: 40,
 	},
 }));
