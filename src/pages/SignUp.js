@@ -81,12 +81,13 @@ const SignUp = () => {
 
 	return (
 		<div className={classes.root}>
-			<Grid container>
-				<Grid item xs={12}>
-					<AppBar/>
-				</Grid>
-				<Grid item xs={12} sm={6}>
-				<div style={styles.leftDiv}>
+			<form onSubmit={handleSubmit(onSubmit)}>
+				<Grid container>
+					<Grid item xs={12}>
+						<AppBar />
+					</Grid>
+					<Grid item xs={12} sm={6}>
+						<div style={styles.leftDiv}>
 							<div style={styles.inputDiv}>
 								<IconButton>
 									<Avatar
@@ -138,11 +139,10 @@ const SignUp = () => {
 								</div>
 							</div>
 						</div>
-				</Grid>
+					</Grid>
 
-				<Grid item item xs={12} sm={6}>
-				<form onSubmit={handleSubmit(onSubmit)}>
-					<div style={styles.rightDiv}>
+					<Grid item item xs={12} sm={6}>
+						<div style={styles.rightDiv}>
 							<div style={styles.formField}>
 								<TextField
 									label="Name"
@@ -260,30 +260,31 @@ const SignUp = () => {
 									}}
 								/>
 							</div>
-							<div style={styles.submitDiv}>
-						<Button
-							variant="contained"
-							color="primary"
-							type="submit"
-						>
-							Create Account
-						</Button>
-					</div>
 						</div>
-				</form>
+					</Grid>
+					<Grid item xs={12}>
+						<div style={styles.submitDiv}>
+							<Button
+								variant="contained"
+								color="primary"
+								type="submit"
+							>
+								Create Account
+							</Button>
+							<AlertMsg
+								title={alertMsg}
+								open={open}
+								severity={severity}
+							/>
+						</div>
+					</Grid>
 				</Grid>
-			</Grid>
+			</form>
 		</div>
 	);
 };
 
 const styles = {
-	container: {
-		padding: '20px',
-		paddingTop: '60px',
-		display: 'flex',
-		flexDirection: 'column',
-	},
 	leftDiv: {
 		marginTop: 30,
 		display: 'flex',
@@ -300,21 +301,24 @@ const styles = {
 		cursor: 'pointer',
 	},
 	rightDiv: {
+		paddingTop: 30,
+		paddingBottom: 30,
 		marginTop: 30,
 		display: 'flex',
 		alignItems: 'center',
 		flexDirection: 'column',
-		paddingBottom: 30
 	},
 	avatar: {
-		width: '200',
-		height: '200',
+		width: '100%',
+		height: '100%',
 	},
 	formField: {
-		marginBottom: '40px',
+		marginBottom: '45px',
 	},
 	submitDiv: {
-		paddingTop: 30
+		display: 'flex',
+		justifyContent: 'center',
+		paddingBottom: 30,
 	},
 };
 

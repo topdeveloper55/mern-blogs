@@ -15,14 +15,14 @@ const CoverScreen = () => {
 		<div className={classes.root}>
 			<Grid container>
 				<Grid item sm={7}>
-				<Box display={{ xs: 'none', sm: 'block' }}>
-					<Paper className={classes.leftColumn}>
-						<img
-							src={require('../assets/images/blog_cover.png')}
-							alt="cover"
-							style={styles.image}
-						/>
-					</Paper>
+					<Box display={{ xs: 'none', sm: 'block' }}>
+						<Paper className={classes.leftColumn}>
+							<img
+								src={require('../assets/images/blog_cover.png')}
+								alt="cover"
+								style={styles.image}
+							/>
+						</Paper>
 					</Box>
 				</Grid>
 				<Grid item xs={12} sm={5}>
