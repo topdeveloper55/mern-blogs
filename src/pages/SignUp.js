@@ -5,6 +5,8 @@ import * as Bcrypt from 'bcryptjs';
 import Avatar from '@material-ui/core/Avatar';
 import { IconButton, InputAdornment, TextField } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
@@ -78,12 +80,13 @@ const SignUp = () => {
 	};
 
 	return (
-		<React.Fragment>
-			<AppBar />
-			<div style={styles.container}>
-				<form onSubmit={handleSubmit(onSubmit)}>
-					<div style={styles.profile}>
-						<div style={styles.leftDiv}>
+		<div className={classes.root}>
+			<Grid container>
+				<Grid item xs={12}>
+					<AppBar/>
+				</Grid>
+				<Grid item xs={12} sm={6}>
+				<div style={styles.leftDiv}>
 							<div style={styles.inputDiv}>
 								<IconButton>
 									<Avatar
@@ -135,8 +138,11 @@ const SignUp = () => {
 								</div>
 							</div>
 						</div>
+				</Grid>
 
-						<div style={styles.rightDiv}>
+				<Grid item item xs={12} sm={6}>
+				<form onSubmit={handleSubmit(onSubmit)}>
+					<div style={styles.rightDiv}>
 							<div style={styles.formField}>
 								<TextField
 									label="Name"
@@ -254,9 +260,7 @@ const SignUp = () => {
 									}}
 								/>
 							</div>
-						</div>
-					</div>
-					<div style={styles.submitDiv}>
+							<div style={styles.submitDiv}>
 						<Button
 							variant="contained"
 							color="primary"
@@ -265,10 +269,11 @@ const SignUp = () => {
 							Create Account
 						</Button>
 					</div>
+						</div>
 				</form>
-			</div>
-			<AlertMsg title={alertMsg} open={open} severity={severity} />
-		</React.Fragment>
+				</Grid>
+			</Grid>
+		</div>
 	);
 };
 
@@ -279,12 +284,8 @@ const styles = {
 		display: 'flex',
 		flexDirection: 'column',
 	},
-	profile: {
-		display: 'flex',
-		flexDirection: 'row',
-	},
 	leftDiv: {
-		flex: 0.4,
+		marginTop: 30,
 		display: 'flex',
 		flexDirection: 'column',
 		justifyContent: 'center',
@@ -299,10 +300,11 @@ const styles = {
 		cursor: 'pointer',
 	},
 	rightDiv: {
-		flex: 0.6,
+		marginTop: 30,
 		display: 'flex',
-		justifyContent: 'flex-start',
+		alignItems: 'center',
 		flexDirection: 'column',
+		paddingBottom: 30
 	},
 	avatar: {
 		width: '200',
@@ -312,19 +314,20 @@ const styles = {
 		marginBottom: '40px',
 	},
 	submitDiv: {
-		paddingTop: 30,
-		display: 'flex',
-		justifyContent: 'center',
+		paddingTop: 30
 	},
 };
 
 const useStyles = makeStyles((theme) => ({
+	root: {
+		flexGrow: 1,
+	},
 	large: {
 		width: theme.spacing(30),
 		height: theme.spacing(30),
 	},
 	textField: {
-		width: 400,
+		width: '250px',
 		height: 40,
 	},
 }));
