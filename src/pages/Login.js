@@ -16,7 +16,7 @@ import { userLogin } from '../graphql/queries';
 const Login = () => {
 	const history = useHistory();
 	const classes = useStyles();
-	
+
 	const { register, handleSubmit, errors } = useForm();
 	const onSubmit = (data) => SignIn(data);
 
@@ -101,7 +101,7 @@ const Login = () => {
 								required: {
 									value: true,
 									message: 'Please fill this field',
-								}
+								},
 							})}
 							error={errors?.password ? true : false}
 							helperText={errors?.password?.message}
@@ -128,7 +128,7 @@ const Login = () => {
 						/>
 					</div>
 					<div style={styles.btnDiv}>
-						<Button style={styles.btn} type='submit'>
+						<Button style={styles.btn} type="submit">
 							SIGN IN
 						</Button>
 					</div>
