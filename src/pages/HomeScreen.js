@@ -15,40 +15,7 @@ const HomeScreen = () => {
 		return <div> Error in Fetching Data </div>;
 	}
 	return (
-		<React.Fragment>
-			<Header />
-			<div style={styles.container}>
-				<div style={styles.postsDiv}>
-					{data ? (
-						data.posts.map((record) => (
-							<div
-								key={record.slug}
-								style={styles.cardDiv}
-								onClick={() =>
-									history.push({
-										pathname: `/@${record.author.userName}/${record.slug}`,
-										state: { record },
-									})
-								}
-							>
-								<Posts postobj={record} />
-							</div>
-						))
-					) : (
-						<div> Data Loading or server down...</div>
-					)}
-				</div>
-				<div style={styles.fab}>
-					<Fab
-						color="primary"
-						aria-label="add"
-						onClick={() => history.push('/newpost')}
-					>
-						<AddIcon />
-					</Fab>
-				</div>
-			</div>
-		</React.Fragment>
+		<p>ff</p>
 	);
 };
 

@@ -26,8 +26,11 @@ const CoverScreen = () => {
 					</Box>
 				</Grid>
 				<Grid item xs={12} sm={5}>
-					<Paper>
+					<Paper className={classes.rightColumn}>
 						<div style={styles.rightColumn}>
+						<div style={styles.headerText}>
+							Welcome
+						</div>
 							<div style={styles.btnDiv}>
 								<Button
 									style={styles.btn}
@@ -60,16 +63,22 @@ const useStyles = makeStyles((theme) => ({
 		width: '100%',
 		height: '100vh',
 	},
-}));
-
-const styles = {
 	rightColumn: {
+		height: '100vh',
+		backgroundColor: '#3f51b5',
+		borderRadius: 0,
 		display: 'flex',
 		flexDirection: 'column',
 		justifyContent: 'center',
-		backgroundColor: '#3f51b5',
-		height: '100vh',
 		alignItems: 'center',
+	}
+}));
+
+const styles = {
+	headerText: {
+		color: 'salmon',
+		fontSize: 30,
+		marginBottom: 50
 	},
 	image: {
 		width: '100%',
@@ -80,9 +89,10 @@ const styles = {
 	},
 	btn: {
 		width: '100%',
-		height: '125%',
+		height: '100%',
 		minWidth: '200px',
-		minHeight: '50',
+		minHeight: 40,
+		maxHeight: 60,
 		fontSize: 25,
 		borderRadius: 5,
 		backgroundColor: '#ffffff',
