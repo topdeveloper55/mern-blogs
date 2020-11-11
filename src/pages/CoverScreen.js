@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
+import Box from '@material-ui/core/Box';
 
 const CoverScreen = () => {
 	const history = useHistory();
@@ -13,7 +14,8 @@ const CoverScreen = () => {
 	return (
 		<div className={classes.root}>
 			<Grid container>
-				<Grid item xs={0} sm={8}>
+				<Grid item sm={7}>
+				<Box display={{ xs: 'none', sm: 'block' }}>
 					<Paper className={classes.leftColumn}>
 						<img
 							src={require('../assets/images/blog_cover.png')}
@@ -21,8 +23,9 @@ const CoverScreen = () => {
 							style={styles.image}
 						/>
 					</Paper>
+					</Box>
 				</Grid>
-				<Grid item xs={12} sm={4}>
+				<Grid item xs={12} sm={5}>
 					<Paper>
 						<div style={styles.rightColumn}>
 							<div style={styles.btnDiv}>
@@ -76,9 +79,9 @@ const styles = {
 		marginBottom: 50,
 	},
 	btn: {
-		width: '10vw',
-		minWidth: '60px',
+		width: '200px',
 		height: 50,
+		fontSize: 20,
 		borderRadius: 5,
 		backgroundColor: '#ffffff',
 		color: '#3f51b5',
