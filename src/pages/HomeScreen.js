@@ -1,21 +1,30 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
+import { makeStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
+
 import useQueryFetch from '../hooks/useQueryFetch';
 import { getAllPosts } from '../graphql/queries';
 import Posts from '../components/Posts';
-import { useHistory } from 'react-router-dom';
-import Fab from '@material-ui/core/Fab';
-import AddIcon from '@material-ui/icons/Add';
 import Header from '../components/Header';
 
 const HomeScreen = () => {
 	const { data, errors } = useQueryFetch(getAllPosts());
 	const history = useHistory();
+	const classes = useStyles();
 
 	if (errors) {
 		return <div> Error in Fetching Data </div>;
 	}
 	return (
-		<p>ff</p>
+		<div className={classes.root}>
+			<Header />
+			<div style={styles.container}>
+				<Grid container></Grid>
+			</div>
+		</div>
 	);
 };
 
@@ -51,4 +60,11 @@ const styles = {
 		right: 40,
 	},
 };
+
+const useStyles = makeStyles((theme) => ({
+	root: {
+		flexGrow: 1,
+	},
+}));
+
 export default HomeScreen;

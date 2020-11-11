@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { observer } from 'mobx-react';
+import { makeStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
 import Avatar from '@material-ui/core/Avatar';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import { withStyles } from '@material-ui/core/styles';
-import { observer } from 'mobx-react';
 
 import rootStore from '../store';
 
@@ -49,36 +52,47 @@ const Header = () => {
 
 	return (
 		<div style={styles.headerDiv}>
-			<div style={styles.subHeader}>
-				<div
-					style={{ ...styles.headerText, cursor: 'pointer' }}
-					onClick={() => history.replace('/home')}
-				>
-					Great Posts from Great Authors
-				</div>
-			</div>
-			<div style={{ ...styles.subHeader, justifyContent: 'flex-end' }}>
-				<div style={{ ...styles.headerText, marginRight: 30 }}>
-					Hi {fName}
-				</div>
-				<Avatar
-					alt="User DP"
-					src={avatarURL}
-					className={styles.Avatar}
-					onClick={handleClick}
-				/>
-				<StyledMenu
-					anchorEl={anchorEl}
-					keepMounted
-					open={Boolean(anchorEl)}
-					onClose={handleClose}
-				>
-					{/* <MenuItem onClick={() => history.push('')}>
-                        Profile
-                    </MenuItem> */}
-					<MenuItem onClick={() => logOut()}>Logout</MenuItem>
-				</StyledMenu>
-			</div>
+			<Grid container>
+				<Grid item sm={8}>
+					<Box display={{ xs: 'none', sm: 'block' }}>
+						<div style={styles.subHeader}>
+							<div
+								style={{
+									...styles.headerText,
+									cursor: 'pointer',
+								}}
+								onClick={() => history.replace('/home')}
+							>
+								Great Posts from Great Authors
+							</div>
+						</div>
+					</Box>
+				</Grid>
+
+				<Grid item xs={12} sm={4}>
+					<div style={styles.subHeader}>
+						<div style={styles.headerText}>Hi {fName}</div>
+						<div style={{ flex: 0.1 }}>
+							<Avatar
+								alt="User DP"
+								src={avatarURL}
+								className={styles.Avatar}
+								onClick={handleClick}
+							/>
+							<StyledMenu
+								anchorEl={anchorEl}
+								keepMounted
+								open={Boolean(anchorEl)}
+								onClose={handleClose}
+							>
+								<MenuItem onClick={() => logOut()}>
+									Logout
+								</MenuItem>
+							</StyledMenu>
+						</div>
+					</div>
+				</Grid>
+			</Grid>
 		</div>
 	);
 };
@@ -96,12 +110,11 @@ const styles = {
 	},
 	subHeader: {
 		display: 'flex',
-		justifyContent: 'flex-start',
-		flex: 0.5,
 		paddingLeft: 20,
 		paddingRight: 20,
 	},
 	headerText: {
+		flex: 0.9,
 		color: '#ffffff',
 		fontSize: 25,
 		fontWeight: 'bolder',

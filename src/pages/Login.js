@@ -60,98 +60,108 @@ const Login = () => {
 	return (
 		<div className={classes.root}>
 			<form onSubmit={handleSubmit(onSubmit)}>
-			<Grid container>
-				<Grid item sm={7}>
-					<Box display={{ xs: 'none', sm: 'block' }}>
-						<Paper className={classes.leftColumn}>
-							<img
-								src={require('../assets/images/blog2.jpg')}
-								alt="cover"
-								style={styles.image}
-							/>
-						</Paper>
-					</Box>
-				</Grid>
-				<Grid item xs={12} sm={5}>
-					<Paper>
-						<div style={styles.rightColumn}>
-						<p style={styles.loginText}>
-					Log in to see the latest updates...
-				</p>
-						<div style={styles.formField}>
-						<TextField
-							label="Email"
-							autoFocus={true}
-							autoComplete="email"
-							name="email"
-							inputRef={register({
-								required: {
-									value: true,
-									message: 'Please fill this field',
-								},
-								pattern: {
-									value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-									message: 'Please enter a valid email',
-								},
-							})}
-							error={errors?.email ? true : false}
-							helperText={errors?.email?.message}
-							className={classes.textField}
-							onKeyDown={(event) => onKeyDown(event)}
-						/>
-					</div>
+				<Grid container>
+					<Grid item sm={7}>
+						<Box display={{ xs: 'none', sm: 'block' }}>
+							<Paper className={classes.leftColumn}>
+								<img
+									src={require('../assets/images/blog2.jpg')}
+									alt="cover"
+									style={styles.image}
+								/>
+							</Paper>
+						</Box>
+					</Grid>
+					<Grid item xs={12} sm={5}>
+						<Paper>
+							<div style={styles.rightColumn}>
+								<p style={styles.loginText}>
+									Log in to see the latest updates...
+								</p>
+								<div style={styles.formField}>
+									<TextField
+										label="Email"
+										autoFocus={true}
+										autoComplete="email"
+										name="email"
+										inputRef={register({
+											required: {
+												value: true,
+												message:
+													'Please fill this field',
+											},
+											pattern: {
+												value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+												message:
+													'Please enter a valid email',
+											},
+										})}
+										error={errors?.email ? true : false}
+										helperText={errors?.email?.message}
+										className={classes.textField}
+										onKeyDown={(event) => onKeyDown(event)}
+									/>
+								</div>
 
-					<div style={styles.formField}>
-						<TextField
-							label="Enter Password"
-							className={classes.textField}
-							type={showPassword ? 'text' : 'password'}
-							name="password"
-							inputRef={register({
-								required: {
-									value: true,
-									message: 'Please fill this field',
-								},
-							})}
-							error={errors?.password ? true : false}
-							helperText={errors?.password?.message}
-							onKeyDown={(event) => onKeyDown(event)}
-							InputProps={{
-								endAdornment: (
-									<InputAdornment position="end">
-										<IconButton
-											aria-label="toggle password visibility"
-											onClick={handleClickShowPassword}
-											onMouseDown={
-												handleMouseDownPassword
-											}
-										>
-											{showPassword ? (
-												<VisibilityIcon />
-											) : (
-												<VisibilityOffIcon />
-											)}
-										</IconButton>
-									</InputAdornment>
-								),
-							}}
-						/>
-					</div>
-					
-					<div style={styles.btnDiv}>
-						<Button style={styles.btn} type="submit">
-							SIGN IN
-						</Button>
-					</div>
-					<div >
-						New User ? <Link to="/signup"> SignUp</Link>
-					</div>
-					<AlertMsg title={errorText} open={openErr} severity={'error'} />
-					
-						</div>
-					</Paper>
+								<div style={styles.formField}>
+									<TextField
+										label="Enter Password"
+										className={classes.textField}
+										type={
+											showPassword ? 'text' : 'password'
+										}
+										name="password"
+										inputRef={register({
+											required: {
+												value: true,
+												message:
+													'Please fill this field',
+											},
+										})}
+										error={errors?.password ? true : false}
+										helperText={errors?.password?.message}
+										onKeyDown={(event) => onKeyDown(event)}
+										InputProps={{
+											endAdornment: (
+												<InputAdornment position="end">
+													<IconButton
+														aria-label="toggle password visibility"
+														onClick={
+															handleClickShowPassword
+														}
+														onMouseDown={
+															handleMouseDownPassword
+														}
+													>
+														{showPassword ? (
+															<VisibilityIcon />
+														) : (
+															<VisibilityOffIcon />
+														)}
+													</IconButton>
+												</InputAdornment>
+											),
+										}}
+									/>
+								</div>
+
+								<div style={styles.btnDiv}>
+									<Button style={styles.btn} type="submit">
+										SIGN IN
+									</Button>
+								</div>
+								<div>
+									New User ? <Link to="/signup"> SignUp</Link>
+								</div>
+								<AlertMsg
+									title={errorText}
+									open={openErr}
+									severity={'error'}
+								/>
+							</div>
+						</Paper>
+					</Grid>
 				</Grid>
-			</Grid>
 			</form>
 		</div>
 	);
@@ -189,7 +199,7 @@ const styles = {
 		fontSize: 25,
 		fontWeight: '400',
 		color: '#3f51b5',
-		marginBottom: 40
+		marginBottom: 40,
 	},
 };
 

@@ -28,9 +28,7 @@ const CoverScreen = () => {
 				<Grid item xs={12} sm={5}>
 					<Paper className={classes.rightColumn}>
 						<div style={styles.rightColumn}>
-						<div style={styles.headerText}>
-							Welcome
-						</div>
+							<div style={styles.headerText}>Welcome</div>
 							<div style={styles.btnDiv}>
 								<Button
 									style={styles.btn}
@@ -71,14 +69,14 @@ const useStyles = makeStyles((theme) => ({
 		flexDirection: 'column',
 		justifyContent: 'center',
 		alignItems: 'center',
-	}
+	},
 }));
 
 const styles = {
 	headerText: {
 		color: 'salmon',
 		fontSize: 30,
-		marginBottom: 50
+		marginBottom: 50,
 	},
 	image: {
 		width: '100%',
