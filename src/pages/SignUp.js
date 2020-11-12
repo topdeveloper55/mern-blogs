@@ -16,6 +16,7 @@ import AlertMsg from '../components/AlertMsg';
 import { QueryData } from '../graphql/QueryData';
 import { addUser, beforeSignup } from '../graphql/queries';
 import { DropBoxIcon, GoogleDriveIcon } from '../assets/icons/Icons';
+import API from '../utils/AxiosApi';
 import '../index.css';
 
 /*  Check this link to customize input tag 
@@ -53,13 +54,24 @@ const SignUp = () => {
 	};
 
 	const createAccount = async (data) => {
+		let dp = '';
+		if(data.photo.length > 0){	
+			const formData = new FormData();
+			formData.append('file', data.photo[0]);
+			formData.append('upload_preset', `${process.env.REACT_APP_CLOUD_UPLOAD_PRESET}`);
+			dp = await API.post('image/upload', formData);
+		}
+		else {
+			console.log(' no img uploaded');
+		}
+
 		const hashedPswd = hashPswd(data.password);
 		const form = {
 			name: data.personName,
 			userName: data.userName.toLowerCase(),
 			emailid: data.email.toLowerCase(),
 			pswd: hashedPswd,
-			avatar: avatarURL,
+			avatar: dp.data.secure_url,
 		};
 
 		/* Check if email and userName are already taken. */
@@ -71,7 +83,8 @@ const SignUp = () => {
 			setSeverity('success');
 			setOpen(true);
 			setTimeout(() => history.push('/login'), 3000);
-		} else {
+		} 
+		else {
 			setAlertMsg(res.checkExisting.message);
 			setSeverity('error');
 			setOpen(true);
@@ -80,7 +93,7 @@ const SignUp = () => {
 
 	return (
 		<div className={classes.root}>
-			<form onSubmit={handleSubmit(onSubmit)}>
+			<form onSubmit={handleSubmit(onSubmit)} method="post" encType="multipart/form-data">
 				<Grid container>
 					<Grid item xs={12}>
 						<AppBar />
@@ -116,6 +129,8 @@ const SignUp = () => {
 										type="file"
 										name="photo"
 										id="upload-photo"
+										accept=".jpg,.jpeg,.png"
+										ref={register}
 									/>
 								</div>
 								<div

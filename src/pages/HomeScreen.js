@@ -4,7 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 
-import useQueryFetch from '../hooks/useQueryFetch';
+import useQueryFetch from '../utils/useQueryFetch';
 import { getAllPosts } from '../graphql/queries';
 import Posts from '../components/Posts';
 import Header from '../components/Header';
