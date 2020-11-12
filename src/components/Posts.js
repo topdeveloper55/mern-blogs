@@ -58,7 +58,7 @@ const useStyles = makeStyles({
 		fontSize: 18,
 		fontWeight: 600,
 		color: '#28302a',
-	}
+	},
 });
 
 export default Posts;

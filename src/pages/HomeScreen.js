@@ -22,38 +22,40 @@ const HomeScreen = () => {
 				<Header />
 			</Grid>
 			<div style={styles.postsDiv}>
-			{data ? (
-				data.posts.map((record) => (
-					<Grid item xs={12} sm={6}>
-						<div
-							key={record.slug}
-							style={styles.cardDiv}
-							onClick={() =>
-								history.push({
-									pathname: `/@${record.author.userName}/${record.slug}`,
-									state: { record },
-								})
-							}
-						>
-							<Posts postobj={record} />
-						</div>
-					</Grid>
-				))
-			) : (
-				<Grid item xs={12} md={6}>
-					<div> Data Loading or server down...</div>
+				<Grid container>
+					{data ? (
+						data.posts.map((record) => (
+							<Grid item xs={6}>
+								<div
+									key={record.slug}
+									style={styles.cardDiv}
+									onClick={() =>
+										history.push({
+											pathname: `/@${record.author.userName}/${record.slug}`,
+											state: { record },
+										})
+									}
+								>
+									<Posts postobj={record} />
+								</div>
+							</Grid>
+						))
+					) : (
+						<Grid item xs={12} md={6}>
+							<div> Data Loading or server down...</div>
+						</Grid>
+					)}
 				</Grid>
-			)}
 			</div>
 			<div style={styles.fab}>
-					<Fab
-						color="primary"
-						aria-label="add"
-						onClick={() => history.push('/newpost')}
-					>
-						<AddIcon />
-					</Fab>
-				</div>
+				<Fab
+					color="primary"
+					aria-label="add"
+					onClick={() => history.push('/newpost')}
+				>
+					<AddIcon />
+				</Fab>
+			</div>
 		</Grid>
 	);
 };
@@ -66,24 +68,23 @@ const styles = {
 		overflowY: 'auto',
 	},
 	postsDiv: {
-		marginLeft: '15vw',
-		marginRight: '15vw',
-		width: '70vw',
+		marginTop: '13vh',
+		marginLeft: '2vw',
+		marginRight: '2vw',
 		padding: 0,
-		marginBottom: '2%',
-		backgroundColor: 'salmon'
+		marginBottom: '1%',
 	},
 	cardDiv: {
 		cursor: 'pointer',
-	},
-	Avatar: {
-		width: 30,
-		height: 30,
+		paddingLeft: 20,
+		paddingRight: 20,
+		paddingTop: 10,
+		paddingBottom: 10,
 	},
 	fab: {
 		position: 'fixed',
-		bottom: '8vw',
-		right: '4vw',
+		bottom: '4%',
+		right: '4%',
 	},
 };
 
