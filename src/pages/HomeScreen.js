@@ -25,7 +25,7 @@ const HomeScreen = () => {
 				<Grid container>
 					{data ? (
 						data.posts.map((record) => (
-							<Grid item xs={6}>
+							<Grid item xs={12} sm={6} md={4}>
 								<div
 									key={record.slug}
 									style={styles.cardDiv}
