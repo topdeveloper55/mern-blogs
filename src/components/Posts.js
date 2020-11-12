@@ -54,19 +54,11 @@ const useStyles = makeStyles({
 		width: '100%',
 		marginBottom: 20,
 	},
-	bullet: {
-		display: 'inline-block',
-		margin: '0 2px',
-		transform: 'scale(0.8)',
-	},
 	title: {
 		fontSize: 18,
 		fontWeight: 600,
 		color: '#28302a',
-	},
-	pos: {
-		marginBottom: 12,
-	},
+	}
 });
 
 export default Posts;

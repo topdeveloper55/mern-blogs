@@ -21,7 +21,7 @@ const HomeScreen = () => {
 			<Grid item xs={12}>
 				<Header />
 			</Grid>
-			{/* <div style={styles.postsDiv}> */}
+			<div style={styles.postsDiv}>
 			{data ? (
 				data.posts.map((record) => (
 					<Grid item xs={12} sm={6}>
@@ -40,11 +40,20 @@ const HomeScreen = () => {
 					</Grid>
 				))
 			) : (
-				<Grid item xs={12} sm={6}>
+				<Grid item xs={12} md={6}>
 					<div> Data Loading or server down...</div>
 				</Grid>
 			)}
-			{/* </div> */}
+			</div>
+			<div style={styles.fab}>
+					<Fab
+						color="primary"
+						aria-label="add"
+						onClick={() => history.push('/newpost')}
+					>
+						<AddIcon />
+					</Fab>
+				</div>
 		</Grid>
 	);
 };
@@ -57,14 +66,14 @@ const styles = {
 		overflowY: 'auto',
 	},
 	postsDiv: {
-		// paddingLeft: '10%',
-		// paddingRight: '10%',
-		// paddingBottom: '2%',
+		marginLeft: '15vw',
+		marginRight: '15vw',
+		width: '70vw',
+		padding: 0,
+		marginBottom: '2%',
+		backgroundColor: 'salmon'
 	},
 	cardDiv: {
-		width: '90%',
-		paddingLeft: 20,
-		paddingRight: 20,
 		cursor: 'pointer',
 	},
 	Avatar: {
@@ -73,8 +82,8 @@ const styles = {
 	},
 	fab: {
 		position: 'fixed',
-		bottom: 40,
-		right: 40,
+		bottom: '8vw',
+		right: '4vw',
 	},
 };
 
