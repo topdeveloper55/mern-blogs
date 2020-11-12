@@ -72,24 +72,20 @@ const Header = () => {
 				<Grid item xs={12} sm={4}>
 					<div style={styles.subHeader}>
 						<div style={styles.headerText}>Hi {fName}</div>
-						<div style={{ flex: 0.1 }}>
-							<Avatar
-								alt="User DP"
-								src={avatarURL}
-								className={styles.Avatar}
-								onClick={handleClick}
-							/>
-							<StyledMenu
-								anchorEl={anchorEl}
-								keepMounted
-								open={Boolean(anchorEl)}
-								onClose={handleClose}
-							>
-								<MenuItem onClick={() => logOut()}>
-									Logout
-								</MenuItem>
-							</StyledMenu>
-						</div>
+						<Avatar
+							alt="User DP"
+							src={avatarURL}
+							className={styles.Avatar}
+							onClick={handleClick}
+						/>
+						<StyledMenu
+							anchorEl={anchorEl}
+							keepMounted
+							open={Boolean(anchorEl)}
+							onClose={handleClose}
+						>
+							<MenuItem onClick={() => logOut()}>Logout</MenuItem>
+						</StyledMenu>
 					</div>
 				</Grid>
 			</Grid>
@@ -112,12 +108,13 @@ const styles = {
 		display: 'flex',
 		paddingLeft: 20,
 		paddingRight: 20,
+		justifyContent: 'flex-end',
 	},
 	headerText: {
-		flex: 0.9,
 		color: '#ffffff',
 		fontSize: 25,
 		fontWeight: 'bolder',
+		marginRight: 20,
 	},
 };
 

@@ -1,6 +1,5 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
@@ -13,41 +12,59 @@ import Header from '../components/Header';
 const HomeScreen = () => {
 	const { data, errors } = useQueryFetch(getAllPosts());
 	const history = useHistory();
-	const classes = useStyles();
 
 	if (errors) {
 		return <div> Error in Fetching Data </div>;
 	}
 	return (
-		<div className={classes.root}>
-			<Header />
-			<div style={styles.container}>
-				<Grid container></Grid>
-			</div>
-		</div>
+		<Grid container style={styles.root}>
+			<Grid item xs={12}>
+				<Header />
+			</Grid>
+			{/* <div style={styles.postsDiv}> */}
+			{data ? (
+				data.posts.map((record) => (
+					<Grid item xs={12} sm={6}>
+						<div
+							key={record.slug}
+							style={styles.cardDiv}
+							onClick={() =>
+								history.push({
+									pathname: `/@${record.author.userName}/${record.slug}`,
+									state: { record },
+								})
+							}
+						>
+							<Posts postobj={record} />
+						</div>
+					</Grid>
+				))
+			) : (
+				<Grid item xs={12} sm={6}>
+					<div> Data Loading or server down...</div>
+				</Grid>
+			)}
+			{/* </div> */}
+		</Grid>
 	);
 };
 
 const styles = {
-	container: {
-		marginTop: '10vh',
-		display: 'flex',
-		flexDirection: 'column',
-		alignItems: 'center',
+	root: {
+		height: '100vh',
 		backgroundImage: `url(${require('../assets/images/pageCover.jpg')})`,
-		height: '90vh',
+		backgroundSize: '100% 100%', //image size for bg
+		overflowY: 'auto',
 	},
 	postsDiv: {
-		display: 'flex',
-		flexWrap: 'wrap',
-		justifyContent: 'space-around',
-		paddingTop: 40,
-		paddingBottom: 40,
-		overflowY: 'auto',
-		width: '100vw',
+		// paddingLeft: '10%',
+		// paddingRight: '10%',
+		// paddingBottom: '2%',
 	},
 	cardDiv: {
-		flex: 0.33,
+		width: '90%',
+		paddingLeft: 20,
+		paddingRight: 20,
 		cursor: 'pointer',
 	},
 	Avatar: {
@@ -60,11 +77,5 @@ const styles = {
 		right: 40,
 	},
 };
-
-const useStyles = makeStyles((theme) => ({
-	root: {
-		flexGrow: 1,
-	},
-}));
 
 export default HomeScreen;

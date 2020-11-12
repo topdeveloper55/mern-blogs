@@ -51,10 +51,8 @@ const styles = {
 
 const useStyles = makeStyles({
 	root: {
-		width: 500,
+		width: '100%',
 		marginBottom: 20,
-		marginLeft: 40,
-		marginRight: 130,
 	},
 	bullet: {
 		display: 'inline-block',
