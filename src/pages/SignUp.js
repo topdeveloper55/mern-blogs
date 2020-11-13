@@ -11,6 +11,7 @@ import VisibilityIcon from '@material-ui/icons/Visibility';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import AttachFileIcon from '@material-ui/icons/AttachFile';
 
+// import { loadPicker } from '../utils/GoogleDrive';
 import AppBar from '../components/AppBar';
 import AlertMsg from '../components/AlertMsg';
 import { QueryData } from '../graphql/QueryData';
@@ -135,7 +136,7 @@ const SignUp = () => {
 								</div>
 								<div
 									style={styles.fileIconDiv}
-									onClick={() => console.log('Google Drive')}
+									onClick={() => console.log('Drive')}
 								>
 									<GoogleDriveIcon
 										style={{ fontSize: 40 }}
