@@ -13,8 +13,8 @@ import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 
 import rootStore from '../store';
 import AlertMsg from '../components/AlertMsg';
-import { QueryData } from '../graphql/QueryData';
 import { userLogin } from '../graphql/queries';
+import { client } from '../graphql/ApolloGQL';
 
 const Login = () => {
 	const history = useHistory();
@@ -36,13 +36,13 @@ const Login = () => {
 		}
 	};
 
-	const SignIn = async (data) => {
+	const SignIn = async (form) => {
 		const reqBody = {
-			email: data.email.toLowerCase(),
-			password: data.password,
+			email: form.email.toLowerCase(),
+			password: form.password,
 		};
 
-		const res = await QueryData(userLogin(reqBody));
+		const res = await client.query({ query: userLogin(reqBody) });
 
 		if (res.userLogin.status === 200) {
 			sessionStorage.setItem(

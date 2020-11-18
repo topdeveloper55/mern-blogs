@@ -56,13 +56,15 @@ const SignUp = () => {
 
 	const createAccount = async (data) => {
 		let dp = '';
-		if(data.photo.length > 0){	
+		if (data.photo.length > 0) {
 			const formData = new FormData();
 			formData.append('file', data.photo[0]);
-			formData.append('upload_preset', `${process.env.REACT_APP_CLOUD_UPLOAD_PRESET}`);
+			formData.append(
+				'upload_preset',
+				`${process.env.REACT_APP_CLOUD_UPLOAD_PRESET}`
+			);
 			dp = await API.post('image/upload', formData);
-		}
-		else {
+		} else {
 			console.log(' no img uploaded');
 		}
 
@@ -84,8 +86,7 @@ const SignUp = () => {
 			setSeverity('success');
 			setOpen(true);
 			setTimeout(() => history.push('/login'), 3000);
-		} 
-		else {
+		} else {
 			setAlertMsg(res.checkExisting.message);
 			setSeverity('error');
 			setOpen(true);
@@ -94,7 +95,11 @@ const SignUp = () => {
 
 	return (
 		<div className={classes.root}>
-			<form onSubmit={handleSubmit(onSubmit)} method="post" encType="multipart/form-data">
+			<form
+				onSubmit={handleSubmit(onSubmit)}
+				method="post"
+				encType="multipart/form-data"
+			>
 				<Grid container>
 					<Grid item xs={12}>
 						<AppBar />

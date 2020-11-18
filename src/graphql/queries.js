@@ -51,20 +51,20 @@ export const deletePost = (id) => {
 
 export const getAllPosts = () => {
 	return gql`
-        query {
-            posts {
-                title
-                slug
-                text
-                createdDate
-                _id
-                author{
-                    name
-                    userName
-                    avatarURL
-                    email
-                }
-            }
-        }
-    `;
+		query {
+			posts {
+				title
+				slug
+				text
+				createdDate
+				_id
+				author {
+					name
+					userName
+					avatarURL
+					email
+				}
+			}
+		}
+	`;
 };

@@ -7,9 +7,9 @@ import { ApolloProvider } from '@apollo/client';
 import { client } from './graphql/ApolloGQL';
 
 const FinalApp = () => (
-    <ApolloProvider client={client}>
-        <App/>
-    </ApolloProvider>
+	<ApolloProvider client={client}>
+		<App />
+	</ApolloProvider>
 );
 
 ReactDOM.render(<FinalApp />, document.getElementById('root'));
