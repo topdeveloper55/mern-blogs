@@ -1,5 +1,7 @@
+import { gql } from '@apollo/client';
+
 export const beforeSignup = (form) => {
-	return `
+	return gql`
         query{
             checkExisting(userName:"${form.userName}",email:"${form.emailid}")
         }
@@ -7,7 +9,7 @@ export const beforeSignup = (form) => {
 };
 
 export const addUser = (form) => {
-	return `
+	return gql`
         mutation {
         addUser(name:"${form.name}",userName:"${form.userName}",email:"${form.emailid}",password:"${form.pswd}",
             avatarURL:"${form.avatar}"){
@@ -19,7 +21,7 @@ export const addUser = (form) => {
 };
 
 export const userLogin = (form) => {
-	return `
+	return gql`
         query{
             userLogin(email:"${form.email}",password:"${form.password}")
         }
@@ -27,7 +29,7 @@ export const userLogin = (form) => {
 };
 
 export const createPost = (form) => {
-	return `
+	return gql`
         mutation {
         createPost(title:"${form.title}",text:"${form.text}",authorEmail:"${form.author.email}"){
             title
@@ -40,7 +42,7 @@ export const createPost = (form) => {
 };
 
 export const deletePost = (id) => {
-	return `
+	return gql`
         mutation {
             deletePost(id:"${id}")
         }
@@ -48,7 +50,7 @@ export const deletePost = (id) => {
 };
 
 export const getAllPosts = () => {
-	return `
+	return gql`
         query {
             posts {
                 title
