@@ -13,15 +13,15 @@ import rootStore from '../store';
 const CreatePost = () => {
 	const user = rootStore.userStore.user;
 	const [author] = useState(user);
-	const [title, setTitle] = useState(null);
-	const [text, changeText] = useState(null);
-	const [alertmsg, setAlertMsg] = useState(null);
-	const [status, setStatus] = useState(null);
+	const [title, setTitle] = useState('');
+	const [text, changeText] = useState('');
+	const [alertmsg, setAlertMsg] = useState('');
+	const [status, setStatus] = useState('');
 	const [open, setOpen] = React.useState(false);
 	const history = useHistory();
 
 	const newPost = () => {
-		if (title === null || text === null) {
+		if (title === '' || text === '') {
 			setAlertMsg('Please fill all fields');
 			setStatus('error');
 			setOpen(true);

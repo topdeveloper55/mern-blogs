@@ -56,7 +56,7 @@ const SignUp = () => {
 
 	const setAvatarPic = (event) => {
 		console.log(event.target.files);
-	}
+	};
 
 	const createAccount = async (data) => {
 		let dp = '';
@@ -142,7 +142,9 @@ const SignUp = () => {
 										id="upload-photo"
 										accept=".jpg,.jpeg,.png"
 										ref={register}
-										onChange={(event) => setAvatarPic(event)}
+										onChange={(event) =>
+											setAvatarPic(event)
+										}
 									/>
 								</div>
 								<div

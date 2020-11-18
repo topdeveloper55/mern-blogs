@@ -14,7 +14,7 @@ import { observer } from 'mobx-react';
 
 import rootStore from '../store';
 import { deletePost } from '../graphql/queries';
-import { QueryData } from '../graphql/QueryData';
+import { client } from '../graphql/ApolloGQL';
 import AlertMsg from '../components/AlertMsg';
 import Header from '../components/Header';
 
@@ -48,7 +48,7 @@ const FullPost = (Props) => {
 	};
 
 	const deleteQuery = () => {
-		QueryData(deletePost(postObj._id));
+		client.mutate({ mutation: deletePost(postObj._id) });
 		setOpen(false);
 		setAlertOpen(true);
 		setTimeout(() => history.goBack(), 3000);

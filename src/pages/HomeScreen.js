@@ -10,7 +10,10 @@ import Posts from '../components/Posts';
 import Header from '../components/Header';
 
 const HomeScreen = () => {
-	const { loading, error, data } = useQuery(getAllPosts());
+	/* pollInterval means after how many millisecs will it rerun the query */
+	const { loading, error, data } = useQuery(getAllPosts(), {
+		pollInterval: 1000,
+	});
 	const history = useHistory();
 
 	if (loading || !data) return <div>Fetching Data... </div>;
