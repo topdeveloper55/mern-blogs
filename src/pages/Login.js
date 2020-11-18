@@ -44,15 +44,15 @@ const Login = () => {
 
 		const res = await client.query({ query: userLogin(reqBody) });
 
-		if (res.userLogin.status === 200) {
+		if (res.data.userLogin.status === 200) {
 			sessionStorage.setItem(
 				'accessToken',
-				res.userLogin.data.accessToken
+				res.data.userLogin.data.accessToken
 			);
-			rootStore.userStore.setUser(res.userLogin.data.result);
+			rootStore.userStore.setUser(res.data.userLogin.data.result);
 			history.push('/home');
 		} else {
-			setErrorText(res.userLogin.message);
+			setErrorText(res.data.userLogin.message);
 			setErrOpen(true);
 		}
 	};

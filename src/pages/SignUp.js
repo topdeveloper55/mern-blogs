@@ -161,7 +161,7 @@ const SignUp = () => {
 						</div>
 					</Grid>
 
-					<Grid item item xs={12} sm={6}>
+					<Grid item xs={12} sm={6}>
 						<div style={styles.rightDiv}>
 							<div style={styles.formField}>
 								<TextField

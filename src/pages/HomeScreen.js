@@ -1,21 +1,23 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
+import { useQuery } from '@apollo/client';
 import Grid from '@material-ui/core/Grid';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 
-import useQueryFetch from '../utils/useQueryFetch';
 import { getAllPosts } from '../graphql/queries';
 import Posts from '../components/Posts';
 import Header from '../components/Header';
 
 const HomeScreen = () => {
-	const { data, errors } = useQueryFetch(getAllPosts());
+	const { loading, error, data } = useQuery(getAllPosts());
 	const history = useHistory();
 
-	if (errors) {
+	if (loading || !data) return <div>Fetching Data... </div>;
+	if (error) {
 		return <div> Error in Fetching Data </div>;
 	}
+
 	return (
 		<Grid container style={styles.root}>
 			<Grid item xs={12}>
@@ -25,9 +27,8 @@ const HomeScreen = () => {
 				<Grid container>
 					{data ? (
 						data.posts.map((record) => (
-							<Grid item xs={12} sm={6} md={4}>
+							<Grid item xs={12} sm={6} md={4} key={record.slug}>
 								<div
-									key={record.slug}
 									style={styles.cardDiv}
 									onClick={() =>
 										history.push({
