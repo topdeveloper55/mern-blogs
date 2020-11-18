@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom';
 import { observer } from 'mobx-react';
 
 import { createPost } from '../graphql/queries';
-import { QueryData } from '../graphql/QueryData';
+import { client } from '../graphql/ApolloGQL';
 import AlertMsg from '../components/AlertMsg';
 import Header from '../components/Header';
 import rootStore from '../store';
@@ -34,7 +34,7 @@ const CreatePost = () => {
 			author: author,
 		};
 
-		QueryData(createPost(form));
+		client.mutate({ mutation: createPost(form) });
 		setAlertMsg('Your Post has been Shared');
 		setStatus('success');
 		setOpen(true);

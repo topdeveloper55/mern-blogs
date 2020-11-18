@@ -14,7 +14,7 @@ import AttachFileIcon from '@material-ui/icons/AttachFile';
 // import { loadPicker } from '../utils/GoogleDrive';
 import AppBar from '../components/AppBar';
 import AlertMsg from '../components/AlertMsg';
-import { QueryData } from '../graphql/QueryData';
+import { client } from '../graphql/ApolloGQL';
 import { addUser, beforeSignup } from '../graphql/queries';
 import { DropBoxIcon, GoogleDriveIcon } from '../assets/icons/Icons';
 import API from '../utils/AxiosApi';
@@ -29,7 +29,7 @@ import '../index.css';
 const SignUp = () => {
 	const classes = useStyles();
 	const history = useHistory();
-	const [avatarURL] = useState('');
+	const [avatarURL, setAvatarURL] = useState('');
 
 	const [severity, setSeverity] = React.useState('');
 	const [alertMsg, setAlertMsg] = useState('');
@@ -54,6 +54,10 @@ const SignUp = () => {
 		}
 	};
 
+	const setAvatarPic = (event) => {
+		console.log(event.target.files);
+	}
+
 	const createAccount = async (data) => {
 		let dp = '';
 		if (data.photo.length > 0) {
@@ -64,6 +68,7 @@ const SignUp = () => {
 				`${process.env.REACT_APP_CLOUD_UPLOAD_PRESET}`
 			);
 			dp = await API.post('image/upload', formData);
+			setAvatarURL(dp.data.secure_url);
 		} else {
 			console.log(' no img uploaded');
 		}
@@ -78,16 +83,16 @@ const SignUp = () => {
 		};
 
 		/* Check if email and userName are already taken. */
-		const res = await QueryData(beforeSignup(form));
+		const res = await client.query({ query: beforeSignup(form) });
 
-		if (res.checkExisting.status === 200) {
-			QueryData(addUser(form));
+		if (res.data.checkExisting.status === 200) {
+			client.mutate({ mutation: addUser(form) });
 			setAlertMsg('Account Created');
 			setSeverity('success');
 			setOpen(true);
 			setTimeout(() => history.push('/login'), 3000);
 		} else {
-			setAlertMsg(res.checkExisting.message);
+			setAlertMsg(res.data.checkExisting.message);
 			setSeverity('error');
 			setOpen(true);
 		}
@@ -137,6 +142,7 @@ const SignUp = () => {
 										id="upload-photo"
 										accept=".jpg,.jpeg,.png"
 										ref={register}
+										onChange={(event) => setAvatarPic(event)}
 									/>
 								</div>
 								<div
