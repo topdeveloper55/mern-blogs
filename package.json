@@ -1,10 +1,11 @@
 {
     "author": "Nishant Kohli",
     "private":true,
+    "name": "sdblog",
     "workspaces": ["packages/*"],
     "scripts": {
         "client": "cd packages\\react && yarn start",
         "node-server": "cd packages\\node-server && yarn start",
-        "start": "concurrently \"npm run node-server\" \"npm run client\""
+        "start": "concurrently --kill-others-on-fail \"yarn node-server\" \"yarn client\""
     }
 }
