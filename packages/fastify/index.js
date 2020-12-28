@@ -2,6 +2,7 @@ require('dotenv').config();
 
 const Fastify = require('fastify');
 const dbConnector = require('./src/plugins/connectdb');
+const gqlServer = require('@sdblog/graphql/gqlFastify');
 
 async function build() {
 	const fastify = Fastify({
@@ -15,7 +16,11 @@ async function build() {
 
 	await fastify.register(require('middie'));
 	fastify.register(require('fastify-cors'), {});
-	fastify.register(dbConnector);
+	// fastify.register(dbConnector);
+	mongoose
+		.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
+		.then(() => console.log('Connected to MongoDB Cloud...'));
+	fastify.register(gqlServer.createHandler());
 
 	return fastify;
 }
