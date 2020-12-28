@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch, BrowserRouter } from 'react-router-dom';
+import { Route, Switch, BrowserRouter, Redirect } from 'react-router-dom';
 import { observer } from 'mobx-react';
 
 import rootStore from './store';
@@ -36,8 +36,7 @@ function App() {
 						path="/newpost"
 						component={CreatePost}
 					/>
-					{/* <Route path='/404' component={PageNotFound} />
-                    <Redirect to='/404' /> */}
+                    <Redirect to='/' />
 				</Switch>
 			</BrowserRouter>
 		</div>

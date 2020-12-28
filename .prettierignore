@@ -1,17 +1,18 @@
-NodeServer/node_modules
-NodeServer/package.json
-NodeServer/package-lock.json
 
-public
-build
-src/logo.svg
-src/assets
+packages/react/public
+packages/react/build
+packages/react/src/logo.svg
+packages/react/src/assets
+packages/react/.env
 
-.env
+packages/node-server/.env
+
+
 .eslintrc.json
 .gitignore
 .prettierignore
 .prettierrc
+
 package.json
 README.md
 package-lock.json
