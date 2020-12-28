@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const app = express();
-const gqlServer = require('./graphql/graphqlServer');
+const gqlServer = require('@sdblog/graphql/graphqlServer');
 require('dotenv').config();
 
 const url = `mongodb+srv://${process.env.CLUSTER_UNAME}:${process.env.CLUSTER_PSWD}@${process.env.CLUSTER_URL}/${process.env.DB_NAME}?retryWrites=true&w=majority`;

@@ -17,12 +17,8 @@
 	},
 	"dependencies": {
 		"@sdblog/entity": "^1.0.0",
-		"apollo-server-express": "^2.18.2",
-		"bcryptjs": "^2.4.3",
+		"@sdblog/graphql": "^1.0.0",
 		"cors": "^2.8.5",
-		"jsonwebtoken": "^8.5.1",
-		"moment": "^2.29.1",
-		"mongoose": "^5.10.9",
-		"slugify": "^1.4.5"
+		"mongoose": "^5.10.9"
 	}
 }

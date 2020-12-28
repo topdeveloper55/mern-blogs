@@ -1,0 +1,18 @@
+{
+	"name": "@sdblog/graphql",
+	"version": "1.0.0",
+	"description": "",
+	"author": "Nishant Kohli",
+	"license": "ISC",
+	"dependencies": {
+		"@sdblog/entity": "^1.0.0",
+		"apollo-server-express": "^2.18.2",
+		"bcryptjs": "^2.4.3",
+		"jsonwebtoken": "^8.5.1",
+		"moment": "^2.29.1",
+		"slugify": "^1.4.5"
+	},
+	"devDependencies": {
+		"dotenv": "^8.2.0"
+	}
+}

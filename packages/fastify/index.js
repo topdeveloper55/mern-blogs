@@ -1,7 +1,7 @@
-require('module-alias/register');
 require('dotenv').config();
 
 const Fastify = require('fastify');
+const dbConnector = require('./src/plugins/connectdb');
 
 async function build() {
 	const fastify = Fastify({
@@ -15,7 +15,7 @@ async function build() {
 
 	await fastify.register(require('middie'));
 	fastify.register(require('fastify-cors'), {});
-	// fastify.register(require('./src/plugins/mongo'));
+	fastify.register(dbConnector);
 
 	return fastify;
 }

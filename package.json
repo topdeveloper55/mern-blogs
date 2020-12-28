@@ -7,9 +7,9 @@
 		"packages/*"
 	],
 	"scripts": {
-		"start": "concurrently --kill-others-on-fail \"yarn server-express\" \"yarn client-react\"",
-		"client-react": "cd packages\\client-react && yarn start",
-		"server-express": "cd packages\\server-express && yarn start",
-		"server-fastify": "cd packages\\server-fastify && yarn start"
+		"start": "concurrently --kill-others-on-fail \"yarn express\" \"yarn react\"",
+		"react": "cd packages\\react && yarn start",
+		"express": "cd packages\\express && yarn start",
+		"fastify": "cd packages\\fastify && yarn start"
 	}
 }
