@@ -36,7 +36,7 @@ function App() {
 						path="/newpost"
 						component={CreatePost}
 					/>
-                    <Redirect to='/' />
+					<Redirect to="/" />
 				</Switch>
 			</BrowserRouter>
 		</div>

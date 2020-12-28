@@ -1,0 +1,27 @@
+{
+	"name": "@sdblog/fastify",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"start": "nodemon index.js",
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"keywords": [],
+	"author": "Nishant Kohli",
+	"license": "ISC",
+	"dependencies": {
+		"fastify": "^3.9.2",
+		"fastify-cors": "^5.1.0",
+		"fastify-mongodb": "^2.0.1",
+		"fastify-plugin": "^3.0.0",
+		"make-promises-safe": "^5.1.0",
+		"middie": "^5.2.0",
+		"module-alias": "^2.2.2",
+		"pino-pretty": "^4.3.0"
+	},
+	"devDependencies": {
+		"dotenv": "^8.2.0",
+		"nodemon": "^2.0.4"
+	}
+}

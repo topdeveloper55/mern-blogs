@@ -1,20 +1,23 @@
+# ReactJS
+packages/client-react/public
+packages/client-react/build
+packages/client-react/src/logo.svg
+packages/client-react/src/assets
+packages/client-react/.env
+packages/client-react/README.md
 
-packages/react/public
-packages/react/build
-packages/react/src/logo.svg
-packages/react/src/assets
-packages/react/.env
+# Server
+packages/server-express/.env
+packages/server-fastify/.env
 
-packages/node-server/.env
-
-
+# Misc
 .eslintrc.json
 .gitignore
 .prettierignore
 .prettierrc
-
-package.json
 README.md
+
+# Yarn / npm
 package-lock.json
 yarn.lock
 yarn-error.log
