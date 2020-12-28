@@ -18,6 +18,7 @@
 		"fastify-plugin": "^3.0.0",
 		"make-promises-safe": "^5.1.0",
 		"middie": "^5.2.0",
+		"mongoose": "^5.10.9",
 		"pino-pretty": "^4.3.0"
 	},
 	"devDependencies": {
