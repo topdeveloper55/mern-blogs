@@ -1,6 +1,6 @@
 const { ApolloServer } = require('apollo-server-express');
-const Posts = require('../models/Posts');
-const Users = require('../models/User');
+const Posts = require('@sdblog/entity/Posts');
+const Users = require('@sdblog/entity/User');
 const typeDefs = require('./schema');
 const slugify = require('slugify');
 const moment = require('moment');

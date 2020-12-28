@@ -14,7 +14,7 @@ async function build() {
 	});
 
 	await fastify.register(require('middie'));
-	fastify.use(require('fastify-cors')());
+	fastify.register(require('fastify-cors'), {});
 	// fastify.register(require('./src/plugins/mongo'));
 
 	return fastify;

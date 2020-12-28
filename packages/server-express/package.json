@@ -16,6 +16,7 @@
 		"nodemon": "^2.0.4"
 	},
 	"dependencies": {
+		"@sdblog/entity": "^1.0.0",
 		"apollo-server-express": "^2.18.2",
 		"bcryptjs": "^2.4.3",
 		"cors": "^2.8.5",

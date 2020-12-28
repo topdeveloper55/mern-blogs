@@ -1,0 +1,10 @@
+{
+	"name": "@sdblog/entity",
+	"version": "1.0.0",
+	"description": "",
+	"author": "Nishant Kohli",
+	"license": "ISC",
+	"dependencies": {
+		"mongoose": "^5.10.9"
+	}
+}
