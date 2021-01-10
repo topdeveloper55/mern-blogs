@@ -10,7 +10,6 @@ import Button from '@material-ui/core/Button';
 import { IconButton, InputAdornment, TextField } from '@material-ui/core';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
-import Cookies from 'universal-cookie';
 
 import rootStore from '../store';
 import AlertMsg from '../components/AlertMsg';
@@ -20,7 +19,6 @@ import { client } from '../graphql/ApolloGQL';
 const Login = () => {
 	const history = useHistory();
 	const classes = useStyles();
-	const cookies = new Cookies();
 
 	const { register, handleSubmit, errors } = useForm();
 	const onSubmit = (data) => SignIn(data);
@@ -47,11 +45,10 @@ const Login = () => {
 		const res = await client.query({ query: userLogin(reqBody) });
 
 		if (res.data.userLogin.status === 200) {
-			/* Add a cookie in the browser containing access token */
-			cookies.set('accessToken', res.data.userLogin.data.accessToken, {
-				path: '/', // if your cookie to be accessible on all pages
-				expires: new Date(Date.now() + (2 * 60 * 1000))
-			});
+			sessionStorage.setItem(
+				'accessToken',
+				res.data.userLogin.data.accessToken
+			);
 
 			rootStore.userStore.setUser(res.data.userLogin.data.result);
 			history.push('/home');

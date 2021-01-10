@@ -7,13 +7,11 @@ import Avatar from '@material-ui/core/Avatar';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import { withStyles } from '@material-ui/core/styles';
-import Cookies from 'universal-cookie';
 
 import rootStore from '../store';
 
 const Header = () => {
 	const history = useHistory();
-	const cookies = new Cookies();
 
 	const user = rootStore.userStore.user;
 	const [avatarURL] = useState(user.avatarURL);
@@ -29,7 +27,7 @@ const Header = () => {
 
 	const logOut = () => {
 		rootStore.userStore.setUser(null);
-		cookies.remove('accessToken');
+		sessionStorage.removeItem('accessToken');
 		history.replace('/');
 	};
 
