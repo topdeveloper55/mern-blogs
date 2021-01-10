@@ -6,7 +6,8 @@ fastify server for the backend
 ## Run the Project
 
 ```
-    yarn client  // start ReactJS Server
-    yarn node-server  // start NodeJS Server
-    yarn start   // start both simultaneously
+    yarn start      // start reactjs and express-server simultaneously
+    yarn react      // start reactjs-server
+    yarn express    // start express-server
+    yarn fastify    // start fastify-server
 ```
