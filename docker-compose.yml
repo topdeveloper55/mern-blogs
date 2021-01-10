@@ -1,0 +1,40 @@
+# Some services might crash on the first use, but should resolve themselves
+# once everything is installed
+version: '3'
+
+services:
+
+    nginx:
+        restart: always
+        build:
+            dockerfile: Dockerfile.dev
+            context: ./nginx 
+        ports:
+          - '3000:80'
+        depends_on:
+            # - api
+            - client
+    
+    # not using the api client as it depends upon mongoose & gql pkgs
+    # api: 
+    #     build: 
+    #         dockerfile: Dockerfile.exp
+    #         context: ./packages/express
+    #     volumes: 
+    #         -  /app/node_modules
+    #         -  ./packages/express:/app
+    #     env_file: 
+    #         -  ./packages/express/.env
+          # or - REDIS_PORT=6379
+ 
+    client: 
+        stdin_open: true
+        build: 
+            dockerfile: Dockerfile.react
+            context: ./packages/react 
+        volumes: 
+            -  /app/node_modules
+            -  ./packages/react:/app
+        env_file: 
+            -  ./packages/react/.env
+          # or - REDIS_PORT=6379
