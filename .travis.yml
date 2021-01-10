@@ -1,0 +1,25 @@
+sudo: required
+language: generic
+
+services:
+    - docker
+
+# host nginx on 3000 to serve react as well as for routing reqs.
+# hence made the main file in react pkg.
+before_install:
+    - docker build -t nish1896/sdblog -f ./packages/react/Dockerfile.dev ./packages/react
+#look into the react directory for the build context
+
+# script:
+    # docker run -e CI=true USERNAME/react-test npm test
+
+# build prod versions of all folders and push to docker hub where we can
+# deploy to aws, gcp etc. 
+after_success:
+    - docker build -t nish1896/react ./packages/react
+    - docker build -t nish1896/express ./packages/express
+
+# login to docker account. declare  env vars in travis env setup of ypur repo.
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+    - docker push nish1896/react
+    - docker push nish1896/express
